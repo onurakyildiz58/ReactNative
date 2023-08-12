@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, SafeAreaView, FlatList, ImageBackground } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import ListItem from '../components/ListItem'
 
 const data = [
     {
@@ -47,37 +47,26 @@ const Empty = () => (
     </View>
 )
 
-const Item = (props) => {
-    const { dt_txt, min, max, condition } = props
-    return (
-        <View style={styles.item}>
-            <Feather name={'sun'} size={50} color={'black'} />
-            <Text style={styles.date}>{dt_txt}</Text>
-            <Text style={styles.temp}>{min}</Text>
-            <Text style={styles.temp}>{max}</Text>
-        </View>
-    )
-}
-
 const UpcomingWeather = () => {
     const renderItem = ({ item }) => (
-        <Item
+        <ListItem
             condition={item.weather[0].main}
             dt_txt={item.dt_txt}
             min={item.main.temp_min}
             max={item.main.temp_max}
         />
     )
+    const {container, bg, txt} = styles
     return (
-        <SafeAreaView style={styles.container} >
-            <ImageBackground source={require('../../assets/bg.jpg')} style={styles.bg}>
-                
-                <Text style={styles.txt} >Upcoming Weather</Text>
+        <SafeAreaView style={container} >
+            <ImageBackground source={require('../../assets/bg.jpg')} style={bg}>
+
+                <Text style={txt} >Upcoming Weather</Text>
                 <FlatList
                     data={data}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.dt_txt}
-                    ItemSeparatorComponent={() => <View style={{ backgroundColor: 'cyan', height: 2 ,marginHorizontal: 10}} />}
+                    ItemSeparatorComponent={() => <View style={{ backgroundColor: 'cyan', height: 2, marginHorizontal: 10 }} />}
                     ListEmptyComponent={<Empty />}
                 />
             </ImageBackground>
@@ -100,27 +89,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         borderRadius: 5
     },
-    item: {
-        padding: 10,
-        marginVertical: 8,
-        marginHorizontal: 30,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        borderWidth: 3,
-        backgroundColor: 'powderblue',
-        borderRadius: 8
-    },
-    temp: {
-        color: 'black',
-        fontSize: 20
-    },
-    date: {
-        color: 'black',
-        fontSize: 15
-    },
     bg: {
-        flex:1
+        flex: 1
     }
 });
 
