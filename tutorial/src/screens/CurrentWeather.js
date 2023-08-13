@@ -3,20 +3,21 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
 const CurrentWeather = () => {
+  const { wrapper, container, temp, feels, highlowwrapper, highlow, bodyWrapper, description, msg } = styles
   return (
-    <SafeAreaView style={styles.wrapper} >
-      <View style={styles.container} >
+    <SafeAreaView style={wrapper} >
+      <View style={container} >
         <Feather name='sun' size={100} color={'black'} />
-        <Text style={styles.temp} >6</Text>
-        <Text style={styles.feels} >8</Text>
-        <View style={styles.highlowwrapper} >
-          <Text style={styles.highlow} >High: 8 </Text>
-          <Text style={styles.highlow} > Low: 6</Text>
+        <Text style={temp} >temp: 6</Text>
+        <Text style={feels} >feels: 8</Text>
+        <View style={highlowwrapper} >
+          <Text style={highlow} >High: 8 </Text>
+          <Text style={highlow} > Low: 6</Text>
         </View>
       </View>
-      <View style={styles.bodyWrapper} >
-        <Text style={styles.description} >its sunny</Text>
-        <Text style={styles.msg}>Wear t-shirts</Text>
+      <View style={bodyWrapper} >
+        <Text style={description} >its sunny</Text>
+        <Text style={msg}>Wear t-shirts</Text>
       </View>
     </SafeAreaView>
   )
@@ -30,14 +31,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 100,
   },
   temp: {
     color: 'black',
+    marginTop: 20,
     fontSize: 48
   },
   feels: {
-    fontSize: 20,
+    fontSize: 40,
+    marginBottom: 20,
     color: 'black'
   },
   highlow: {
@@ -56,7 +59,8 @@ const styles = StyleSheet.create({
     fontSize: 48
   },
   msg: {
-    fontSize: 42
+    fontSize: 42,
+    marginBottom: 30
   }
 });
 
