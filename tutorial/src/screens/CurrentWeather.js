@@ -1,6 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import { weatherType } from '../utilities/weatherType'
+import RowText from '../components/RowText'
 
 const CurrentWeather = () => {
   const { wrapper, container, temp, feels, highlowwrapper, highlow, bodyWrapper, description, msg } = styles
@@ -10,15 +12,19 @@ const CurrentWeather = () => {
         <Feather name='sun' size={100} color={'black'} />
         <Text style={temp} >temp: 6</Text>
         <Text style={feels} >feels: 8</Text>
-        <View style={highlowwrapper} >
-          <Text style={highlow} >High: 8 </Text>
-          <Text style={highlow} > Low: 6</Text>
-        </View>
+        <RowText
+          msg1={'High: 8'}
+          msg2={'Low: 6'}
+          msgwrapper={highlowwrapper}
+          msg1style={highlow} 
+          msg2style={highlow}/>
       </View>
-      <View style={bodyWrapper} >
-        <Text style={description} >its sunny</Text>
-        <Text style={msg}>Wear t-shirts</Text>
-      </View>
+      <RowText
+          msg1={'its sunny'}
+          msg2={weatherType['Mist'].msg}
+          msgwrapper={bodyWrapper}
+          msg1style={msg}
+          msg2style={description}/>
     </SafeAreaView>
   )
 }
@@ -45,7 +51,7 @@ const styles = StyleSheet.create({
   },
   highlow: {
     color: 'black',
-    fontSize: 20
+    fontSize: 20,
   },
   highlowwrapper: {
     flexDirection: 'row'
@@ -56,11 +62,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   description: {
-    fontSize: 48
+    fontSize: 35,
+    marginBottom: 20
   },
   msg: {
-    fontSize: 42,
-    marginBottom: 30
+    fontSize: 42
   }
 });
 
