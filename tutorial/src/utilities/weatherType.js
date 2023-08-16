@@ -2,7 +2,7 @@ export const weatherType = {
     Thundertrom: {
         icon: 'zap',
         msg: 'It could get noisy',
-        color: '#000000'
+        color: '#10451D'
     },
     Drizzle: {
         icon: 'cloud-rain',

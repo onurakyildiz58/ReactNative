@@ -9,7 +9,7 @@ const CurrentWeather = () => {
   return (
     <SafeAreaView style={wrapper} >
       <View style={container} >
-        <Feather name='sun' size={100} color={'#10451D'} />
+        <Feather name={weatherType['Mist'].icon} size={100} color={'#10451D'} />
         <Text style={temp} >temp: 6</Text>
         <Text style={feels} >feels: 8</Text>
         <RowText
