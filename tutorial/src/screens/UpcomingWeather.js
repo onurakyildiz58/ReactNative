@@ -66,7 +66,7 @@ const UpcomingWeather = () => {
                     data={data}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.dt_txt}
-                    ItemSeparatorComponent={() => <View style={{ backgroundColor: 'cyan', height: 2, marginHorizontal: 10 }} />}
+                    ItemSeparatorComponent={() => <View style={{ backgroundColor: '#B7EFC5', height: 2}} />}
                     ListEmptyComponent={<Empty />}
                 />
             </ImageBackground>
@@ -76,11 +76,11 @@ const UpcomingWeather = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: 'powderblue'
+        flex: 1
     },
     txt: {
-        backgroundColor: 'skyblue',
+        backgroundColor: '#B7EFC5',
+        color: '#155D27',
         fontSize: 36,
         textAlign: 'center',
         marginTop: 50,

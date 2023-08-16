@@ -6,33 +6,30 @@ const City = () => {
     const { container, bg, city, country, countryText, population, populationWrapper, sunrisesunset, suntext } = styles
     return (
         <SafeAreaView style={container} >
-            <ImageBackground source={require('../../assets/bg-city.jpg')} style={bg}>
+            
                 <Text style={[city, countryText]} >İstanbul</Text>
                 <Text style={[country, countryText]} >Turkey</Text>
                 <View style={populationWrapper} >
-                    <Feather name='user' size={50} color={'whitesmoke'} />
+                    <Feather name='user' size={50} color={'#155D27'} />
                     <Text style={population} >15.5 Million</Text>
                 </View>
                 <View style={sunrisesunset} >
-                    <Feather name='sunrise' size={50} color={'whitesmoke'} />
+                    <Feather name='sunrise' size={50} color={'#155D27'} />
                     <Text style={suntext} >06:11</Text>
                 </View>
-
                 <View style={sunrisesunset} >
-                    <Feather name='sunset' size={50} color={'whitesmoke'} />
+                    <Feather name='sunset' size={50} color={'#155D27'} />
                     <Text style={suntext} >20:06</Text>
                 </View>
-            </ImageBackground>
+           
         </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
-    },
-    bg: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#B7EFC5'
     },
     city: {
         fontSize: 40,
@@ -45,7 +42,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center',
         fontWeight: 'bold',
-        color: 'black'
+        color: '#155D27'
     },
     populationWrapper: {
         flexDirection: 'row',
@@ -56,7 +53,7 @@ const styles = StyleSheet.create({
     population: {
         fontSize: 25,
         marginLeft: 7.5,
-        color: 'whitesmoke',
+        color: '#155D27',
         fontWeight: 'bold'
     },
     sunrisesunset: {
@@ -67,9 +64,10 @@ const styles = StyleSheet.create({
     },
     suntext: {
         fontSize: 30,
-        marginLeft: 10,
+        marginLeft: 20,
+        marginTop: 20,
         fontWeight: 'bold',
-        color: 'whitesmoke'
+        color: '#155D27'
 
     }
 })

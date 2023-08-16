@@ -8,7 +8,7 @@ const ListItem = (props) => {
     const {item, date, temp} = styles
     return (
         <View style={item}>
-            <Feather name={'sun'} size={50} color={'black'} />
+            <Feather name={'sun'} size={50} color={'#155D27'} />
             <Text style={date}>{dt_txt}</Text>
             <Text style={temp}>{min}</Text>
             <Text style={temp}>{max}</Text> 
@@ -25,15 +25,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
         borderWidth: 3,
-        backgroundColor: 'powderblue',
+        backgroundColor: '#B7EFC5',
         borderRadius: 8
     },
     temp: {
-        color: 'black',
+        color: '#155D27',
         fontSize: 20
     },
     date: {
-        color: 'black',
+        color: '#155D27',
         fontSize: 15
     },
 })

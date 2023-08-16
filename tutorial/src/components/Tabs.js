@@ -13,28 +13,28 @@ const Tabs = () => {
             tabBarActiveTintColor: 'royalblue',
             tabBarInactiveTintColor: 'gray',
             tabBarStyle: {
-                backgroundColor: 'powderblue'
+                backgroundColor: '#155D27'
             },
-            headerStyle: {
-                backgroundColor: 'powderblue'
+            headerStyle: {  
+                backgroundColor: '#155D27'
             },
             headerTitleStyle: {
                 fontWeight: '700',
                 fontSize: 30,
-                color: 'black'
-            }
+                color: '#B7EFC5'
+            }            
         }} >
             <Tab.Screen name='Current' component={CurrentWeather}
                 options={{
-                    tabBarIcon: ({ focused }) => (<Feather name='droplet' size={30} color={focused ? 'royalblue' : 'black'} />)
+                    tabBarIcon: ({ focused }) => (<Feather name='droplet' size={30} color={focused ? '#B7EFC5' : '#10451D'} />)
                 }} />
             <Tab.Screen name='Upcoming' component={UpcomingWeather}
                 options={{
-                    tabBarIcon: ({ focused }) => (<Feather name='clock' size={30} color={focused ? 'royalblue' : 'black'} />)
+                    tabBarIcon: ({ focused }) => (<Feather name='clock' size={30} color={focused ? '#B7EFC5' : '#10451D'} />)
                 }} />
             <Tab.Screen name='City' component={City}
                 options={{
-                    tabBarIcon: ({ focused }) => (<Feather name='home' size={30} color={focused ? 'royalblue' : 'black'} />)
+                    tabBarIcon: ({ focused }) => (<Feather name='home' size={30} color={focused ? '#B7EFC5' : '#10451D'} />)
                 }} />
         </Tab.Navigator>
     )

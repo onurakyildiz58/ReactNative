@@ -9,7 +9,7 @@ const CurrentWeather = () => {
   return (
     <SafeAreaView style={wrapper} >
       <View style={container} >
-        <Feather name='sun' size={100} color={'black'} />
+        <Feather name='sun' size={100} color={'#10451D'} />
         <Text style={temp} >temp: 6</Text>
         <Text style={feels} >feels: 8</Text>
         <RowText
@@ -32,7 +32,7 @@ const CurrentWeather = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: 'skyblue'
+    backgroundColor: '#B7EFC5'
   },
   container: {
     flex: 1,
@@ -40,17 +40,17 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   temp: {
-    color: 'black',
+    color: '#155D27',
     marginTop: 20,
     fontSize: 48
   },
   feels: {
     fontSize: 40,
     marginBottom: 20,
-    color: 'black'
+    color: '#155D27'
   },
   highlow: {
-    color: 'black',
+    color: '#155D27',
     fontSize: 20,
   },
   highlowwrapper: {
@@ -58,15 +58,17 @@ const styles = StyleSheet.create({
   },
   bodyWrapper: {
     justifyContent: 'flex-end',
-    backgroundColor: 'skyblue',
+    backgroundColor: '#B7EFC5',
     alignItems: 'center'
   },
   description: {
     fontSize: 35,
-    marginBottom: 20
+    marginBottom: 20,
+    color:'#155D27'
   },
   msg: {
-    fontSize: 42
+    fontSize: 42,
+    color: '#155D27'
   }
 });
 
