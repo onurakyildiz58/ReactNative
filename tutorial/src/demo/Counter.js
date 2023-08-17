@@ -1,5 +1,5 @@
 /* This is a demo of increasing and decreasing intager i use useState hook bc in react does not rerender a component when variable changes
-*  its increment a number but there is no display bc of rerender thing
+*  its increments a number but there is no display bc of rerender thing
 *
 *
 */
