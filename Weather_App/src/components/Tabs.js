@@ -7,35 +7,62 @@ import { Feather } from '@expo/vector-icons'
 
 const Tab = createBottomTabNavigator()
 
-const Tabs = () => {
+const Tabs = ({ weather }) => {
     return (
-        <Tab.Navigator screenOptions={{
-            tabBarActiveTintColor: '#B7EFC5',
-            tabBarInactiveTintColor: '#10451D',
-            tabBarStyle: {
-                backgroundColor: '#155D27'
-            },
-            headerStyle: {  
-                backgroundColor: '#155D27'
-            },
-            headerTitleStyle: {
-                fontWeight: '700',
-                fontSize: 30,
-                color: '#B7EFC5'
-            }            
-        }} >
-            <Tab.Screen name='Current' component={CurrentWeather}
+        <Tab.Navigator
+            screenOptions={{
+                tabBarActiveTintColor: '#B7EFC5',
+                tabBarInactiveTintColor: '#10451D',
+                tabBarStyle: {
+                    backgroundColor: '#155D27'
+                },
+                headerStyle: {
+                    backgroundColor: '#155D27'
+                },
+                headerTitleStyle: {
+                    fontWeight: '700',
+                    fontSize: 30,
+                    color: '#B7EFC5'
+                }
+            }} >
+            <Tab.Screen
+                name='Current'
                 options={{
-                    tabBarIcon: ({ focused }) => (<Feather name='droplet' size={30} color={focused ? '#B7EFC5' : '#10451D'} />)
-                }} />
-            <Tab.Screen name='Upcoming' component={UpcomingWeather}
+                    tabBarIcon: ({ focused }) => (
+                        <Feather
+                            name='droplet'
+                            size={30}
+                            color={focused ? '#B7EFC5' : '#10451D'} />)
+                }}
+            >
+                {() => <CurrentWeather weatherData={weather.list[0]} />}
+            </Tab.Screen>
+            <Tab.Screen
+                name='Upcoming'
+                component={UpcomingWeather}
                 options={{
-                    tabBarIcon: ({ focused }) => (<Feather name='clock' size={30} color={focused ? '#B7EFC5' : '#10451D'} />)
-                }} />
-            <Tab.Screen name='City' component={City}
+                    tabBarIcon: ({ focused }) => (
+                        <Feather
+                            name='clock'
+                            size={30}
+                            color={focused ? '#B7EFC5' : '#10451D'} />)
+                }}
+            >
+
+            </Tab.Screen>
+            <Tab.Screen
+                name='City'
+                component={City}
                 options={{
-                    tabBarIcon: ({ focused }) => (<Feather name='home' size={30} color={focused ? '#B7EFC5' : '#10451D'} />)
-                }} />
+                    tabBarIcon: ({ focused }) => (
+                        <Feather
+                            name='home'
+                            size={30}
+                            color={focused ? '#B7EFC5' : '#10451D'} />)
+                }}
+            >
+
+            </Tab.Screen>
         </Tab.Navigator>
     )
 }

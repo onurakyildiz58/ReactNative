@@ -4,8 +4,9 @@ import { Feather } from '@expo/vector-icons'
 import { weatherType } from '../utilities/weatherType'
 import RowText from '../components/RowText'
 
-const CurrentWeather = () => {
+const CurrentWeather = ( {weatherData} ) => {
   const { wrapper, container, temp, feels, highlowwrapper, highlow, bodyWrapper, description, msg } = styles
+  console.log(weatherData);
   return (
     <SafeAreaView style={wrapper} >
       <View style={container} >
