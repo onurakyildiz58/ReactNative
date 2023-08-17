@@ -1,27 +1,26 @@
 import React from 'react'
-import { StyleSheet, Text, View, SafeAreaView, ImageBackground } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
 const City = () => {
     const { container, bg, city, country, countryText, population, populationWrapper, sunrisesunset, suntext } = styles
     return (
         <SafeAreaView style={container} >
-            
-                <Text style={[city, countryText]} >İstanbul</Text>
-                <Text style={[country, countryText]} >Turkey</Text>
-                <View style={populationWrapper} >
-                    <Feather name='user' size={50} color={'#155D27'} />
-                    <Text style={population} >15.5 Million</Text>
-                </View>
-                <View style={sunrisesunset} >
-                    <Feather name='sunrise' size={50} color={'#155D27'} />
-                    <Text style={suntext} >06:11</Text>
-                </View>
-                <View style={sunrisesunset} >
-                    <Feather name='sunset' size={50} color={'#155D27'} />
-                    <Text style={suntext} >20:06</Text>
-                </View>
-           
+            <Text style={[city, countryText]} >İstanbul</Text>
+            <Text style={[country, countryText]} >Turkey</Text>
+            <View style={populationWrapper} >
+                <Feather name='user' size={50} color={'#155D27'} />
+                <Text style={population} >15.5 Million</Text>
+            </View>
+            <View style={sunrisesunset} >
+                <Feather name='sunrise' size={50} color={'#155D27'} />
+                <Text style={suntext} >06:11</Text>
+            </View>
+            <View style={sunrisesunset} >
+                <Feather name='sunset' size={50} color={'#155D27'} />
+                <Text style={suntext} >20:06</Text>
+            </View>
+
         </SafeAreaView>
     )
 }
