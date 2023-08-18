@@ -1,13 +1,31 @@
-import React from "react";
+import React from 'react'
+import { View, Text, Image, SafeAreaView, StyleSheet, StatusBar } from 'react-native'
+import Drawer from './screens/drawer/Drawer'
 
 const App = () => {
-  return (
-    <View className="box-decoration-clone bg-gradient-to-r from-indigo-600 to-pink-500 text-white px-2" >
-      <Text >push</Text>
-      <Text >it</Text>
-      <Text >up</Text>
-    </View>
-  )
+    return (
+        <SafeAreaView style={{ flex: 1 }} >
+            <View style={{ backgroundColor: '#DEE2E6' }}>
+                <Image source={require('./assets/img/logoFO.png')} style={styles.logo} />
+            </View>
+            <Drawer />
+            <StatusBar 
+                backgroundColor="#DEE2E6"
+                barStyle="dark-content"
+                hidden={true}
+                translucent={true} />
+        </SafeAreaView>
+
+    )
 }
 
+const styles = StyleSheet.create({
+    logo: {
+        width: 350,
+        height: 35,
+        marginTop: 30,
+        marginLeft: 5,
+        marginRight: 5
+    }
+})
 export default App
