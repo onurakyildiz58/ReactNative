@@ -1,5 +1,5 @@
 import React from 'react'
-import { ActivityIndicator, View, StyleSheet } from 'react-native'
+import { ActivityIndicator, View, StyleSheet, StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import Tabs from './src/components/Tabs'
 import { useGetWeather } from './src/hooks/useGetWeather'
@@ -23,6 +23,12 @@ const App = () => {
       ) : (
         <ActivityIndicator size={'large'} color={'#155D27'} />
       )}
+      <StatusBar
+        backgroundColor="white"
+        barStyle="dark-content"
+        hidden={true}
+        translucent={true}
+      />
     </View>
   )
 }

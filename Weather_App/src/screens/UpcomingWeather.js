@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, SafeAreaView, FlatList, ImageBackground } from 'react-native'
+import { StyleSheet, View, SafeAreaView, FlatList, ImageBackground, StatusBar } from 'react-native'
 import ListItem from '../components/ListItem'
 
 const Empty = () => (
@@ -17,7 +17,7 @@ const UpcomingWeather = ({ weatherData }) => {
             max={item.main.temp_max}
         />
     )
-    const {container, bg} = styles
+    const { container, bg } = styles
     return (
         <SafeAreaView style={container} >
             <ImageBackground source={require('../../assets/bg.jpg')} style={bg}>
@@ -25,10 +25,16 @@ const UpcomingWeather = ({ weatherData }) => {
                     data={weatherData}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.dt_txt}
-                    ItemSeparatorComponent={() => <View style={{ backgroundColor: '#B7EFC5', height: 2}} />}
+                    ItemSeparatorComponent={() => <View style={{ backgroundColor: '#B7EFC5', height: 2 }} />}
                     ListEmptyComponent={<Empty />}
                 />
             </ImageBackground>
+            <StatusBar
+                backgroundColor="white"
+                barStyle="dark-content"
+                hidden={true}
+                translucent={true}
+            />
         </SafeAreaView>
     )
 }

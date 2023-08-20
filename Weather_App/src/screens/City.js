@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, StatusBar } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import moment from 'moment'
 
@@ -22,7 +22,12 @@ const City = ({ weatherData }) => {
                 <Feather name='sunset' size={50} color={'#155D27'} />
                 <Text style={suntext} >{moment(sunset).format('h:mm:ss a')}</Text>
             </View>
-
+            <StatusBar
+                backgroundColor="white"
+                barStyle="dark-content"
+                hidden={true}
+                translucent={true}
+            />
         </SafeAreaView>
     )
 }

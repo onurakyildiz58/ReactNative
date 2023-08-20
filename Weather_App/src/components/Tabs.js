@@ -14,7 +14,10 @@ const Tabs = ({ weather }) => {
                 tabBarActiveTintColor: '#B7EFC5',
                 tabBarInactiveTintColor: '#10451D',
                 tabBarStyle: {
-                    backgroundColor: '#155D27'
+                    backgroundColor: '#155D27',
+                    height: 60,
+                    paddingBottom: 10,
+                    paddingTop: 5  
                 },
                 headerStyle: {
                     backgroundColor: '#155D27'

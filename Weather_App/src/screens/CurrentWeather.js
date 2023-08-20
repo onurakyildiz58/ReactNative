@@ -1,19 +1,19 @@
 import React from 'react'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, StatusBar } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import { weatherType } from '../utilities/weatherType'
 import RowText from '../components/RowText'
 
-const CurrentWeather = ( {weatherData} ) => {
+const CurrentWeather = ({ weatherData }) => {
   const { wrapper, container, tempreture, feels, highlowwrapper, highlow, bodyWrapper, description, msg } = styles
   console.log(weatherData)
 
-  const { main: {temp, feels_like, temp_max, temp_min }, weather } = weatherData
+  const { main: { temp, feels_like, temp_max, temp_min }, weather } = weatherData
   const weatherCondition = weather[0].main
   return (
-    <SafeAreaView style={ wrapper } >
+    <SafeAreaView style={wrapper} >
       <View style={container} >
-      <Feather
+        <Feather
           name={weatherType[weatherCondition]?.icon}
           size={100}
           color='#10451D'
@@ -24,15 +24,21 @@ const CurrentWeather = ( {weatherData} ) => {
           msg1={`High: ${temp_max}° `}
           msg2={`Low: ${temp_min}°`}
           msgwrapper={highlowwrapper}
-          msg1style={highlow} 
-          msg2style={highlow}/>
+          msg1style={highlow}
+          msg2style={highlow} />
       </View>
       <RowText
-          msg1={weather[0]?.description}
-          msg2={weatherType[weatherCondition]?.message}
-          msgwrapper={bodyWrapper}
-          msg1style={msg}
-          msg2style={description}/>
+        msg1={weather[0]?.description}
+        msg2={weatherType[weatherCondition]?.message}
+        msgwrapper={bodyWrapper}
+        msg1style={msg}
+        msg2style={description} />
+      <StatusBar
+        backgroundColor="white"
+        barStyle="dark-content"
+        hidden={true}
+        translucent={true}
+      />
     </SafeAreaView>
   )
 }
@@ -72,7 +78,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 50,
     marginBottom: 20,
-    color:'#155D27',
+    color: '#155D27',
     textAlign: 'center'
   },
   msg: {
