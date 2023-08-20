@@ -1,42 +1,42 @@
 export const weatherType = {
-    Thundertrom: {
-        icon: 'zap',
-        msg: 'It could get noisy',
-        color: '#10451D'
+    Thunderstorm: {
+      icon: 'zap',
+      message: 'It could get noisy!',
+      backgroundcolor: '#000000'
     },
     Drizzle: {
-        icon: 'cloud-rain',
-        msg: 'It might rain little bit',
-        color: '#36454f'
-    }, //çiselemek
-    Snow: {
-        icon: 'cloud-snow',
-        msg: 'It could get cold',
-        color: '#7f6065'
+      icon: 'cloud-rain',
+      message: 'It might rain a little',
+      backgroundcolor: '#36454f'
     },
     Rain: {
-        icon: 'umbrella',
-        msg: 'You will need a umbrella',
-        color: '#0000ff'
+      icon: 'umbrella',
+      message: 'You will need an umbrella',
+      backgroundcolor: '#0000ff'
+    },
+    Snow: {
+      icon: 'cloud-snow',
+      message: 'Lets build a snowman!',
+      backgroundcolor: '#7f6065'
     },
     Clear: {
-        icon: 'sun',
-        msg: 'You might need a t-shirt',
-        color: '#e47200'
+      icon: 'sun',
+      message: 'It is perfect t-shirt weather',
+      backgroundcolor: '#e47200'
     },
-    Cloulds: {
-        icon: 'cloud',
-        msg: 'Where is the sun!!',
-        color: '#363636'
+    Clouds: {
+      icon: 'cloud',
+      message: 'You could live in the clouds',
+      backgroundcolor: '#363636'
     },
     Haze: {
-        icon: 'wind',
-        msg: 'you might bearly see',
-        color: '#58586e'
-    }, // puslu
+      icon: 'wind',
+      message: 'It might be a bit damp',
+      backgroundcolor: '#58586e'
+    },
     Mist: {
-        icon: 'align-justify',
-        msg: 'Where is everybody',
-        color: '#3e3e37'
-    }, // sis
-} 
+      icon: 'align-justify',
+      message: 'It might be hard to see',
+      backgroundcolor: '#3e3e37'
+    }
+  }

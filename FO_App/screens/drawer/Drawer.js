@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
+import { Feather }  from '@expo/vector-icons'
 
 import PsaSoba from '../../screens/PsaSoba';
 import Eta from '../../screens/Eta';
@@ -28,21 +29,88 @@ const Drawer = () => {
                         fontSize: 30,
                         color: '#343A40'
                     },
-                    drawerStyle:{
+                    drawerStyle: {
                         backgroundColor: '#DEE2E6'
-                    }
+                    },
+                    drawerActiveTintColor: '#092E6E'
                 }} >
-                <drawer.Screen name="PSA & SOBA" component={PsaSoba}/>
-                <drawer.Screen name="ETA" component={Eta} />
-                <drawer.Screen name="CRQ" component={Crq} />
-                <drawer.Screen name="I-PUS Parça" component={I_pus_parca} />
-                <drawer.Screen name="Eskalasyon" component={Eskalasyon} />
-                <drawer.Screen name="Rework" component={Rework} />
-                <drawer.Screen name="Paketleme" component={Paketleme} />
-                <drawer.Screen name="SOBA/SC - CPA Onay" component={Soba_sc_cpa_onay} />
+                <drawer.Screen
+                    name="PSA & SOBA"
+                    component={PsaSoba}
+                    options={{
+                        drawerIcon: () => (
+                            <Text style={styles.icon} >8</Text>
+                        ) 
+                    }} />
+                <drawer.Screen
+                    name="ETA"
+                    component={Eta} 
+                    options={{
+                        drawerIcon: () => (
+                            <Text style={styles.icon} >10</Text>
+                        ) 
+                    }}/>
+                <drawer.Screen
+                    name="CRQ"
+                    component={Crq} 
+                    options={{
+                        drawerIcon: () => (
+                            <Text style={styles.icon} >0</Text>
+                        ) 
+                    }}/>
+                <drawer.Screen
+                    name="I-PUS Parça"
+                    component={I_pus_parca}
+                    options={{
+                        drawerIcon: () => (
+                            <Text style={styles.icon} >1</Text>
+                        ) 
+                    }} />
+                <drawer.Screen
+                    name="Eskalasyon"
+                    component={Eskalasyon}
+                    options={{
+                        drawerIcon: () => (
+                            <Text style={styles.icon} >8</Text>
+                        ) 
+                    }} />
+                <drawer.Screen
+                    name="Rework"
+                    component={Rework}
+                    options={{
+                        drawerIcon: () => (
+                            <Text style={styles.icon} >4</Text>
+                        ) 
+                    }} />
+                <drawer.Screen
+                    name="Paketleme"
+                    component={Paketleme} 
+                    options={{
+                        drawerIcon: () => (
+                            <Text style={styles.icon} >5</Text>
+                        ) 
+                    }}/>
+                <drawer.Screen
+                    name="SOBA/SC - CPA Onay"
+                    component={Soba_sc_cpa_onay} 
+                    options={{
+                        drawerIcon: () => (
+                            <Text style={styles.icon} >16</Text>
+                        ) 
+                    }}/>
             </drawer.Navigator>
         </NavigationContainer>
     )
 }
+
+const styles = StyleSheet.create({
+    icon: {
+        backgroundColor: 'red',
+        borderRadius: 2,
+        width: 30,
+        textAlign: 'center',
+        color: '#DEE2E6'
+    }
+})
 
 export default Drawer

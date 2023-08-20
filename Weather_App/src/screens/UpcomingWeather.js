@@ -1,45 +1,6 @@
 import React from 'react'
-import { StyleSheet, Text, View, SafeAreaView, FlatList, ImageBackground } from 'react-native'
+import { StyleSheet, View, SafeAreaView, FlatList, ImageBackground } from 'react-native'
 import ListItem from '../components/ListItem'
-
-const data = [
-    {
-        dt_txt: "10.08.2023",
-        main: {
-            temp_max: 20,
-            temp_min: 18,
-        },
-        weather: [
-            {
-                main: 'rainy',
-            }
-        ]
-    },
-    {
-        dt_txt: "11.08.2023",
-        main: {
-            temp_max: 22,
-            temp_min: 20,
-        },
-        weather: [
-            {
-                main: 'rainy',
-            }
-        ]
-    },
-    {
-        dt_txt: "12.08.2023",
-        main: {
-            temp_max: 24,
-            temp_min: 22,
-        },
-        weather: [
-            {
-                main: 'rainy',
-            }
-        ]
-    }
-]
 
 const Empty = () => (
     <View>
@@ -47,7 +8,7 @@ const Empty = () => (
     </View>
 )
 
-const UpcomingWeather = () => {
+const UpcomingWeather = ({ weatherData }) => {
     const renderItem = ({ item }) => (
         <ListItem
             condition={item.weather[0].main}
@@ -56,14 +17,12 @@ const UpcomingWeather = () => {
             max={item.main.temp_max}
         />
     )
-    const {container, bg, txt} = styles
+    const {container, bg} = styles
     return (
         <SafeAreaView style={container} >
             <ImageBackground source={require('../../assets/bg.jpg')} style={bg}>
-
-                <Text style={txt} >Upcoming Weather</Text>
                 <FlatList
-                    data={data}
+                    data={weatherData}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.dt_txt}
                     ItemSeparatorComponent={() => <View style={{ backgroundColor: '#B7EFC5', height: 2}} />}

@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Weather App",
-    "slug": "Weather_App",
+    "name": "DenemeDrawer",
+    "slug": "DenemeDrawer",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/logo.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -21,16 +21,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.ravenonur.Weather_App"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "3ef9293e-f5f7-4932-ac3c-8996cc0b53c1"
-      }
     }
   }
 }
