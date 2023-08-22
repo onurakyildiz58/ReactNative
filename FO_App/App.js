@@ -21,11 +21,10 @@ const App = () => {
 
 const styles = StyleSheet.create({
     logo: {
-        width: 350,
-        height: 35,
-        marginTop: 30,
-        marginLeft: 5,
-        marginRight: 5
+        width: 300,
+        height: 30,
+        alignSelf: 'center',
+        marginTop: 30
     }
 })
 export default App

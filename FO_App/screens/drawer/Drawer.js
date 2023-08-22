@@ -2,7 +2,6 @@ import React from 'react'
 import { Text, StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
-import { Feather }  from '@expo/vector-icons'
 
 import PsaSoba from '../../screens/PsaSoba';
 import Eta from '../../screens/Eta';

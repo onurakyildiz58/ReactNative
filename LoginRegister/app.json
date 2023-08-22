@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DenemeDrawer",
-    "slug": "DenemeDrawer",
+    "name": "LoginRegister",
+    "slug": "LoginRegister",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
