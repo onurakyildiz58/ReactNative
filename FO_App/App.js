@@ -1,5 +1,6 @@
 import React from 'react'
-import { View, Text, Image, SafeAreaView, StyleSheet, StatusBar } from 'react-native'
+import { View, Text, Image, SafeAreaView, StyleSheet } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 import Drawer from './screens/drawer/Drawer'
 
 const App = () => {
