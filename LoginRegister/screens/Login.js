@@ -3,7 +3,6 @@ import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native'
-import Register from './Register'
 
 const Login = () => {
     const { container, wrapper, input, btnLog, btnLogText, btnReg, btnRegText } = styles
