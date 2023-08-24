@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, SafeAreaView } from 'react-native'
 const Eskalasyon = () => {
     return (
         <SafeAreaView style={styles.container}>
-            <Text>Eskalasyon</Text>
+            <Text>Eskalsyon</Text>
         </SafeAreaView>
     )
 }
