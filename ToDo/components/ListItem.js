@@ -1,9 +1,13 @@
-const ListItem = () => {
+import {View, Text} from 'react-native'
+import { Feather } from '@expo/vector-icons'
+
+const ListItem = (props) => {
+    const {textContainer, feather, Name, Size, Color, listText, text} = props
     return (
         <View style={textContainer}>
-            <Feather style={{ marginRight: 10 }} name='target' size={20} color={'black'} />
-            <Text style={{ fontWeight: '500' }}>
-                {itemData.item.text}
+            <Feather style={feather} name={Name} size={Size} color={Color} />
+            <Text style={listText}>
+                {text}
             </Text>
         </View>
     )

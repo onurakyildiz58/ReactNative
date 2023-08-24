@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView, Modal, FlatList } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import GoalInput from './components/GoalInput'
+import ListItem from './components/ListItem'
+
 
 const App = () => {
-  const { container, wrapper, input, btn, btnText, txt, btnX, modalContainer, modalTitle, textContainer, closeButton, txtModal, modalWrapper } = styles
+  const { container, wrapper, input, btn, btnText, txt, btnX, modalContainer, modalTitle, textContainer, closeButton, txtModal, modalWrapper, feather, listText } = styles
   const [enteredGoalText, setEnteredGoalText] = useState('')
   const [count, setCount] = useState(0)
   const [courseGoal, setCourseGoal] = useState([])
@@ -22,22 +25,21 @@ const App = () => {
     console.log(enteredGoalText)
     setCount(count + 1)
     console.log(count)
-    setCourseGoal((currentFutureGoal) => [...currentFutureGoal, {text: enteredGoalText, id: count}])
+    setCourseGoal((currentFutureGoal) => [...currentFutureGoal, { text: enteredGoalText, id: count }])
 
   }
 
   return (
     <SafeAreaView style={container}>
       <Text style={txt}>To Do List</Text>
-      <View style={wrapper}>
-        <TextInput
-          style={input}
-          placeholder='Enter Note'
-          onChangeText={getTextHandler}
-          autoCapitalize='none'
-          autoCorrect={false}
-        />
-      </View>
+      <GoalInput
+        wrapper={wrapper}
+        input={input}
+        pHolder={'Enter Your Note'}
+        func={getTextHandler}
+        cap={'none'}
+        correct={false}
+      />
       <TouchableOpacity style={btn} onPress={addTextHandler}>
         <Text style={btnText}>Save</Text>
       </TouchableOpacity>
@@ -60,12 +62,15 @@ const App = () => {
             <View style={modalTitle}>
               <FlatList alwaysBounceVertical={false} data={courseGoal} keyExtractor={(item) => item.id} renderItem={(itemData) => {
                 return (
-                  <View style={textContainer}>
-                    <Feather style={{ marginRight: 10 }} name='target' size={20} color={'black'} />
-                    <Text style={{ fontWeight: '500' }}>
-                      {itemData.item.text}
-                    </Text>
-                  </View>
+                  <ListItem
+                    textContainer={textContainer}
+                    feather={feather}
+                    Name={'target'}
+                    Size={20}
+                    Color={'black'}
+                    listText={listText}
+                    text={itemData.item.text}
+                  />
                 )
               }} />
             </View>
@@ -167,6 +172,12 @@ const styles = StyleSheet.create({
   modalWrapper: {
     alignItems: 'center',
     marginVertical: 20
+  },
+  feather: {
+    marginRight: 10
+  },
+  listText: {
+    fontWeight: '500'
   }
 })
 export default App

@@ -1,12 +1,15 @@
-const GoalInput = () => {
+import {View, TextInput} from 'react-native'
+
+const GoalInput = (props) => {
+    const {wrapper, input, pHolder, func, cap, correct } = props
     return (
         <View style={wrapper}>
             <TextInput
                 style={input}
-                placeholder='Enter Note'
-                onChangeText={getTextHandler}
-                autoCapitalize='none'
-                autoCorrect={false}
+                placeholder={pHolder}
+                onChangeText={func}
+                autoCapitalize={cap}
+                autoCorrect={correct}
             />
         </View>
     )
