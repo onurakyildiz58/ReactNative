@@ -1,9 +1,12 @@
 import React, { useState } from "react"
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Modal } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import ConfirmBtn from "../components/ConfirmBtn"
+import RejectBtn from "../components/RejectBtn"
+import CloseBtn from '../components/CloseBtn'
 
 const Eta = () => {
-    const { listWrapper, button, buttonText, container, modalContainer, modalDescription, modalTitle, closeButton, textContainer } = styles
+    const { listWrapper, buttonR, buttonC, buttonText, container, modalContainer, modalDescription, modalTitle, closeButton, textContainer, btn } = styles
     const data = [
         { id: '1', text: '10054', detail1: 'item 1.1 detail', detail2: 'item 1.2 detail' },
         { id: '2', text: '10052', detail1: 'item 2.1 detail', detail2: 'item 2.2 detail' },
@@ -21,12 +24,18 @@ const Eta = () => {
             <TouchableOpacity onPress={() => setSelectedItem(item)}>
                 <Text>{item.text}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={button} onPress={() => handleReject(item.id)}>
-                <Text style={buttonText}>Reject</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={button} onPress={() => handleConfirm(item.id)}>
-                <Text style={buttonText}>Confirm</Text>
-            </TouchableOpacity>
+            <RejectBtn
+                buttonR={buttonR}
+                btn={btn}
+                buttonText={buttonText}
+                title={'Reject'} 
+                func={() => handleReject(item.id)}/>
+            <ConfirmBtn
+                buttonC={buttonC}
+                btn={btn}
+                buttonText={buttonText}
+                title={'Reject'} 
+                func={() => handleConfirm(item.id)}/>
         </View>
     )
 
@@ -56,9 +65,12 @@ const Eta = () => {
             >
                 {selectedItem && (
                     <View style={modalContainer}>
-                        <TouchableOpacity style={closeButton} onPress={closeModal}>
-                            <Feather name="x" size={40} color={'#343A40'} />
-                        </TouchableOpacity>
+                        <CloseBtn
+                            closeButton={closeButton}
+                            closeModal={closeModal}
+                            name='x'
+                            size={50}
+                            color={'#343A40'} />
                         <View style={textContainer}>
                             <Text style={modalTitle}>{selectedItem.text}</Text>
                             <Text style={modalDescription}>{selectedItem.detail1}</Text>
@@ -86,16 +98,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 35,
         marginTop: 10
     },
-    button: {
-        backgroundColor: '#3498db',
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 5
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 14
-    },
     modalContainer: {
         flex: 1,
         backgroundColor: '#DEE2E6'
@@ -113,6 +115,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 50
+    },
+    buttonR: {
+        backgroundColor: '#e44040'
+    },
+    buttonC: {
+        backgroundColor: '#236997'
+    },
+    btn: {
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 5
     },
     closeButton: {
         backgroundColor: '#DEE2E6',
