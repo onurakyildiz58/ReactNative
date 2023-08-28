@@ -1,13 +1,24 @@
 import React from "react"
-import { Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, StyleSheet } from 'react-native'
 
 const ConfirmBtn = (props) => {
-    const { buttonC, btn, buttonText, title, func } = props
+    const { buttonC, title, func } = props
     return (
-        <TouchableOpacity style={[buttonC, btn]} onPress={func}>
-            <Text style={buttonText}>{title}</Text>
+        <TouchableOpacity style={[buttonC, styles.btn]} onPress={func}>
+            <Text style={styles.buttonText}>Confirm</Text>
         </TouchableOpacity>
     )
 }
 
+const styles = StyleSheet.create({
+    btn: {
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        borderRadius: 5,
+        color: '#DEE2E6'
+    },
+    buttonText:{
+        color: '#DEE2E6'
+    }
+})
 export default ConfirmBtn

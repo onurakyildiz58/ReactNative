@@ -1,20 +1,21 @@
 import React, { useState } from "react"
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Modal } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Modal, ScrollView } from 'react-native'
 import ConfirmBtn from "../components/ConfirmBtn"
 import RejectBtn from "../components/RejectBtn"
 import CloseBtn from '../components/CloseBtn'
+import ListItem from "../components/ListItem"
+
 
 const Eta = () => {
-    const { listWrapper, buttonR, buttonC, buttonText, container, modalContainer, modalDescription, modalTitle, closeButton, textContainer, btn } = styles
+    const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
-        { id: '1', text: '10054', detail1: 'item 1.1 detail', detail2: 'item 1.2 detail' },
-        { id: '2', text: '10052', detail1: 'item 2.1 detail', detail2: 'item 2.2 detail' },
-        { id: '3', text: '10051', detail1: 'item 3.1 detail', detail2: 'item 3.2 detail' },
-        { id: '4', text: '10050', detail1: 'item 4.1 detail', detail2: 'item 4.2 detail' },
-        { id: '5', text: '10049', detail1: 'item 5.1 detail', detail2: 'item 5.2 detail' },
-        { id: '6', text: '10030', detail1: 'item 6.1 detail', detail2: 'item 6.2 detail' },
-        { id: '7', text: '10025', detail1: 'item 7.1 detail', detail2: 'item 7.2 detail' }
+        { id: '1', text: '10054', etaDocs: 'Görütüle', supplier: 'ATTBA - B PLAS BURSA PL', program: 'B460 - ICA2', concern: 'C11904986', etaStatus: 'At Approval', approver: 'satmuh2', deadline: '32' },
+        { id: '2', text: '10052', etaDocs: 'Görütüle', supplier: 'ATTBA - B PLAS BURSA PL', program: 'GCP 3870', concern: 'C11904986', etaStatus: 'At Approval', approver: 'satmuh2', deadline: '32' },
+        { id: '3', text: '10051', etaDocs: 'Görütüle', supplier: 'ATTBA - B PLAS BURSA PL', program: 'B460 - ICA2', concern: 'C11904986', etaStatus: 'At Approval', approver: 'satmuh2', deadline: '32' },
+        { id: '4', text: '10050', etaDocs: 'Görütüle', supplier: 'ATTBA - B PLAS BURSA PL', program: 'B460 - ICA2', concern: 'C11904986', etaStatus: 'At Approval', approver: 'satmuh2', deadline: '32' },
+        { id: '5', text: '10049', etaDocs: 'Görütüle', supplier: 'ATTBA - B PLAS BURSA PL', program: 'B460 - ICA2', concern: 'C11904986', etaStatus: 'At Approval', approver: 'satmuh2', deadline: '32' },
+        { id: '6', text: '10030', etaDocs: 'Görütüle', supplier: 'ATTBA - B PLAS BURSA PL', program: 'B460 - ICA2', concern: 'C11904986', etaStatus: 'At Approval', approver: 'satmuh2', deadline: '71' },
+        { id: '7', text: '10025', etaDocs: 'Görütüle', supplier: 'ATTBA - B PLAS BURSA PL', program: 'GCP 3870', concern: 'C11904986', etaStatus: 'At Approval', approver: 'satmuh2', deadline: '151' }
     ]
 
     const [selectedItem, setSelectedItem] = useState(null);
@@ -26,16 +27,10 @@ const Eta = () => {
             </TouchableOpacity>
             <RejectBtn
                 buttonR={buttonR}
-                btn={btn}
-                buttonText={buttonText}
-                title={'Reject'} 
-                func={() => handleReject(item.id)}/>
+                func={() => handleReject(item.id)} />
             <ConfirmBtn
                 buttonC={buttonC}
-                btn={btn}
-                buttonText={buttonText}
-                title={'Reject'} 
-                func={() => handleConfirm(item.id)}/>
+                func={() => handleConfirm(item.id)} />
         </View>
     )
 
@@ -65,17 +60,20 @@ const Eta = () => {
             >
                 {selectedItem && (
                     <View style={modalContainer}>
-                        <CloseBtn
-                            closeButton={closeButton}
-                            closeModal={closeModal}
-                            name='x'
-                            size={50}
-                            color={'#343A40'} />
-                        <View style={textContainer}>
+                        <View style={header}>
                             <Text style={modalTitle}>{selectedItem.text}</Text>
-                            <Text style={modalDescription}>{selectedItem.detail1}</Text>
-                            <Text style={modalDescription}>{selectedItem.detail2}</Text>
+                            <CloseBtn closeModal={closeModal} />
                         </View>
+
+                        <ScrollView style={textContainer} alwaysBounceVertical={false}>
+                            <ListItem name='arrow-right' Title={'ETA Dökümanı'} item={selectedItem.etaDocs} />
+                            <ListItem name='arrow-right' Title={'Tedarikçi'} item={selectedItem.supplier} />
+                            <ListItem name='arrow-right' Title={'Program'} item={selectedItem.program} />
+                            <ListItem name='arrow-right' Title={'Concern'} item={selectedItem.concern} />
+                            <ListItem name='arrow-right' Title={'ETA Statüsü FO'} item={selectedItem.etaStatus} />
+                            <ListItem name='arrow-right' Title={'Onaycı'} item={selectedItem.approver} />
+                            <ListItem name='arrow-right' Title={'Bekleme Süresi'} item={selectedItem.deadline} />
+                        </ScrollView>
                     </View>
                 )}
             </Modal>
@@ -103,18 +101,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#DEE2E6'
     },
     modalTitle: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        marginBottom: 20
-    },
-    modalDescription: {
-        fontSize: 16,
-        marginBottom: 20
+        fontSize: 40,
+        fontWeight: 'bold'
     },
     textContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 50
+        flex: 1
     },
     buttonR: {
         backgroundColor: '#e44040'
@@ -125,13 +116,14 @@ const styles = StyleSheet.create({
     btn: {
         paddingHorizontal: 15,
         paddingVertical: 10,
-        borderRadius: 5
-    },
-    closeButton: {
-        backgroundColor: '#DEE2E6',
         borderRadius: 5,
-        alignItems: 'flex-end',
-        padding: 10
+        color: '#DEE2E6'
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 20
     }
 })
 

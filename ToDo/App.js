@@ -22,11 +22,9 @@ const App = () => {
   }
 
   function addTextHandler() {
-    console.log(enteredGoalText)
     setCount(count + 1)
-    console.log(count)
-    setCourseGoal((currentFutureGoal) => [...currentFutureGoal, { text: enteredGoalText, id: count }])
-
+    setCourseGoal((currentCourseGoal) => [...currentCourseGoal, { text: enteredGoalText, id: count },])
+    setEnteredGoalText('')
   }
 
   return (
@@ -39,11 +37,12 @@ const App = () => {
         func={getTextHandler}
         cap={'none'}
         correct={false}
+        value={enteredGoalText}
       />
       <TouchableOpacity style={btn} onPress={addTextHandler}>
         <Text style={btnText}>Save</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={btnX} onPress={() => setStatus(enteredGoalText)}>
+      <TouchableOpacity style={btnX} onPress={() => setStatus(12)}>
         <Text style={btnText}>Show List</Text>
       </TouchableOpacity>
       <Modal
@@ -51,7 +50,7 @@ const App = () => {
         visible={status !== null}
         onRequestClose={closeModal}
       >
-        {enteredGoalText && (
+        {courseGoal && (
           <View style={modalContainer}>
             <TouchableOpacity style={closeButton} onPress={closeModal}>
               <Feather style name="x" size={40} color={'#343A40'} />
@@ -60,19 +59,23 @@ const App = () => {
               <Text style={txtModal}>Just Do It</Text>
             </View>
             <View style={modalTitle}>
-              <FlatList alwaysBounceVertical={false} data={courseGoal} keyExtractor={(item) => item.id} renderItem={(itemData) => {
-                return (
-                  <ListItem
-                    textContainer={textContainer}
-                    feather={feather}
-                    Name={'target'}
-                    Size={20}
-                    Color={'black'}
-                    listText={listText}
-                    text={itemData.item.text}
-                  />
-                )
-              }} />
+              <FlatList
+                alwaysBounceVertical={false}
+                data={courseGoal}
+                keyExtractor={(item) => item.id}
+                renderItem={(itemData) => {
+                  return (
+                    <ListItem
+                      textContainer={textContainer}
+                      feather={feather}
+                      Name={'target'}
+                      Size={20}
+                      Color={'black'}
+                      listText={listText}
+                      text={itemData.item.text}
+                    />
+                  )
+                }} />
             </View>
           </View>
         )}
