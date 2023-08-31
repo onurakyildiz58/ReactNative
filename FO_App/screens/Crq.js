@@ -1,11 +1,12 @@
 import React, { useState } from "react"
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Modal, ScrollView } from 'react-native'
+
 import ConfirmBtn from "../components/ConfirmBtn"
 import RejectBtn from "../components/RejectBtn"
 import CloseBtn from '../components/CloseBtn'
 import ListItem from "../components/ListItem"
 
-const Crq = () => {
+const Crq = () => {    
     const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
         { id: '1', text: '100500', concern: 'C11906226', project: 'V347/8-OPD', docs: 'DYYYA - APK OTOMATİV SA', status: 'Action Requiered from Purchasing', approver: '', deadline: '800' },

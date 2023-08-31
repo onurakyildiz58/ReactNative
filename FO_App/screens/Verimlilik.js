@@ -8,9 +8,16 @@ import ListItem from "../components/ListItem"
 const Verimlilik = () => {
     const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
-        { id: '1', text: '100500', concern: 'C11906226', project: 'V347/8-OPD', docs: 'DYYYA - APK OTOMATİV SA', status: 'Action Requiered from Purchasing', approver: '', deadline: '800' },
-        { id: '2', text: '2630', concern: 'C14363106', project: 'V769-ICE', docs: 'GNPHE - ', status: 'Action Requiered from Purchasing', approver: '', deadline: '800' },
-        { id: '3', text: '1027', concern: 'C14039402', project: 'H62X-H625', docs: 'ATBTA - CANEL OTOMATİV', status: 'Action Requiered from Purchasing', approver: 'satmuh2', deadline: '' }
+        { id: '1', text: '551', company: 'ATBBA', companyName: 'B PLAS BURSA PLASTİK SAN. VE TİC. A.S.', faxDate: '04.03.2023', faxPayment: '111,00', currencyType: 'TL', currency: '1,00', description: 'test otomasyon', approvalStatus: 'Bekliyor', approvalDate: '03.03.2023 16:44:56', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh2', prodOwner: 'samd1' },
+        { id: '2', text: '521', company: 'AS4HA', companyName: 'FAURECIA POLIFLEX OTO.SAN A.S.', faxDate: '12.08.2022', faxPayment: '25,00', currencyType: 'EUR', currency: '1,00', description: '', approvalStatus: 'Bekliyor', approvalDate: '23.09.2022 09:42:26', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh1', prodOwner: 'sagemuya' },
+        { id: '3', text: '522', company: 'AS4HA', companyName: 'FAURECIA POLIFLEX OTO.SAN A.S.', faxDate: '12.08.2022', faxPayment: '700,00', currencyType: 'EUR', currency: '1,00', description: '', approvalStatus: 'Bekliyor', approvalDate: '23.09.2022 16:43:41', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh1', prodOwner: 'sagemuya' },
+        { id: '4', text: '547', company: 'ATBBA', companyName: 'B PLAS BURSA PLASTİK SAN. VE TİC. A.S.', faxDate: '28.02.2023', faxPayment: '100.000,00', currencyType: 'TL', currency: '1,00', description: 'ASDASDASD', approvalStatus: 'Bekliyor', approvalDate: '28.02.2023 17:17:19', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh2', prodOwner: 'samd1' },
+        { id: '5', text: '510', company: 'AS4HB', companyName: 'FAURECIA POLIFLEX SUP.PARK', faxDate: '01.03.2022', faxPayment: '2.000,00', currencyType: 'EUR', currency: '10,00', description: '', approvalStatus: 'Bekliyor', approvalDate: '13.10.2022 11:22:12', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh1', prodOwner: 'sagemuya' },
+        { id: '6', text: '535', company: 'AS4HB', companyName: 'FAURECIA POLIFLEX SUP.PARK', faxDate: '01.03.2022', faxPayment: '1,00', currencyType: 'EUR', currency: '1,00', description: 'TEST', approvalStatus: 'Bekliyor', approvalDate: '31.10.2022 16:36:51', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh1', prodOwner: 'sagemuya' },
+        { id: '7', text: '536', company: 'AS4HB', companyName: 'FAURECIA POLIFLEX SUP.PARK', faxDate: '01.03.2022', faxPayment: '1,00', currencyType: 'USD', currency: '1,00', description: 'test otomasyon', approvalStatus: 'Bekliyor', approvalDate: '31.10.2023 16:38:04', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh1', prodOwner: 'sagemuya' },
+        { id: '8', text: '563', company: '3E516', companyName: 'ELIMKO LTD', faxDate: '22.06.2023', faxPayment: '900,00', currencyType: 'HUF', currency: '1,00', description: 'ASDASDASD', approvalStatus: 'Bekliyor', approvalDate: '22.06.2023 16:45:01', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh2', prodOwner: 'samd1' },
+        { id: '9', text: '564', company: '3E516', companyName: 'ELIMKO LTD', faxDate: '22.06.2023', faxPayment: '500,00', currencyType: 'TL', currency: '1,00', description: 'ASDASDASD', approvalStatus: 'Bekliyor', approvalDate: '22.06.2023 16:46:18', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh2', prodOwner: 'samd1' },
+        { id: '10', text: '565', company: '3E516', companyName: 'ELIMKO LTD', faxDate: '22.06.2023', faxPayment: '200,00', currencyType: 'TL', currency: '1,00', description: 'ASADADASD', approvalStatus: 'Bekliyor', approvalDate: '22.06.2023 16:47:37', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh2', prodOwner: 'samd1' }
     ]
 
     const [selectedItem, setSelectedItem] = useState(null);
@@ -61,12 +68,18 @@ const Verimlilik = () => {
                         </View>
 
                         <ScrollView style={textContainer} alwaysBounceVertical={false}>
-                            <ListItem name='arrow-right' Title={'Concern'} item={selectedItem.concern} />
-                            <ListItem name='arrow-right' Title={'Project'} item={selectedItem.project} />
-                            <ListItem name='arrow-right' Title={'GSDB / CRQ Dok.'} item={selectedItem.docs} />
-                            <ListItem name='arrow-right' Title={'Durum'} item={selectedItem.status} />
-                            <ListItem name='arrow-right' Title={'Onaycı'} item={selectedItem.approver} />
-                            <ListItem name='arrow-right' Title={'Bekleme Süresi'} item={selectedItem.deadline} />
+                            <ListItem name='arrow-right' Title={'Firma'} item={selectedItem.company} />
+                            <ListItem name='arrow-right' Title={'Firma Adı'} item={selectedItem.companyName} />
+                            <ListItem name='arrow-right' Title={'Fatura Tarihi'} item={selectedItem.faxDate} />
+                            <ListItem name='arrow-right' Title={'Fatura Tutarı'} item={selectedItem.faxPayment} />
+                            <ListItem name='arrow-right' Title={'Para Birimi'} item={selectedItem.currencyType} />
+                            <ListItem name='arrow-right' Title={'Kur'} item={selectedItem.currency} />
+                            <ListItem name='arrow-right' Title={'Açıklama'} item={selectedItem.description} />
+                            <ListItem name='arrow-right' Title={'Onay Statüsü'} item={selectedItem.approvalStatus} />
+                            <ListItem name='arrow-right' Title={'Onay İsteme Tarihi'} item={selectedItem.approvalDate} />
+                            <ListItem name='arrow-right' Title={'Fatura Dökümanı'} item={selectedItem.faxDocs} />
+                            <ListItem name='arrow-right' Title={'Firma Sorumlusu'} item={selectedItem.companyManager} />
+                            <ListItem name='arrow-right' Title={'Ürün Müdürü'} item={selectedItem.prodOwner} />
                         </ScrollView>
                     </View>
                 )}

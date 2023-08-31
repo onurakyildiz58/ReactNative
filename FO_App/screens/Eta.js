@@ -1,10 +1,9 @@
 import React, { useState } from "react"
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Modal, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Modal, ScrollView, Button } from 'react-native'
 import ConfirmBtn from "../components/ConfirmBtn"
 import RejectBtn from "../components/RejectBtn"
 import CloseBtn from '../components/CloseBtn'
 import ListItem from "../components/ListItem"
-
 
 const Eta = () => {
     const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
@@ -46,6 +45,7 @@ const Eta = () => {
         console.log(`Button clicked for item ${itemId}`);
     }
 
+
     return (
         <SafeAreaView style={container}>
             <FlatList
@@ -64,7 +64,6 @@ const Eta = () => {
                             <Text style={modalTitle}>{selectedItem.text}</Text>
                             <CloseBtn closeModal={closeModal} />
                         </View>
-
                         <ScrollView style={textContainer} alwaysBounceVertical={false}>
                             <ListItem name='arrow-right' Title={'ETA Dökümanı'} item={selectedItem.etaDocs} />
                             <ListItem name='arrow-right' Title={'Tedarikçi'} item={selectedItem.supplier} />
@@ -124,6 +123,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: 20
+    },
+    pdf: {
+        flex: 1
     }
 })
 

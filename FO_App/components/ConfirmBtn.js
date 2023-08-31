@@ -5,7 +5,7 @@ const ConfirmBtn = (props) => {
     const { buttonC, title, func } = props
     return (
         <TouchableOpacity style={[buttonC, styles.btn]} onPress={func}>
-            <Text style={styles.buttonText}>Confirm</Text>
+            <Text style={styles.buttonText}>Onay</Text>
         </TouchableOpacity>
     )
 }

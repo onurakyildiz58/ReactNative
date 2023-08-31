@@ -1,27 +1,32 @@
-import React from 'react'
-import { Text, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { Text, StyleSheet, Dimensions } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 
-import PsaSoba from '../PsaSoba';
-import Eta from '../Eta';
-import Crq from '../Crq';
-import I_pus_parca from '../I_pus_parca';
-import Ipos from '../Ipos';
-import Ipus from '../Ipus';
-import Eskalasyon from '..//Eskalasyon';
-import DummyParça from '../DummyParca.js';
-import Rework from '../Rework';
-import Paketleme from '../Paketleme';
-import Soba_sc_cpa_onay from '../Soba_sc_cpa_onay';
-import Edt from '../Edt';
-import Pdcf from '../Pdcf';
-import Verimlilik from '../Verimlilik';
-import OdemeEmri from '../OdemeEmri';
+import Home from '../Home'
+import PsaSoba from '../PsaSoba'
+import Eta from '../Eta'
+import Crq from '../Crq'
+import I_pus_parca from '../I_pus_parca'
+import Ipos from '../Ipos'
+import Ipus from '../Ipus'
+import Eskalasyon from '..//Eskalasyon'
+import DummyParça from '../DummyParca.js'
+import Rework from '../Rework'
+import Paketleme from '../Paketleme'
+import Soba_sc_cpa_onay from '../Soba_sc_cpa_onay'
+import Edt from '../Edt'
+import Pdcf from '../Pdcf'
+import Verimlilik from '../Verimlilik'
+import OdemeEmri from '../OdemeEmri'
 
 const drawer = createDrawerNavigator();
 
 const Drawer = () => {
+    const [country, setCountry] = useState('')
+    var width = Dimensions.get('window').width
+    console.log(country)
+
     return (
         <NavigationContainer >
             <drawer.Navigator
@@ -40,6 +45,10 @@ const Drawer = () => {
                     drawerActiveTintColor: '#092E6E'
                 }} >
                 <drawer.Screen
+                    name="Home"
+                    component={Home}
+                />
+                <drawer.Screen
                     name="PSA & SOBA"
                     component={PsaSoba}
                     options={{
@@ -55,15 +64,15 @@ const Drawer = () => {
                             <Text style={styles.icon} >9</Text>
                         )
                     }} />
-                    <drawer.Screen
-                    name="Crq"
+                <drawer.Screen
+                    name="CRQ"
                     component={Crq}
                     options={{
                         drawerIcon: () => (
                             <Text style={styles.icon} >2</Text>
                         )
                     }} />
-                    <drawer.Screen
+                <drawer.Screen
                     name="I-Pus Parca"
                     component={I_pus_parca}
                     options={{

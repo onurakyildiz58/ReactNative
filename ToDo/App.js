@@ -27,6 +27,12 @@ const App = () => {
     setEnteredGoalText('')
   }
 
+  function deleteGoalHandler(id){
+    setCourseGoal(currentCourseGoal => {
+      return currentCourseGoal.filter((goal)=> goal.id != id)
+    })
+  }
+
   return (
     <SafeAreaView style={container}>
       <Text style={txt}>To Do List</Text>
@@ -66,6 +72,8 @@ const App = () => {
                 renderItem={(itemData) => {
                   return (
                     <ListItem
+                      id={itemData.item.id}
+                      func={deleteGoalHandler}
                       textContainer={textContainer}
                       feather={feather}
                       Name={'target'}
