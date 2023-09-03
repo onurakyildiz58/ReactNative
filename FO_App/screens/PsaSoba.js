@@ -6,11 +6,18 @@ import CloseBtn from '../components/CloseBtn'
 import ListItem from "../components/ListItem"
 
 const PsaSoba = () => {
-    const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
+    const { listWrapper, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
-        { id: '1', text: '100500', concern: 'C11906226', project: 'V347/8-OPD', docs: 'DYYYA - APK OTOMATİV SA', status: 'Action Requiered from Purchasing', approver: '', deadline: '800' },
-        { id: '2', text: '2630', concern: 'C14363106', project: 'V769-ICE', docs: 'GNPHE - ', status: 'Action Requiered from Purchasing', approver: '', deadline: '800' },
-        { id: '3', text: '1027', concern: 'C14039402', project: 'H62X-H625', docs: 'ATBTA - CANEL OTOMATİV', status: 'Action Requiered from Purchasing', approver: 'satmuh2', deadline: '' }
+        { id: '1', text: '100017', taskStatus: 'Action For RFQ', program: 'V362', platform: 'PHEV', supplier: '', productGroupName: 'CHASSIS', taskDate: '27.03.2020' },
+        { id: '2', text: '100024', taskStatus: 'Action For RFQ', program: 'B460', platform: 'ICA2', supplier: '', productGroupName: 'AA', taskDate: '31.03.2020' },
+        { id: '3', text: '100023', taskStatus: 'Action For RFQ', program: 'B460', platform: 'ICA2', supplier: '', productGroupName: 'ssd', taskDate: '31.03.2020' },
+        { id: '4', text: '100028', taskStatus: 'Action For RFQ', program: 'V363', platform: 'BEV', supplier: '', productGroupName: 'chassis', taskDate: '31.03.2020' },
+        { id: '5', text: '100029', taskStatus: 'Action For RFQ', program: 'V363', platform: 'BEV', supplier: '', productGroupName: 'deneme', taskDate: '31.03.2020' },
+        { id: '6', text: '100026', taskStatus: 'Action For RFQ', program: 'GCB', platform: '3870', supplier: '', productGroupName: 'sdsd', taskDate: '31.03.2020' },
+        { id: '7', text: '100026', taskStatus: 'Action For RFQ', program: 'GCB', platform: '3870', supplier: '', productGroupName: 'sdsd', taskDate: '19.06.2020' },
+        { id: '8', text: '100156', taskStatus: 'Action For RFQ', program: 'V363', platform: 'BEV', supplier: '', productGroupName: 'Yeni Düzenlemeler', taskDate: '24.07.2020' },
+        { id: '9', text: '100156', taskStatus: 'Action For RFQ', program: 'V363', platform: 'BEV', supplier: '', productGroupName: 'Yeni Düzenlemeler', taskDate: '24.07.2020' },
+        { id: '10', text: '100172', taskStatus: 'Action For RFQ', program: 'V769-CRAIOVA', platform: 'ICE', supplier: '', productGroupName: 'chassis', taskDate: '04.08.2020' }
     ]
 
     const [selectedItem, setSelectedItem] = useState(null);
@@ -20,12 +27,6 @@ const PsaSoba = () => {
             <TouchableOpacity style={{ width: 60 }} onPress={() => setSelectedItem(item)}>
                 <Text>{item.text}</Text>
             </TouchableOpacity>
-            <RejectBtn
-                buttonR={buttonR}
-                func={() => handleReject(item.id)} />
-            <ConfirmBtn
-                buttonC={buttonC}
-                func={() => handleConfirm(item.id)} />
         </View>
     )
 
@@ -61,12 +62,12 @@ const PsaSoba = () => {
                         </View>
 
                         <ScrollView style={textContainer} alwaysBounceVertical={false}>
-                            <ListItem name='arrow-right' Title={'Concern'} item={selectedItem.concern} />
-                            <ListItem name='arrow-right' Title={'Project'} item={selectedItem.project} />
-                            <ListItem name='arrow-right' Title={'GSDB / CRQ Dok.'} item={selectedItem.docs} />
-                            <ListItem name='arrow-right' Title={'Durum'} item={selectedItem.status} />
-                            <ListItem name='arrow-right' Title={'Onaycı'} item={selectedItem.approver} />
-                            <ListItem name='arrow-right' Title={'Bekleme Süresi'} item={selectedItem.deadline} />
+                            <ListItem name='arrow-right' Title={'Task Status'} item={selectedItem.taskStatus} />
+                            <ListItem name='arrow-right' Title={'Program'} item={selectedItem.program} />
+                            <ListItem name='arrow-right' Title={'Platform'} item={selectedItem.platform} />
+                            <ListItem name='arrow-right' Title={'Tedarikçi'} item={selectedItem.supplier} />
+                            <ListItem name='arrow-right' Title={'Ürün Grubu Adı'} item={selectedItem.productGroupName} />
+                            <ListItem name='arrow-right' Title={'Task Date'} item={selectedItem.taskDate} />
                         </ScrollView>
                     </View>
                 )}
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     },
     listWrapper: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         padding: 10,
         borderBottomWidth: 1,
@@ -100,12 +101,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1
-    },
-    buttonR: {
-        backgroundColor: '#e44040'
-    },
-    buttonC: {
-        backgroundColor: '#236997'
     },
     header: {
         flexDirection: 'row',

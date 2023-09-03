@@ -7,7 +7,7 @@ import CloseBtn from '../components/CloseBtn'
 import ListItem from "../components/ListItem"
 
 const Crq = () => {    
-    const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
+    const { listWrapper, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
         { id: '1', text: '100500', concern: 'C11906226', project: 'V347/8-OPD', docs: 'DYYYA - APK OTOMATİV SA', status: 'Action Requiered from Purchasing', approver: '', deadline: '800' },
         { id: '2', text: '2630', concern: 'C14363106', project: 'V769-ICE', docs: 'GNPHE - ', status: 'Action Requiered from Purchasing', approver: '', deadline: '800' },
@@ -21,12 +21,8 @@ const Crq = () => {
             <TouchableOpacity style={{ width: 60 }} onPress={() => setSelectedItem(item)}>
                 <Text>{item.text}</Text>
             </TouchableOpacity>
-            <RejectBtn
-                buttonR={buttonR}
-                func={() => handleReject(item.id)} />
-            <ConfirmBtn
-                buttonC={buttonC}
-                func={() => handleConfirm(item.id)} />
+            <RejectBtn />
+            <ConfirmBtn />
         </View>
     )
 
@@ -101,12 +97,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1
-    },
-    buttonR: {
-        backgroundColor: '#e44040'
-    },
-    buttonC: {
-        backgroundColor: '#236997'
     },
     header: {
         flexDirection: 'row',

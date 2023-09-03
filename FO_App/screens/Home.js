@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, ScrollView, Image, Dimensions, StyleSheet, Animated } from 'react-native';
+import { View, ScrollView, Image, Dimensions, StyleSheet } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -15,13 +15,18 @@ const Home = () => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            const newIndex = (currentIndex + 1) % images.length;
-            setCurrentIndex(newIndex);
-            scrollViewRef.current.scrollTo({ x: newIndex * width, animated: true });
-        }, 4000); // Change image every 3 seconds
-
+          const newIndex = (currentIndex + 1) % images.length;
+          setCurrentIndex(newIndex);
+          scrollViewRef.current.scrollTo({
+            x: newIndex * width,
+            animated: true,
+            duration: 1,
+          });
+        }, 3000);
+    
         return () => clearInterval(interval);
-    }, [currentIndex]);
+      }, [currentIndex]);
+
 
     return (
         <View style={styles.container}>

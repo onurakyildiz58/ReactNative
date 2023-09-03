@@ -5,9 +5,9 @@ import *  as OpenAnything from 'react-native-openanything'
 
 const ListItem = (props) => {
     const { title, modalDescription} = styles
-    const { name, Title, item } = props
+    const { name, Title, item, url} = props
     return (
-        <TouchableOpacity onPress={() => OpenAnything.Pdf('https://drive.google.com/file/d/1OTvCp8m8pj2vPSApvQA4Ip7I6_BvtuR3/view?usp=sharing')}>
+        <TouchableOpacity onPress={() => OpenAnything.Pdf(`${url}`)}>
             <View style={{ flexDirection: 'row', marginHorizontal: 30 }}>
                 <Feather name={name} size={30} color={'black'} />
                 <Text style={title}>{Title}</Text>

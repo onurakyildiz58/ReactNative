@@ -1,12 +1,14 @@
 import React, { useState } from "react"
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Modal, ScrollView, Button } from 'react-native'
-import ConfirmBtn from "../components/ConfirmBtn"
-import RejectBtn from "../components/RejectBtn"
+
+import ConfirmBtn from '../components/ConfirmBtn'
+import RejectBtn from '../components/RejectBtn'
 import CloseBtn from '../components/CloseBtn'
-import ListItem from "../components/ListItem"
+import ListItem from '../components/ListItem'
+import PDFitem from '../components/PDFitem'
 
 const Eta = () => {
-    const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
+    const { listWrapper, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
         { id: '1', text: '10054', etaDocs: 'Görütüle', supplier: 'ATTBA - B PLAS BURSA PL', program: 'B460 - ICA2', concern: 'C11904986', etaStatus: 'At Approval', approver: 'satmuh2', deadline: '32' },
         { id: '2', text: '10052', etaDocs: 'Görütüle', supplier: 'ATTBA - B PLAS BURSA PL', program: 'GCP 3870', concern: 'C11904986', etaStatus: 'At Approval', approver: 'satmuh2', deadline: '32' },
@@ -24,12 +26,8 @@ const Eta = () => {
             <TouchableOpacity onPress={() => setSelectedItem(item)}>
                 <Text>{item.text}</Text>
             </TouchableOpacity>
-            <RejectBtn
-                buttonR={buttonR}
-                func={() => handleReject(item.id)} />
-            <ConfirmBtn
-                buttonC={buttonC}
-                func={() => handleConfirm(item.id)} />
+            <RejectBtn />
+            <ConfirmBtn />
         </View>
     )
 
@@ -65,6 +63,7 @@ const Eta = () => {
                             <CloseBtn closeModal={closeModal} />
                         </View>
                         <ScrollView style={textContainer} alwaysBounceVertical={false}>
+                            <PDFitem name='arrow-right' Title={'ETA Dökümanı'} item={selectedItem.etaDocs} url={'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'} />
                             <ListItem name='arrow-right' Title={'ETA Dökümanı'} item={selectedItem.etaDocs} />
                             <ListItem name='arrow-right' Title={'Tedarikçi'} item={selectedItem.supplier} />
                             <ListItem name='arrow-right' Title={'Program'} item={selectedItem.program} />
@@ -106,27 +105,12 @@ const styles = StyleSheet.create({
     textContainer: {
         flex: 1
     },
-    buttonR: {
-        backgroundColor: '#e44040'
-    },
-    buttonC: {
-        backgroundColor: '#236997'
-    },
-    btn: {
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 5,
-        color: '#DEE2E6'
-    },
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: 20
     },
-    pdf: {
-        flex: 1
-    }
 })
 
 export default Eta

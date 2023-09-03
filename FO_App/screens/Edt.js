@@ -1,12 +1,14 @@
 import React, { useState } from "react"
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Modal, ScrollView } from 'react-native'
+
 import ConfirmBtn from "../components/ConfirmBtn"
 import RejectBtn from "../components/RejectBtn"
 import CloseBtn from '../components/CloseBtn'
 import ListItem from "../components/ListItem"
+import PDFitem from '../components/PDFitem'
 
 const Edt = () => {
-    const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
+    const { listWrapper, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
         { id: '1', text: '430', company: 'BH2AB', companyName: 'FARPLAS OTOMATİV ANONİM ŞİRKETİ', edtName: 'Test Otomasyon Güncelleme', edtDescription: 'Test Otomasyon EDT Kaydı Günceleme', totalPayment: '0,00', currency: 'TL', ConfirmUser: 'samd1', ConfirmPayment: '1.234,00', ConfirmCurrency: 'TL', DeleteConfirm: 'Hayır', ComponentConfirm: 'Evet', edtDocs: 'Dökmanlar', projectManager: 'samd1' },
         { id: '2', text: '428', company: '0142S', companyName: 'FORD MOTOR COMPANY LTD', edtName: 'Test Otomasyon Güncelleme', edtDescription: 'Test Otomasyon EDT Kaydı Günceleme', totalPayment: '0,00', currency: 'TL', ConfirmUser: 'samd1', ConfirmPayment: '1.234,00', ConfirmCurrency: 'TL', DeleteConfirm: 'Hayır', ComponentConfirm: 'Evet', edtDocs: 'Dökmanlar', projectManager: 'samd1' },
@@ -34,12 +36,8 @@ const Edt = () => {
             <TouchableOpacity style={{ width: 60 }} onPress={() => setSelectedItem(item)}>
                 <Text>{item.text}</Text>
             </TouchableOpacity>
-            <RejectBtn
-                buttonR={buttonR}
-                func={() => handleReject(item.id)} />
-            <ConfirmBtn
-                buttonC={buttonC}
-                func={() => handleConfirm(item.id)} />
+            <RejectBtn />
+            <ConfirmBtn />
         </View>
     )
 
@@ -86,7 +84,7 @@ const Edt = () => {
                             <ListItem name='arrow-right' Title={'Onaylanacak Para Birimi'} item={selectedItem.ConfirmCurrency} />
                             <ListItem name='arrow-right' Title={'EDT Silme Onaylı mı'} item={selectedItem.DeleteConfirm} />
                             <ListItem name='arrow-right' Title={'Parça Onaylı mı'} item={selectedItem.ComponentConfirm} />
-                            <ListItem name='arrow-right' Title={'ED-T Dökümanı'} item={selectedItem.edtDocs} />
+                            <PDFitem name='arrow-right' Title={'ED-T Dökümanı'} item={selectedItem.edtDocs} url={'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'} />
                             <ListItem name='arrow-right' Title={'Proje Müdürü'} item={selectedItem.projectManager} />
                         </ScrollView>
                     </View>
@@ -121,12 +119,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1
-    },
-    buttonR: {
-        backgroundColor: '#e44040'
-    },
-    buttonC: {
-        backgroundColor: '#236997'
     },
     header: {
         flexDirection: 'row',

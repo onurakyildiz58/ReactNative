@@ -7,16 +7,11 @@ const App = () => {
    
     return (
         <SafeAreaView style={{ flex: 1 }} >
-            <View style={{ backgroundColor: '#DEE2E6' }}>
+            <View style={{ backgroundColor: '#DEE2E6', shadowColor: 'black', elevation: 10 }}>
                 <Image source={require('./assets/img/logoFO.png')} style={styles.logo} />
             </View>
             <Drawer />
-            
-            <StatusBar
-                backgroundColor="#DEE2E6"
-                barStyle="dark-content"
-                hidden={true}
-                translucent={true} />
+            <StatusBar hidden={false} />
         </SafeAreaView>
 
     )

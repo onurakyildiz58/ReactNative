@@ -6,39 +6,26 @@ import CloseBtn from '../components/CloseBtn'
 import ListItem from "../components/ListItem"
 
 const Ipos = () => {
-    const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
+    const { listWrapper, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
-        { id: '1', text: '100500', concern: 'C11906226', project: 'V347/8-OPD', docs: 'DYYYA - APK OTOMATİV SA', status: 'Action Requiered from Purchasing', approver: '', deadline: '800' },
-        { id: '2', text: '2630', concern: 'C14363106', project: 'V769-ICE', docs: 'GNPHE - ', status: 'Action Requiered from Purchasing', approver: '', deadline: '800' },
-        { id: '3', text: '1027', concern: 'C14039402', project: 'H62X-H625', docs: 'ATBTA - CANEL OTOMATİV', status: 'Action Requiered from Purchasing', approver: 'satmuh2', deadline: '' }
+        { id: '1', text: '345183', supplierCompany: 'ATBBA - B PLAS BURSA PLASTİK SAN VE TİC A.S.', prefix: '1S7A', base: 'F431K99', suffix: 'AB', status: 'Onayda', projectCode: 'B460', content: 'Birim Fiyat', purchasingEng: 'satmuh2', approvalDate: '21.08.2023 11:35:13' },
+        { id: '2', text: '345129', supplierCompany: 'ATBBA - B PLAS BURSA PLASTİK SAN VE TİC A.S.', prefix: 'GC46', base: '16C581', suffix: 'CD', status: 'Onayda', projectCode: 'V769', content: 'Kalıp', purchasingEng: 'satmuh2', approvalDate: '21.08.2023 11:42:57' }
     ]
 
     const [selectedItem, setSelectedItem] = useState(null);
 
     const renderItem = ({ item }) => (
         <View style={listWrapper}>
-            <TouchableOpacity style={{ width: 60 }} onPress={() => setSelectedItem(item)}>
+            <TouchableOpacity onPress={() => setSelectedItem(item)}>
                 <Text>{item.text}</Text>
             </TouchableOpacity>
-            <RejectBtn
-                buttonR={buttonR}
-                func={() => handleReject(item.id)} />
-            <ConfirmBtn
-                buttonC={buttonC}
-                func={() => handleConfirm(item.id)} />
+            <RejectBtn />
+            <ConfirmBtn />
         </View>
     )
 
     const closeModal = () => {
         setSelectedItem(null);
-    }
-
-    const handleReject = (itemId) => {
-        console.log(`Button clicked for item ${itemId}`);
-    }
-
-    const handleConfirm = (itemId) => {
-        console.log(`Button clicked for item ${itemId}`);
     }
 
     return (
@@ -59,14 +46,16 @@ const Ipos = () => {
                             <Text style={modalTitle}>{selectedItem.text}</Text>
                             <CloseBtn closeModal={closeModal} />
                         </View>
-
                         <ScrollView style={textContainer} alwaysBounceVertical={false}>
-                            <ListItem name='arrow-right' Title={'Concern'} item={selectedItem.concern} />
-                            <ListItem name='arrow-right' Title={'Project'} item={selectedItem.project} />
-                            <ListItem name='arrow-right' Title={'GSDB / CRQ Dok.'} item={selectedItem.docs} />
-                            <ListItem name='arrow-right' Title={'Durum'} item={selectedItem.status} />
-                            <ListItem name='arrow-right' Title={'Onaycı'} item={selectedItem.approver} />
-                            <ListItem name='arrow-right' Title={'Bekleme Süresi'} item={selectedItem.deadline} />
+                            <ListItem name='arrow-right' Title={'Tedarik Edilen Firma Bilgileri'} item={selectedItem.supplierCompany} />
+                            <ListItem name='arrow-right' Title={'Prefix'} item={selectedItem.prefix} />
+                            <ListItem name='arrow-right' Title={'Base'} item={selectedItem.base} />
+                            <ListItem name='arrow-right' Title={'Suffix'} item={selectedItem.suffix} />
+                            <ListItem name='arrow-right' Title={'Statü'} item={selectedItem.status} />
+                            <ListItem name='arrow-right' Title={'Proje Kodu'} item={selectedItem.projectCode} />
+                            <ListItem name='arrow-right' Title={'Teyit İçeriği'} item={selectedItem.content} />
+                            <ListItem name='arrow-right' Title={'Satınalma Mühendisi'} item={selectedItem.purchasingEng} />
+                            <ListItem name='arrow-right' Title={'Onay Gelme Tarihi'} item={selectedItem.approvalDate} />
                         </ScrollView>
                     </View>
                 )}
@@ -100,12 +89,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1
-    },
-    buttonR: {
-        backgroundColor: '#e44040'
-    },
-    buttonC: {
-        backgroundColor: '#236997'
     },
     header: {
         flexDirection: 'row',

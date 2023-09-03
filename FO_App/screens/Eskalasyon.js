@@ -6,7 +6,7 @@ import CloseBtn from '../components/CloseBtn'
 import ListItem from "../components/ListItem"
 
 const Eskalasyon = () => {
-    const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
+    const { listWrapper, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
         { id: '1', text: '1068', supplier: 'GKUFA', supplierName: 'OPTIMAS OE SOLUTIONS BAGLANTI...', startDate: '01/03/2022', formType: 'Parça', formCreater: 'Ersin Tuna', confirmFlow: '3235' },
         { id: '2', text: '495', supplier: 'BSXJA', supplierName: 'KAREKOC', startDate: '01/03/2021', formType: 'Proje', formCreater: 'Varol Çavdar', confirmFlow: '403' }
@@ -19,13 +19,8 @@ const Eskalasyon = () => {
             <TouchableOpacity style={{ width: 60 }} onPress={() => setSelectedItem(item)}>
                 <Text>{item.text}</Text>
             </TouchableOpacity>
-            
-            <RejectBtn
-                buttonR={buttonR}
-                func={() => handleReject(item.id)} />
-            <ConfirmBtn
-                buttonC={buttonC}
-                func={() => handleConfirm(item.id)} />
+            <RejectBtn />
+            <ConfirmBtn />
             
         </View>
     )
@@ -101,12 +96,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1
-    },
-    buttonR: {
-        backgroundColor: '#e44040'
-    },
-    buttonC: {
-        backgroundColor: '#236997'
     },
     header: {
         flexDirection: 'row',

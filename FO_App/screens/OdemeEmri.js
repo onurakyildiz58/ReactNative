@@ -6,12 +6,13 @@ import ConfirmBtn from "../components/ConfirmBtn"
 import RejectBtn from "../components/RejectBtn"
 import CloseBtn from '../components/CloseBtn'
 import ListItem from "../components/ListItem"
+import PDFitem from '../components/PDFitem'
 
 const OdemeEmri = () => {
     const [orderStatus, setOrderStatus] = useState('')
     const [paymenttype, setPaymentType] = useState('')
     const [selectedItem, setSelectedItem] = useState(null);
-    const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
+    const { listWrapper, container, modalContainer, modalTitle, textContainer, header } = styles
 
     console.log(orderStatus)
     console.log(paymenttype)
@@ -27,12 +28,8 @@ const OdemeEmri = () => {
             <TouchableOpacity style={{ width: 60 }} onPress={() => setSelectedItem(item)}>
                 <Text>{item.text}</Text>
             </TouchableOpacity>
-            <RejectBtn
-                buttonR={buttonR}
-                func={() => handleReject(item.id)} />
-            <ConfirmBtn
-                buttonC={buttonC}
-                func={() => handleConfirm(item.id)} />
+            <RejectBtn />
+            <ConfirmBtn />
         </View>
     )
 
@@ -50,7 +47,7 @@ const OdemeEmri = () => {
 
     return (
         <SafeAreaView style={container}>
-            <View style={{ flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row', marginTop: 10}}>
                 <View style={{ flexDirection: 'column' }}>
                     <Text style={{fontSize: 16, marginLeft: 16}}>Ödeme Emri Durumu</Text>
                     <Picker
@@ -95,7 +92,7 @@ const OdemeEmri = () => {
                         </View>
 
                         <ScrollView style={textContainer} alwaysBounceVertical={false}>
-                            <ListItem name='arrow-right' Title={'Detay'} item={selectedItem.detail} />
+                            <PDFitem name='arrow-right' Title={'Detay'} item={selectedItem.detail} url={'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'} />
                             <ListItem name='arrow-right' Title={'İmalatçı'} item={selectedItem.manufacturer} />
                             <ListItem name='arrow-right' Title={'Ödeme Emri Tarihi'} item={selectedItem.paymentDate} />
                             <ListItem name='arrow-right' Title={'Ödeme Emri Türü'} item={selectedItem.paymentType} />
@@ -135,12 +132,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1
-    },
-    buttonR: {
-        backgroundColor: '#e44040'
-    },
-    buttonC: {
-        backgroundColor: '#236997'
     },
     header: {
         flexDirection: 'row',

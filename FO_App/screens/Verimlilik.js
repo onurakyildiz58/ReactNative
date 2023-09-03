@@ -1,12 +1,14 @@
 import React, { useState } from "react"
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Modal, ScrollView } from 'react-native'
+
 import ConfirmBtn from "../components/ConfirmBtn"
 import RejectBtn from "../components/RejectBtn"
 import CloseBtn from '../components/CloseBtn'
 import ListItem from "../components/ListItem"
+import PDFitem from '../components/PDFitem'
 
 const Verimlilik = () => {
-    const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
+    const { listWrapper, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
         { id: '1', text: '551', company: 'ATBBA', companyName: 'B PLAS BURSA PLASTİK SAN. VE TİC. A.S.', faxDate: '04.03.2023', faxPayment: '111,00', currencyType: 'TL', currency: '1,00', description: 'test otomasyon', approvalStatus: 'Bekliyor', approvalDate: '03.03.2023 16:44:56', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh2', prodOwner: 'samd1' },
         { id: '2', text: '521', company: 'AS4HA', companyName: 'FAURECIA POLIFLEX OTO.SAN A.S.', faxDate: '12.08.2022', faxPayment: '25,00', currencyType: 'EUR', currency: '1,00', description: '', approvalStatus: 'Bekliyor', approvalDate: '23.09.2022 09:42:26', faxDocs: 'CRSOriginalDocument.pdf', companyManager: 'satmuh1', prodOwner: 'sagemuya' },
@@ -27,12 +29,8 @@ const Verimlilik = () => {
             <TouchableOpacity style={{ width: 60 }} onPress={() => setSelectedItem(item)}>
                 <Text>{item.text}</Text>
             </TouchableOpacity>
-            <RejectBtn
-                buttonR={buttonR}
-                func={() => handleReject(item.id)} />
-            <ConfirmBtn
-                buttonC={buttonC}
-                func={() => handleConfirm(item.id)} />
+            <RejectBtn />
+            <ConfirmBtn />
         </View>
     )
 
@@ -77,7 +75,7 @@ const Verimlilik = () => {
                             <ListItem name='arrow-right' Title={'Açıklama'} item={selectedItem.description} />
                             <ListItem name='arrow-right' Title={'Onay Statüsü'} item={selectedItem.approvalStatus} />
                             <ListItem name='arrow-right' Title={'Onay İsteme Tarihi'} item={selectedItem.approvalDate} />
-                            <ListItem name='arrow-right' Title={'Fatura Dökümanı'} item={selectedItem.faxDocs} />
+                            <PDFitem name='arrow-right' Title={'Fatura Dökümanı'} item={selectedItem.faxDocs} url={'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'} />
                             <ListItem name='arrow-right' Title={'Firma Sorumlusu'} item={selectedItem.companyManager} />
                             <ListItem name='arrow-right' Title={'Ürün Müdürü'} item={selectedItem.prodOwner} />
                         </ScrollView>
@@ -113,12 +111,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1
-    },
-    buttonR: {
-        backgroundColor: '#e44040'
-    },
-    buttonC: {
-        backgroundColor: '#236997'
     },
     header: {
         flexDirection: 'row',

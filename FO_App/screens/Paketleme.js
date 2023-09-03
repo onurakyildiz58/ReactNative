@@ -6,7 +6,7 @@ import CloseBtn from '../components/CloseBtn'
 import ListItem from "../components/ListItem"
 
 const Paketleme = () => {
-    const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
+    const { listWrapper, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
         { id: '1', text: '295', supplier: 'ATBBA', component: 'BK31 10626 AB', location: 'FWALC', katSayi: '4', packageType: 'IMC010', startDate: '01/01/2022', status: 'Aktif', akisNo: '100146', hesapDate: '01/09/2022', price: '73.717,1', currency: ''  }
     ]
@@ -18,12 +18,8 @@ const Paketleme = () => {
             <TouchableOpacity style={{ width: 60 }} onPress={() => setSelectedItem(item)}>
                 <Text>{item.text}</Text>
             </TouchableOpacity>
-            <RejectBtn
-                buttonR={buttonR}
-                func={() => handleReject(item.id)} />
-            <ConfirmBtn
-                buttonC={buttonC}
-                func={() => handleConfirm(item.id)} />
+            <RejectBtn />
+            <ConfirmBtn />
         </View>
     )
 
@@ -103,12 +99,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1
-    },
-    buttonR: {
-        backgroundColor: '#e44040'
-    },
-    buttonC: {
-        backgroundColor: '#236997'
     },
     header: {
         flexDirection: 'row',

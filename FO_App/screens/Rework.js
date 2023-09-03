@@ -4,9 +4,10 @@ import ConfirmBtn from "../components/ConfirmBtn"
 import RejectBtn from "../components/RejectBtn"
 import CloseBtn from '../components/CloseBtn'
 import ListItem from "../components/ListItem"
+import PDfitem from '../components/PDFitem'
 
 const Rework = () => {
-    const { listWrapper, buttonR, buttonC, container, modalContainer, modalTitle, textContainer, header } = styles
+    const { listWrapper, container, modalContainer, modalTitle, textContainer, header } = styles
     const data = [
         { id: '1', text: '634', gsdb: 'AS3TC', supplier: 'OTOTRIM PANEL SANAYİ VE TİCARET AS', status: 'Onayda', purchasing_manager: 'bbugur, satmuh2', approval: 'Detayı Gör', fallowType: 'Bitiş Tarihi Takibi', paymentValue: '0', currencyType: '', paymentQuantity: '0', isComponentApproved: 'Evet' },
         { id: '2', text: '633', gsdb: '3F126', supplier: 'ÖZBAYRAK KIZAK KORUMA SİSTEMLERİ END.MAK.SAN.TİC.A...', status: 'Onayda', purchasing_manager: 'iuzun3, satmuh2', approval: 'Detayı Gör', fallowType: 'Bitiş Tarihi Takibi', paymentValue: '0', currencyType: '', paymentQuantity: '0', isComponentApproved: 'Evet' },
@@ -21,12 +22,8 @@ const Rework = () => {
             <TouchableOpacity onPress={() => setSelectedItem(item)}>
                 <Text>{item.text}</Text>
             </TouchableOpacity>
-            <RejectBtn
-                buttonR={buttonR}
-                func={() => handleReject(item.id)} />
-            <ConfirmBtn
-                buttonC={buttonC}
-                func={() => handleConfirm(item.id)} />
+            <RejectBtn />
+            <ConfirmBtn />
         </View>
     )
 
@@ -65,7 +62,7 @@ const Rework = () => {
                             <ListItem name='arrow-right' Title={'Tedarikçi'} item={selectedItem.supplier} />
                             <ListItem name='arrow-right' Title={'Statü'} item={selectedItem.status} />
                             <ListItem name='arrow-right' Title={'Satınalma Sorumluları'} item={selectedItem.purchasing_manager} />
-                            <ListItem name='arrow-right' Title={'Onay Dolaşımı'} item={selectedItem.approval} />
+                            <PDfitem name='arrow-right' Title={'Onay Dolaşımı'} item={selectedItem.approval}  url={'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'} />
                             <ListItem name='arrow-right' Title={'Takip Tipi'} item={selectedItem.fallowType} />
                             <ListItem name='arrow-right' Title={'Ödenecek Toplam Tutar'} item={selectedItem.paymentValue} />
                             <ListItem name='arrow-right' Title={'Para Birimi'} item={selectedItem.currencyType} />
@@ -104,18 +101,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         flex: 1
-    },
-    buttonR: {
-        backgroundColor: '#e44040'
-    },
-    buttonC: {
-        backgroundColor: '#236997'
-    },
-    btn: {
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        borderRadius: 5,
-        color: '#DEE2E6'
     },
     closeButton: {
         backgroundColor: '#DEE2E6'

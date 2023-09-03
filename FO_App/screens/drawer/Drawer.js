@@ -2,16 +2,15 @@ import React, { useState } from 'react'
 import { Text, StyleSheet, Dimensions } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createDrawerNavigator } from '@react-navigation/drawer'
+import { Feather } from '@expo/vector-icons'
 
 import Home from '../Home'
 import PsaSoba from '../PsaSoba'
 import Eta from '../Eta'
 import Crq from '../Crq'
-import I_pus_parca from '../I_pus_parca'
 import Ipos from '../Ipos'
 import Ipus from '../Ipus'
 import Eskalasyon from '..//Eskalasyon'
-import DummyParça from '../DummyParca.js'
 import Rework from '../Rework'
 import Paketleme from '../Paketleme'
 import Soba_sc_cpa_onay from '../Soba_sc_cpa_onay'
@@ -24,7 +23,6 @@ const drawer = createDrawerNavigator();
 
 const Drawer = () => {
     const [country, setCountry] = useState('')
-    var width = Dimensions.get('window').width
     console.log(country)
 
     return (
@@ -47,6 +45,11 @@ const Drawer = () => {
                 <drawer.Screen
                     name="Home"
                     component={Home}
+                    options={{
+                        drawerIcon: () => (
+                            <Feather name='home' size={30} color={'black'} />
+                        )
+                    }} 
                 />
                 <drawer.Screen
                     name="PSA & SOBA"
@@ -73,14 +76,6 @@ const Drawer = () => {
                         )
                     }} />
                 <drawer.Screen
-                    name="I-Pus Parca"
-                    component={I_pus_parca}
-                    options={{
-                        drawerIcon: () => (
-                            <Text style={styles.icon} >3</Text>
-                        )
-                    }} />
-                <drawer.Screen
                     name="I-POS"
                     component={Ipos}
                     options={{
@@ -102,14 +97,6 @@ const Drawer = () => {
                     options={{
                         drawerIcon: () => (
                             <Text style={styles.icon} >8</Text>
-                        )
-                    }} />
-                <drawer.Screen
-                    name="Dummy Parça"
-                    component={DummyParça}
-                    options={{
-                        drawerIcon: () => (
-                            <Text style={styles.icon} >7</Text>
                         )
                     }} />
                 <drawer.Screen
