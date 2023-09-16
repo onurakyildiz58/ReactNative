@@ -1,18 +1,24 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView } from 'react-native'
 import Header from '../components/Header'
-
+import { Feather } from '@expo/vector-icons'
 import { firebase } from '../config'
 
 const Login = ({ navigation }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    
-    function enteredMail (mail) {
+    const [showPassword, setShowPassword] = useState(false);
+
+    function enteredMail(mail) {
         setEmail(mail)
     }
-    function enteredPass (pass){
+
+    function enteredPass(pass) {
         setPassword(pass)
+    }
+
+    function toggleShowPassword() {
+        setShowPassword(!showPassword);
     }
 
     LoginUser = async (email, password) => {
@@ -40,8 +46,11 @@ const Login = ({ navigation }) => {
                     onChangeText={enteredPass}
                     autoCapitalize='none'
                     autoCorrect={false}
-                    secureTextEntry={true}
+                    secureTextEntry={!showPassword}
                 />
+                <TouchableOpacity style={styles.showPasswordButton} onPress={toggleShowPassword}>
+                    <Feather name={showPassword ? 'eye' : 'eye-off'} size={20} color={'black'} />
+                </TouchableOpacity>
             </View>
             <TouchableOpacity style={styles.btnLog} onPress={() => LoginUser(email, password)}>
                 <Text style={styles.btnLogText}>Log in</Text>
@@ -92,7 +101,10 @@ const styles = StyleSheet.create({
     btnRegText: {
         fontWeight: 'bold',
         fontSize: 16
-    }
+    },
+    showPasswordButton: {
+      alignItems: 'center',
+    },
 })
 
 export default Login

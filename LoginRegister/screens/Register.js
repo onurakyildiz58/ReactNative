@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView, Alert } from 'react-native'
 import Header from '../components/Header'
 import { firebase } from '../config'
+import { Feather } from '@expo/vector-icons'
 
 const Register = ({ navigation }) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [passwordcon, setPasswordCon] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [showPassword, setShowPassword] = useState(false);
 
     function enteredName(name) {
         setName(name)
@@ -18,43 +20,41 @@ const Register = ({ navigation }) => {
     function enteredPass(pass) {
         setPassword(pass)
     }
-    function enteredpassCon(passCon) {
-        setPasswordCon(passCon)
+    function enteredLastName(lastname) {
+        setLastName(lastname)
     }
-    
-    RegUser = async (name, email, password, passwordcon) => {
-        if (password === passwordcon) {
-            await firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then(() => {
-                    firebase.auth().currentUser.sendEmailVerification({
-                        handleCodeInApp: true,
-                        url: 'https://loginregisterrn-d0d49.firebaseapp.com',
-                    })
-                        .then(() => {
-                            alert('verification email sent')
-                        }).catch(error => {
-                            alert(error.message)
-                        })
-                        .then(() => {
-                            firebase.firestore().collection('users')
-                                .doc(firebase.auth().currentUser.uid)
-                                .set({
-                                    name: name,
-                                    email: email,
-                                })
-                        })
-                        .catch((error) => {
-                            alert(error.message)
-                        })
-                })
-                .catch((error) => {
-                    alert(error.message)
-                })
-        }
-        else {
-            alert('password arent same')
-        }
 
+    function toggleShowPassword() {
+        setShowPassword(!showPassword);
+    }
+
+    RegUser = async (name, email, password, lastName) => {
+        const maxRetries = 5;
+        let currentRetry = 0;
+        let success = false;
+
+        while (currentRetry < maxRetries && !success) {
+            try {
+                await firebase.auth().createUserWithEmailAndPassword(email, password)
+                    .then(() => {
+                        firebase.firestore().collection('users')
+                            .doc(firebase.auth().currentUser.uid)
+                            .set({
+                                Name: name,
+                                LastName: lastName,
+                                UserEmail: email,
+                            })
+                    })
+                    success = true;
+            } catch (error) {
+                console.error('Firestore error:', error);
+                currentRetry++;
+                await new Promise(resolve => setTimeout(resolve, 1000 * currentRetry));
+            }
+        }
+        if (!success) {
+            console.error('Failed to save data to Firestore after multiple retries.');
+        }
     }
 
     return (
@@ -65,6 +65,13 @@ const Register = ({ navigation }) => {
                     style={styles.input}
                     placeholder='Full Name'
                     onChangeText={enteredName}
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Last Name'
+                    onChangeText={enteredLastName}
                     autoCapitalize='none'
                     autoCorrect={false}
                 />
@@ -81,18 +88,13 @@ const Register = ({ navigation }) => {
                     onChangeText={enteredPass}
                     autoCapitalize='none'
                     autoCorrect={false}
-                    secureTextEntry={true}
+                    secureTextEntry={!showPassword}
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholder='Password Confirm'
-                    onChangeText={enteredpassCon}
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    secureTextEntry={true}
-                />
+                <TouchableOpacity style={styles.showPasswordButton} onPress={toggleShowPassword}>
+                    <Feather name={showPassword ? 'eye' : 'eye-off'} size={20} color={'black'} />
+                </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.btnLog} onPress={() => RegUser(name, email, password, passwordcon)}>
+            <TouchableOpacity style={styles.btnLog} onPress={() => RegUser(name, email, password, lastName)}>
                 <Text style={styles.btnLogText}>Register</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.btnReg} onPress={() => navigation.navigate('Login')}>
@@ -141,7 +143,10 @@ const styles = StyleSheet.create({
     btnRegText: {
         fontWeight: 'bold',
         fontSize: 16
-    }
+    },
+    showPasswordButton: {
+        alignItems: 'center',
+    },
 })
 
 export default Register

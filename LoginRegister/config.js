@@ -3,13 +3,13 @@ import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA47aPlshAHXJx2FvIUxT3b3MfZ0DnX0U4",
-    authDomain: "loginregisterrn-d0d49.firebaseapp.com",
-    projectId: "loginregisterrn-d0d49",
-    storageBucket: "loginregisterrn-d0d49.appspot.com",
-    messagingSenderId: "350183077890",
-    appId: "1:350183077890:web:54e2acefda72ed586b0f1b",
-    measurementId: "G-4CN7N85QZK"
+    apiKey: "AIzaSyCQaJvxgMt_Q0yAK_RdOz4iK_hRq-1U5AA",
+    authDomain: "auth-95578.firebaseapp.com",
+    projectId: "auth-95578",
+    storageBucket: "auth-95578.appspot.com",
+    messagingSenderId: "247386880545",
+    appId: "1:247386880545:web:a431c8f936fcd328690160",
+    measurementId: "G-CPPXSZY4NC"
 }
 
 if (!firebase.apps.length) {

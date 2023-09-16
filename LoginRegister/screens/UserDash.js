@@ -1,29 +1,34 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, SafeAreaView, TouchableOpacity } from 'react-native'
 import Header from '../components/Header'
 import { firebase } from '../config'
 
 const UserDash = () => {
-  const [name, setName] = useState('')
+  const [userData, setUserData] = useState([])
 
   useEffect(() => {
-    firebase.firestore().collection('users')
-      .doc(firebase.auth().currentUser.uid).get()
-      .then((snapshot) => {
-        if (snapshot.exists) {
-          setName(snapshot.data())
+    // Fetch user data from Firestore
+    const unsubscribe = firebase.firestore().collection('users')
+      .doc(firebase.auth().currentUser.uid)
+      .onSnapshot((doc) => {
+        if (doc.exists) {
+          setUserData(doc.data());
+        } else {
+          console.log('User document does not exist.');
         }
-        else {
-          console.log('dont Exists')
-        }
-      })
-  }, [])
+      });
+
+    return () => {
+      unsubscribe(); // Unsubscribe from Firestore updates when the component unmounts
+    };
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
       <Header name={'Dahsboard'} />
-      <Text style={styles.txt}>{name.name}</Text>
-      <Text style={styles.txt}>{name.email}</Text>
+      <Text style={styles.txt}>{userData.Name}</Text>
+      <Text style={styles.txt}>{userData.LastName}</Text>
+      <Text style={styles.txt}>{userData.UserEmail}</Text>
       <TouchableOpacity style={styles.btnReg} onPress={() => firebase.auth().signOut()}>
         <Text style={styles.btnRegText}>Sign Out</Text>
       </TouchableOpacity>
