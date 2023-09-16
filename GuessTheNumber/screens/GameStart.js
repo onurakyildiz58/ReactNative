@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { View, TextInput, StyleSheet, Text, Alert } from 'react-native'
 import PrimaryButton from '../components/PrimaryButton'
+import Title from '../components/Title'
+import Color from '../utils/Color'
 
-function GameStart() {
+const GameStart = ({onPicked}) => {
   const [num, setNum] = useState('')
 
   function getNum(enteredNum) {
@@ -14,15 +16,15 @@ function GameStart() {
 
     if (isNaN(chosenNum) || chosenNum <= 0 || chosenNum > 99 || chosenNum == '') {
       Alert.alert(
-        'Geçersiz Değer',
-        'Girilen değer 0-99 arasında olmalı',
+        'Invalid Value',
+        'Number must be between 0-99 ',
         [{
-          text: 'tamam',
+          text: 'Ok',
           onPress: () => reset(),
         }]);
     }
     else{
-      console.log(num)
+      onPicked(chosenNum)
     }
   }
 
@@ -31,7 +33,7 @@ function GameStart() {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.txt}>Enter Number</Text>
+      <Title/>
       <TextInput
         style={styles.input}
         autoCapitalize='none'
@@ -42,8 +44,8 @@ function GameStart() {
         maxLength={2}
       />
       <View style={styles.btnWrapper}>
-        <PrimaryButton childeren={'Reset'} func={reset} />
-        <PrimaryButton childeren={'Confirm'} func={guessHandler} />
+        <PrimaryButton children={'Reset'} func={reset} />
+        <PrimaryButton children={'Confirm'} func={guessHandler} />
       </View>
 
     </View>
@@ -52,13 +54,13 @@ function GameStart() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#a5f1bf',
+    backgroundColor: Color.green400,
     marginTop: 100,
     alignItems: 'center',
     paddingVertical: 50,
     marginHorizontal: 20,
     borderRadius: 20,
-    shadowColor: '#000000',
+    shadowColor: Color.black,
     elevation: 12
   },
   input: {
@@ -71,10 +73,6 @@ const styles = StyleSheet.create({
   },
   btnWrapper: {
     flexDirection: 'row',
-  },
-  txt: {
-    fontSize: 30,
-    marginVertical: 20
   }
 })
 

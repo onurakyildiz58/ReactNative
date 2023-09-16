@@ -1,4 +1,5 @@
 import { Text, View, StyleSheet, Pressable } from 'react-native'
+import Color from '../utils/Color'
 
 function PrimaryButton(props) {
     return (
@@ -7,7 +8,7 @@ function PrimaryButton(props) {
                 onPress={props.func}
                 style={({ pressed }) => pressed ? [styles.btn, styles.pressed] : styles.btn}
                 >
-                <Text style={styles.btntext}>{props.childeren}</Text>
+                <Text style={styles.btntext}>{props.children}</Text>
             </Pressable>
         </View>
     )
@@ -21,13 +22,14 @@ const styles = StyleSheet.create({
     btn: {
         elevation: 20,
         shadowColor: 'black',
-        backgroundColor: '#bbb5b5',
+        backgroundColor: Color.gray100,
         width: 100,
         paddingVertical: 10
     },
     btntext: {
         fontSize: 20,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: Color.gray900
     },
     pressed: { opacity: 0.75 }
 })
