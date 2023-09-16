@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
-
+import { StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
@@ -10,16 +8,37 @@ import Login from './screens/Login'
 import Register from './screens/Register'
 import UserDash from './screens/UserDash'
 
-const stact = createStackNavigator()
+import { firebase } from './config'
+
+const stack = createStackNavigator()
 
 const App = () => {
-  return (
-    <NavigationContainer>
-      <stact.Navigator>
-        <stact.Screen
+  const [initializing, setInitializing] = useState(true);
+  const [user, SetUser] = useState();
+
+  function onAuthStateChange(user) {
+    SetUser(user)
+    if (initializing) {
+      setInitializing(false)
+    }
+  }
+
+  useEffect(() => {
+    const subs = firebase.auth().onAuthStateChanged(onAuthStateChange)
+    return subs
+  }, [])
+
+  if (initializing) {
+    return null
+  }
+  if (!user) {
+    return (
+      <stack.Navigator>
+        <stack.Screen
           name='Login'
           component={Login}
           options={{
+            headerShown: false,
             headerStyle: {
               height: 100,
               borderBottomRightRadius: 10,
@@ -30,10 +49,11 @@ const App = () => {
             }
           }}
         />
-        <stact.Screen
+        <stack.Screen
           name='Register'
           component={Register}
           options={{
+            headerShown: false,
             headerStyle: {
               height: 100,
               borderBottomRightRadius: 10,
@@ -44,10 +64,36 @@ const App = () => {
             }
           }}
         />
-      </stact.Navigator>
-    </NavigationContainer>
+      </stack.Navigator>
+    )
+  }
+  return (
+    <stack.Navigator>
+      <stack.Screen
+        name='Dashboard'
+        component={UserDash}
+        options={{
+          headerShown: false,
+          headerStyle: {
+            height: 100,
+            borderBottomRightRadius: 10,
+            borderBottomLeftRadius: 10,
+            backgroundColor: '#DEE2E6',
+            shadowColor: 'black',
+            elevation: 25
+          }
+        }}
+      />
+    </stack.Navigator>
   )
 }
 
 
-export default App
+export default () =>{
+  return(
+    <NavigationContainer>
+      <App />
+      <StatusBar hidden={true} />
+    </NavigationContainer>
+  )
+}

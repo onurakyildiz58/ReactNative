@@ -1,57 +1,103 @@
-import React, { useState } from 'react'
-import { StatusBar } from 'expo-status-bar'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView } from 'react-native'
+import Header from '../components/Header'
+import { firebase } from '../config'
 
-import { useNavigation } from '@react-navigation/native'
-
-const Register = () => {
-    const { container, wrapper, input, btnLog, btnLogText } = styles
-    const navigation = useNavigation()
+const Register = ({ navigation }) => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordcon, setPasswordCon] = useState('')
+
+    function enteredName(name) {
+        setName(name)
+    }
+    function enteredMail(mail) {
+        setEmail(mail)
+    }
+    function enteredPass(pass) {
+        setPassword(pass)
+    }
+    function enteredpassCon(passCon) {
+        setPasswordCon(passCon)
+    }
     
+    RegUser = async (name, email, password, passwordcon) => {
+        if (password === passwordcon) {
+            await firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    firebase.auth().currentUser.sendEmailVerification({
+                        handleCodeInApp: true,
+                        url: 'https://loginregisterrn-d0d49.firebaseapp.com',
+                    })
+                        .then(() => {
+                            alert('verification email sent')
+                        }).catch(error => {
+                            alert(error.message)
+                        })
+                        .then(() => {
+                            firebase.firestore().collection('users')
+                                .doc(firebase.auth().currentUser.uid)
+                                .set({
+                                    name: name,
+                                    email: email,
+                                })
+                        })
+                        .catch((error) => {
+                            alert(error.message)
+                        })
+                })
+                .catch((error) => {
+                    alert(error.message)
+                })
+        }
+        else {
+            alert('password arent same')
+        }
+
+    }
+
     return (
-        <SafeAreaView style={container}>
-            <View style={wrapper}>
+        <SafeAreaView style={styles.container}>
+            <Header name={'Register'} />
+            <View style={styles.wrapper}>
                 <TextInput
-                    style={input}
+                    style={styles.input}
                     placeholder='Full Name'
-                    onChangeText={(name) => setName(name)}
+                    onChangeText={enteredName}
                     autoCapitalize='none'
                     autoCorrect={false}
                 />
                 <TextInput
-                    style={input}
+                    style={styles.input}
                     placeholder='Email'
-                    onChangeText={(email) => setEmail(email)}
+                    onChangeText={enteredMail}
                     autoCapitalize='none'
                     autoCorrect={false}
                 />
                 <TextInput
-                    style={input}
+                    style={styles.input}
                     placeholder='Password'
-                    onChangeText={(password) => setPassword(password)}
+                    onChangeText={enteredPass}
                     autoCapitalize='none'
                     autoCorrect={false}
                     secureTextEntry={true}
                 />
                 <TextInput
-                    style={input}
+                    style={styles.input}
                     placeholder='Password Confirm'
-                    onChangeText={(passwordcon) => setPasswordCon(passwordcon)}
+                    onChangeText={enteredpassCon}
                     autoCapitalize='none'
                     autoCorrect={false}
                     secureTextEntry={true}
                 />
             </View>
-            <TouchableOpacity style={btnLog}>
-                <Text style={btnLogText}>Register</Text>
+            <TouchableOpacity style={styles.btnLog} onPress={() => RegUser(name, email, password, passwordcon)}>
+                <Text style={styles.btnLogText}>Register</Text>
             </TouchableOpacity>
-            <StatusBar
-                hidden={true}
-                translucent={true} />
+            <TouchableOpacity style={styles.btnReg} onPress={() => navigation.navigate('Login')}>
+                <Text style={styles.btnRegText}>Login</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     )
 }
@@ -88,6 +134,13 @@ const styles = StyleSheet.create({
     btnLogText: {
         fontWeight: 'bold',
         fontSize: 22
+    },
+    btnReg: {
+        marginTop: 20
+    },
+    btnRegText: {
+        fontWeight: 'bold',
+        fontSize: 16
     }
 })
 

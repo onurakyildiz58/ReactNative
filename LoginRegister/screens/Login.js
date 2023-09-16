@@ -1,43 +1,54 @@
 import React, { useState } from 'react'
-import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, SafeAreaView } from 'react-native'
+import Header from '../components/Header'
 
-import { useNavigation } from '@react-navigation/native'
+import { firebase } from '../config'
 
-const Login = () => {
-    const { container, wrapper, input, btnLog, btnLogText, btnReg, btnRegText } = styles
-    const navigation = useNavigation()
+const Login = ({ navigation }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    
+    function enteredMail (mail) {
+        setEmail(mail)
+    }
+    function enteredPass (pass){
+        setPassword(pass)
+    }
+
+    LoginUser = async (email, password) => {
+        try {
+            await firebase.auth().signInWithEmailAndPassword(email, password)
+        } catch (e) {
+            alert(e.message);
+        }
+    }
 
     return (
-        <SafeAreaView style={container}>
-            <View style={wrapper}>
+        <SafeAreaView style={styles.container}>
+            <Header name={'Login'} />
+            <View style={styles.wrapper}>
                 <TextInput
-                    style={input}
+                    style={styles.input}
                     placeholder='Email'
-                    onChangeText={(email) => setEmail(email)}
+                    onChangeText={enteredMail}
                     autoCapitalize='none'
                     autoCorrect={false}
                 />
                 <TextInput
-                    style={input}
+                    style={styles.input}
                     placeholder='Password'
-                    onChangeText={(password) => setPassword(password)}
+                    onChangeText={enteredPass}
                     autoCapitalize='none'
                     autoCorrect={false}
                     secureTextEntry={true}
                 />
             </View>
-            <TouchableOpacity style={btnLog}>
-                <Text style={btnLogText}>Log in</Text>
+            <TouchableOpacity style={styles.btnLog} onPress={() => LoginUser(email, password)}>
+                <Text style={styles.btnLogText}>Log in</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={btnReg} onPress={() => navigation.navigate('Register')}>
-                <Text style={btnRegText}>Register</Text>
+            <TouchableOpacity style={styles.btnReg} onPress={() => navigation.navigate('Register')}>
+                <Text style={styles.btnRegText}>Register</Text>
             </TouchableOpacity>
-            <StatusBar
-                hidden={true}
-                translucent={true} />
         </SafeAreaView>
     )
 }

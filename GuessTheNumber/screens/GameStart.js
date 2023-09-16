@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-
-import { View, TextInput, StyleSheet, Text } from 'react-native'
+import { View, TextInput, StyleSheet, Text, Alert } from 'react-native'
 import PrimaryButton from '../components/PrimaryButton'
 
 function GameStart() {
@@ -10,11 +9,24 @@ function GameStart() {
     setNum(enteredNum)
   }
 
-  function guessHandler(){  
-    console.log('confirm')
+  function guessHandler() {
+    const chosenNum = parseInt(num)
+
+    if (isNaN(chosenNum) || chosenNum <= 0 || chosenNum > 99 || chosenNum == '') {
+      Alert.alert(
+        'Geçersiz Değer',
+        'Girilen değer 0-99 arasında olmalı',
+        [{
+          text: 'tamam',
+          onPress: () => reset(),
+        }]);
+    }
+    else{
+      console.log(num)
+    }
   }
 
-  function reset(){
+  function reset() {
     setNum('')
   }
   return (
@@ -30,8 +42,8 @@ function GameStart() {
         maxLength={2}
       />
       <View style={styles.btnWrapper}>
-        <PrimaryButton childeren={'Reset'} style={styles.btn} func={reset} />
-        <PrimaryButton childeren={'Confirm'} style={styles.btn} func={guessHandler} />
+        <PrimaryButton childeren={'Reset'} func={reset} />
+        <PrimaryButton childeren={'Confirm'} func={guessHandler} />
       </View>
 
     </View>
@@ -57,10 +69,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: 'center'
   },
-  btnWrapper:{
+  btnWrapper: {
     flexDirection: 'row',
   },
-  txt:{
+  txt: {
     fontSize: 30,
     marginVertical: 20
   }
