@@ -1,9 +1,5 @@
 npm install eslint --save-dev
 
-npm install eslint --save-dev
-
-up to date, audited 1287 packages in 2s
-
 npm install @babel/eslint-parser --save-dev
 
 npm install eslint-config-airbnb --save-dev
