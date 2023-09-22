@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     borderRadius: 20,
     shadowColor: Color.black,
-    elevation: 12
+    elevation: 12,
   },
   input: {
     paddingTop: 10,

@@ -5,22 +5,21 @@ import moment from 'moment'
 
 const City = ({ weatherData }) => {
     const { name, country, population, sunrise, sunset } = weatherData
-    const { container, bg, cityName, countryName, countryText, populationText, populationWrapper, sunrisesunset, suntext } = styles
     return (
         <SafeAreaView style={container} >
-            <Text style={[cityName, countryText]} >{name}</Text>
-            <Text style={[countryName, countryText]} >{country}</Text>
-            <View style={populationWrapper} >
+            <Text style={[styles.cityName, styles.countryText]} >{name}</Text>
+            <Text style={[styles.countryName, styles.countryText]} >{country}</Text>
+            <View style={styles.populationWrapper} >
                 <Feather name='user' size={50} color={'#155D27'} />
-                <Text style={populationText} >{`Population: ${population}`}</Text>
+                <Text style={styles.populationText} >{`Population: ${population}`}</Text>
             </View>
-            <View style={sunrisesunset} >
+            <View style={styles.sunrisesunset} >
                 <Feather name='sunrise' size={50} color={'#155D27'} />
-                <Text style={suntext} >{moment(sunrise).format('h:mm:ss a')}</Text>
+                <Text style={styles.suntext} >{moment(sunrise).format('h:mm:ss a')}</Text>
             </View>
-            <View style={sunrisesunset} >
+            <View style={styles.sunrisesunset} >
                 <Feather name='sunset' size={50} color={'#155D27'} />
-                <Text style={suntext} >{moment(sunset).format('h:mm:ss a')}</Text>
+                <Text style={styles.suntext} >{moment(sunset).format('h:mm:ss a')}</Text>
             </View>
             <StatusBar
                 backgroundColor="white"

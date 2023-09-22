@@ -39,31 +39,15 @@ const App = () => {
           component={Login}
           options={{
             headerShown: false,
-            headerStyle: {
-              height: 100,
-              borderBottomRightRadius: 10,
-              borderBottomLeftRadius: 10,
-              backgroundColor: '#DEE2E6',
-              shadowColor: 'black',
-              elevation: 25
-            }
-          }}
-        />
+            headerStyle: {height: 100,borderBottomRightRadius: 10,borderBottomLeftRadius: 10,backgroundColor: '#DEE2E6',shadowColor: 'black',elevation: 25}
+          }}/>
         <stack.Screen
           name='Register'
           component={Register}
           options={{
             headerShown: false,
-            headerStyle: {
-              height: 100,
-              borderBottomRightRadius: 10,
-              borderBottomLeftRadius: 10,
-              backgroundColor: '#DEE2E6',
-              shadowColor: 'black',
-              elevation: 25
-            }
-          }}
-        />
+            headerStyle: {height: 100,borderBottomRightRadius: 10,borderBottomLeftRadius: 10,backgroundColor: '#DEE2E6',shadowColor: 'black',elevation: 25}
+          }}/>
       </stack.Navigator>
     )
   }
@@ -74,14 +58,7 @@ const App = () => {
         component={UserDash}
         options={{
           headerShown: false,
-          headerStyle: {
-            height: 100,
-            borderBottomRightRadius: 10,
-            borderBottomLeftRadius: 10,
-            backgroundColor: '#DEE2E6',
-            shadowColor: 'black',
-            elevation: 25
-          }
+          headerStyle: {height: 100,borderBottomRightRadius: 10,borderBottomLeftRadius: 10,backgroundColor: '#DEE2E6',shadowColor: 'black',elevation: 25}
         }}
       />
     </stack.Navigator>

@@ -36,9 +36,7 @@ const Tabs = ({ weather }) => {
                             name='droplet'
                             size={30}
                             color={focused ? '#B7EFC5' : '#10451D'} />)
-                }}
-            >
-                {() => <CurrentWeather weatherData={weather.list[0]} />}
+                }}> {() => <CurrentWeather weatherData={weather.list[0]} />}
             </Tab.Screen>
             <Tab.Screen
                 name='Upcoming'
@@ -48,9 +46,7 @@ const Tabs = ({ weather }) => {
                             name='clock'
                             size={30}
                             color={focused ? '#B7EFC5' : '#10451D'} />)
-                }}
-            >
-                {() => <UpcomingWeather weatherData={weather.list} />}
+                }}> {() => <UpcomingWeather weatherData={weather.list} />}
             </Tab.Screen>
             <Tab.Screen
                 name='City'
@@ -60,9 +56,7 @@ const Tabs = ({ weather }) => {
                             name='home'
                             size={30}
                             color={focused ? '#B7EFC5' : '#10451D'} />)
-                }}
-            >
-                {() => <City weatherData={weather.city} />}
+                }}> {() => <City weatherData={weather.city} />}
             </Tab.Screen>
         </Tab.Navigator>
     )

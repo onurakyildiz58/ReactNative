@@ -66,30 +66,26 @@ const Register = ({ navigation }) => {
                     placeholder='Full Name'
                     onChangeText={enteredName}
                     autoCapitalize='none'
-                    autoCorrect={false}
-                />
+                    autoCorrect={false}/>
                 <TextInput
                     style={styles.input}
                     placeholder='Last Name'
                     onChangeText={enteredLastName}
                     autoCapitalize='none'
-                    autoCorrect={false}
-                />
+                    autoCorrect={false}/>
                 <TextInput
                     style={styles.input}
                     placeholder='Email'
                     onChangeText={enteredMail}
                     autoCapitalize='none'
-                    autoCorrect={false}
-                />
+                    autoCorrect={false}/>
                 <TextInput
                     style={styles.input}
                     placeholder='Password'
                     onChangeText={enteredPass}
                     autoCapitalize='none'
                     autoCorrect={false}
-                    secureTextEntry={!showPassword}
-                />
+                    secureTextEntry={!showPassword}/>
                 <TouchableOpacity style={styles.showPasswordButton} onPress={toggleShowPassword}>
                     <Feather name={showPassword ? 'eye' : 'eye-off'} size={20} color={'black'} />
                 </TouchableOpacity>

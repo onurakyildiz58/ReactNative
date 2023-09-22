@@ -26,9 +26,9 @@ const UserDash = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Header name={'Dahsboard'} />
-      <Text style={styles.txt}>{userData.Name}</Text>
-      <Text style={styles.txt}>{userData.LastName}</Text>
-      <Text style={styles.txt}>{userData.UserEmail}</Text>
+      <Text style={styles.txt}>onur</Text>
+      <Text style={styles.txt}>akyıldız</Text>
+      <Text style={styles.txt}>onurakildi41@gmail.com</Text>
       <TouchableOpacity style={styles.btnReg} onPress={() => firebase.auth().signOut()}>
         <Text style={styles.btnRegText}>Sign Out</Text>
       </TouchableOpacity>

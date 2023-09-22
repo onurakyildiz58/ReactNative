@@ -5,34 +5,31 @@ import { weatherType } from '../utilities/weatherType'
 import RowText from '../components/RowText'
 
 const CurrentWeather = ({ weatherData }) => {
-  const { wrapper, container, tempreture, feels, highlowwrapper, highlow, bodyWrapper, description, msg } = styles
-  console.log(weatherData)
-
   const { main: { temp, feels_like, temp_max, temp_min }, weather } = weatherData
   const weatherCondition = weather[0].main
   return (
-    <SafeAreaView style={wrapper} >
-      <View style={container} >
+    <SafeAreaView style={styles.wrapper} >
+      <View style={styles.container} >
         <Feather
           name={weatherType[weatherCondition]?.icon}
           size={100}
           color='#10451D'
         />
-        <Text style={tempreture} >{`${temp}°`}</Text>
-        <Text style={feels} >{`Feels like: ${feels_like}°`}</Text>
+        <Text style={styles.tempreture} >{`${temp}°`}</Text>
+        <Text style={styles.feels} >{`Feels like: ${feels_like}°`}</Text>
         <RowText
           msg1={`High: ${temp_max}° `}
           msg2={`Low: ${temp_min}°`}
-          msgwrapper={highlowwrapper}
-          msg1style={highlow}
-          msg2style={highlow} />
+          msgwrapper={styles.highlowwrapper}
+          msg1style={styles.highlow}
+          msg2style={styles.highlow} />
       </View>
       <RowText
         msg1={weather[0]?.description}
         msg2={weatherType[weatherCondition]?.message}
-        msgwrapper={bodyWrapper}
-        msg1style={msg}
-        msg2style={description} />
+        msgwrapper={styles.bodyWrapper}
+        msg1style={styles.msg}
+        msg2style={styles.description} />
       <StatusBar
         backgroundColor="white"
         barStyle="dark-content"

@@ -17,19 +17,19 @@ const styles = StyleSheet.create({
     btnwrapper: {
         borderRadius: 15,
         marginHorizontal: 20,
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
     btn: {
         elevation: 20,
         shadowColor: 'black',
-        backgroundColor: Color.gray100,
+        backgroundColor: Color.green900,
         width: 100,
         paddingVertical: 10
     },
     btntext: {
         fontSize: 20,
         textAlign: 'center',
-        color: Color.gray900
+        color: Color.white
     },
     pressed: { opacity: 0.75 }
 })

@@ -30,7 +30,7 @@ const Game = ({ number, onGameOver }) => {
 
     function nextGuess(direction) {
         if ((direction === 'higher' && guess > number) || (direction === 'lower' && guess < number)) {
-            Alert.alert('Dont Lie', 'You Are Lying Bitch', [{ text: 'sorry', style: 'cancel' }])
+            Alert.alert('Dont Lie', 'You Are Lying', [{ text: 'sorry', style: 'cancel' }])
             return
         }
         if (direction === 'higher') {

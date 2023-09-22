@@ -51,6 +51,8 @@ const App = () => {
       <TouchableOpacity style={btnX} onPress={() => setStatus(12)}>
         <Text style={btnText}>Show List</Text>
       </TouchableOpacity>
+
+      
       <Modal
         animationType="slide"
         visible={status !== null}

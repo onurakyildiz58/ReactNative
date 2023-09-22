@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { StatusBar, SafeAreaView } from 'react-native';
-
 import { LinearGradient } from 'expo-linear-gradient';
 
 import GameOver from './screens/GameOver';
