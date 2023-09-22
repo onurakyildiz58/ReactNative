@@ -8,7 +8,7 @@ config.js
 .expo/
 dist/
 web-build/
-
+.env
 # Native
 *.orig.*
 *.jks
