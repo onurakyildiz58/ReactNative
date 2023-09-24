@@ -11,16 +11,18 @@ import Color from './utils/Color'
 const App = () => {
   const [userNumber, setUserNumber] = useState('')
   const [gameOver, setGameOver] = useState(false)
+  const [guessedRounds, setGuessedRounds] = useState(0)
 
   function pickedNumberHandler(pickerNumber) {
     setUserNumber(pickerNumber)
   }
 
-  function gameOverHandler(){
+  function gameOverHandler(numberOfRounds) {
     setGameOver(true)
+    setGuessedRounds(numberOfRounds)
   }
 
-  function restartHandler(){
+  function restartHandler() {
     setUserNumber('')
     setGameOver(false)
   }
@@ -32,7 +34,7 @@ const App = () => {
   }
 
   if (gameOver) {
-    screen = <GameOver restartHandler={restartHandler}/>
+    screen = <GameOver restartHandler={restartHandler} userNumber={userNumber} numberOfRounds={guessedRounds}/>
   }
 
   return (

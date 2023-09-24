@@ -1,5 +1,5 @@
 {
-  "name": "guessthenumber",
+  "name": "Guess The Number",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
@@ -10,6 +10,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "eas-cli": "^5.2.0",
     "expo": "~49.0.8",
     "expo-app-loading": "^2.1.1",
     "expo-font": "~11.4.0",
