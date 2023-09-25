@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Tarif Kitabım",
-    "slug": "TarifKitabim",
+    "slug": "RecipeBook",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

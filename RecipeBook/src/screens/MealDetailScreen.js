@@ -37,9 +37,9 @@ function MealDetailScreen({ route, navigation }) {
       />
       <View style={styles.listOuterContainer}>
         <View style={styles.listContainer}>
-          <Subtitle>Ingredients</Subtitle>
+          <Subtitle>Malzemeler</Subtitle>
           <List data={selectedMeal.ingredients} />
-          <Subtitle>Steps</Subtitle>
+          <Subtitle>Adımlar</Subtitle>
           <List data={selectedMeal.steps} />
         </View>
       </View>
