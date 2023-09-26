@@ -1,11 +1,11 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
 
 function Icon({ name, func }) {
     return (
         <TouchableOpacity onPress={func}>
-            <Feather name={name} size={25} color={'black'} />
+            <FontAwesome name={name} size={25} color='black' />
         </TouchableOpacity>
 
     )

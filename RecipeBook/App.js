@@ -14,30 +14,32 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <NavigationContainer style={styles.container1}>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: { backgroundColor: Color.blue200 },
-            headerTintColor: Color.black,
-            contentStyle: { backgroundColor: Color.blue100 },
-          }}>
-          <Stack.Screen
-            name="Kategoriler"
-            component={Categories} />
-          <Stack.Screen
-            name="Menüler"
-            component={MealsView} />
-          <Stack.Screen
-            name="Tarif Detayları"
-            component={MealDetailScreen} />
-          <Stack.Screen
-            name="Favoriler"
-            component={Favorites} />
-        </Stack.Navigator>
+      <SafeAreaView style={styles.container}>
+        <NavigationContainer style={styles.container1}>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: Color.blue200 },
+              headerTintColor: Color.black,
+              contentStyle: { backgroundColor: Color.blue100 },
+            }}>
+            <Stack.Screen
+              name="Kategoriler"
+              component={Categories} />
+            <Stack.Screen
+              name="Menüler"
+              component={MealsView} />
+            <Stack.Screen
+              name="Tarif Detayları"
+              component={MealDetailScreen} />
+            <Stack.Screen
+              name="Favoriler"
+              component={Favorites} />
+          </Stack.Navigator>
+          
+        </NavigationContainer>
         <StatusBar hidden={true} />
-      </NavigationContainer>
-    </SafeAreaView>
+      </SafeAreaView>
+      
   );
 }
 

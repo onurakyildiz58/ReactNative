@@ -4,26 +4,33 @@ import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
 import List from '../components/MealDetail/List';
 import Subtitle from '../components/MealDetail/Subtitle';
 import MealDetails from '../components/MealDetails';
+
 import { MEALS } from '../data/Data';
 import Color from '../color/Color'
 import Icon from '../components/Icon'
 
+
 function MealDetailScreen({ route, navigation }) {
+
+
   const mealId = route.params.mealId;
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  function addFavoriteHandler(){
-    console.log("asd")
+
+  function addFavoriteHandler() {
+    console.log('asd')
   }
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
-        return <Icon name={'star'} func={addFavoriteHandler}/>
+        return <Icon
+          name={'star-o'}
+          func={addFavoriteHandler} />
       }
     })
-  }, [navigation, addFavoriteHandler])
+  }, [navigation, addFavoriteHandler]);
 
   return (
     <ScrollView style={styles.rootContainer}>

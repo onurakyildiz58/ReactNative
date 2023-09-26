@@ -23,7 +23,7 @@ function CategoriesScreen({ navigation }) {
   }
 
   function goFavoriteHandler(){
-    navigation.navigate('Favoriler')
+    navigation.navigate('Favoriler');
   }
 
   useLayoutEffect(() => {
@@ -32,7 +32,7 @@ function CategoriesScreen({ navigation }) {
         return <Icon name={'star'} func={goFavoriteHandler}/>
       }
     })
-  }, [navigation, goFavoriteHandler])
+  }, [navigation, goFavoriteHandler]);
 
   return (
     <FlatList style={{ backgroundColor: Color.brown500 }}
