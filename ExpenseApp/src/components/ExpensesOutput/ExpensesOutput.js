@@ -5,9 +5,9 @@ import ExpensesSummary from './ExpensesSummary';
 
 import { GlobalStyles } from '../../color/Styles';
 
-function ExpensesOutput({ expenses, expensesPeriod, fallbackText }) {
+function ExpensesOutput({ expenses, fallbackText }) {
   let content = <Text style={styles.infoText}>{fallbackText}</Text>;
-
+  
   if (expenses.length > 0) {
     content = <ExpensesList expenses={expenses} />;
   }

@@ -24,10 +24,7 @@ function ManageExpenses({ route, navigation }) {
     navigation.setOptions({
       title: isEdited ? 'Giderleri Düzenle' : 'Gider Ekle'
     })
-  }, [navigation, isEdited])
-
-  if (!!isEdited) {
-    useEffect(() => {
+    if (!!isEdited) {
       const expense = expensesCtx.expenses.find(expense => expense.id === editedExpenseId);
 
       if (expense) {
@@ -40,9 +37,8 @@ function ManageExpenses({ route, navigation }) {
         setPrice(priceValue);
         setDate(dateValue);
       }
-    }, [editedExpenseId])
-  }
-
+    }
+  }, [navigation, isEdited, editedExpenseId])
 
   function deleteHandler() {
     expensesCtx.deleteExpense(editedExpenseId);
@@ -79,7 +75,7 @@ function ManageExpenses({ route, navigation }) {
   function amountHandler(enteredAmount) {
     setPrice(enteredAmount)
   }
-  
+
   function showDatePicker() {
     setShowPicker(true);
   }
@@ -96,10 +92,10 @@ function ManageExpenses({ route, navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.inputs}>
-        <Inputs pHolder={'Açıklama'} func={descriptionHandler} value={description} editable={true}/>
+        <Inputs pHolder={'Açıklama'} func={descriptionHandler} value={description} editable={true} />
         <Inputs pHolder={'Ücret'} func={amountHandler} value={price.toString()} editable={true} />
         <TouchableOpacity onPress={showDatePicker}>
-          <Inputs pHolder={'Tarih'} value={dateFormatter(date)} editable={false}/>
+          <Inputs pHolder={'Tarih'} value={dateFormatter(date)} editable={false} />
         </TouchableOpacity>
         <DateTimePickerModal
           isVisible={showPicker}
