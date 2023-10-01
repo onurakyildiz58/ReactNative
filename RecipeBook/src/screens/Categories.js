@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { FlatList, Text } from 'react-native';
+import { FlatList } from 'react-native';
 import CategoryGrid from '../components/CategoryGrid';
 
 import { CATEGORIES } from '../data/Data';

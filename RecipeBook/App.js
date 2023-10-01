@@ -7,6 +7,7 @@ import Categories from './src/screens/Categories'
 import MealsView from './src/screens/MealsView';
 import MealDetailScreen from './src/screens/MealDetailScreen';
 import Favorites from './src/screens/Favorites';
+import FavoritesContextProvider from './src/context/favorites-context';
 
 import Color from './src/color/Color'
 
@@ -14,6 +15,7 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
+    <FavoritesContextProvider>
       <SafeAreaView style={styles.container}>
         <NavigationContainer style={styles.container1}>
           <Stack.Navigator
@@ -35,11 +37,10 @@ function App() {
               name="Favoriler"
               component={Favorites} />
           </Stack.Navigator>
-          
         </NavigationContainer>
         <StatusBar hidden={true} />
       </SafeAreaView>
-      
+    </FavoritesContextProvider>
   );
 }
 

@@ -1,13 +1,19 @@
 import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
+import { FavoritesContext } from '../context/favorites-context';
 
 import MealsList from '../components/MealsList/MealsList';
 import { MEALS } from '../data/Data';
 import Color from '../color/Color'
 
-const favoriteMeals = '';
 
 function FavoritesScreen() {
+  const favoriteMealsCtx = useContext(FavoritesContext);
+
+  const favoriteMeals = MEALS.filter((meal) =>
+    favoriteMealsCtx.ids.includes(meal.id)
+  );
+
   if (favoriteMeals.length === 0) {
     return (
       <View style={styles.rootContainer}>

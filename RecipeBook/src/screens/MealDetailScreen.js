@@ -1,32 +1,36 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useContext } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { FavoritesContext } from '../context/favorites-context';
 
 import List from '../components/MealDetail/List';
 import Subtitle from '../components/MealDetail/Subtitle';
-import MealDetails from '../components/MealDetails';
 
 import { MEALS } from '../data/Data';
 import Color from '../color/Color'
 import Icon from '../components/Icon'
 
-
 function MealDetailScreen({ route, navigation }) {
-
+  const favoriteMealsCtx = useContext(FavoritesContext);
 
   const mealId = route.params.mealId;
-
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
+  const isMealFav = favoriteMealsCtx.ids.includes(mealId);
 
   function addFavoriteHandler() {
-    console.log('asd')
+    if (isMealFav) {
+      favoriteMealsCtx.removeFavorite(mealId);
+    } else {
+      favoriteMealsCtx.addFavorite(mealId);
+    }
   }
+
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return <Icon
-          name={'star-o'}
+          name={isMealFav ? 'star': 'star-o'}
           func={addFavoriteHandler} />
       }
     })
@@ -36,18 +40,10 @@ function MealDetailScreen({ route, navigation }) {
     <ScrollView style={styles.rootContainer}>
       <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
       <Text style={styles.title}>{selectedMeal.title}</Text>
-      <MealDetails
-        duration={selectedMeal.duration}
-        complexity={selectedMeal.complexity}
-        affordability={selectedMeal.affordability}
-        textStyle={styles.detailText}
-      />
       <View style={styles.listOuterContainer}>
         <View style={styles.listContainer}>
           <Subtitle>Malzemeler</Subtitle>
           <List data={selectedMeal.ingredients} />
-          <Subtitle>Adımlar</Subtitle>
-          <List data={selectedMeal.steps} />
         </View>
       </View>
     </ScrollView>
