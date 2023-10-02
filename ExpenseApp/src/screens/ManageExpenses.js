@@ -92,7 +92,7 @@ function ManageExpenses({ route, navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.inputs}>
-        <Inputs pHolder={'Açıklama'} func={descriptionHandler} value={description} editable={true} />
+        <Inputs pHolder={'Harcama Adı'} func={descriptionHandler} value={description} editable={true} />
         <Inputs pHolder={'Ücret'} func={amountHandler} value={price.toString()} editable={true} />
         <TouchableOpacity onPress={showDatePicker}>
           <Inputs pHolder={'Tarih'} value={dateFormatter(date)} editable={false} />
