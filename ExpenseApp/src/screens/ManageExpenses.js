@@ -1,6 +1,5 @@
-import React, { useLayoutEffect, useContext, useState, useEffect } from 'react'
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import React, { useLayoutEffect, useContext, useState } from 'react'
+import { StyleSheet, View, Alert, Text} from 'react-native'
 
 import IconBtn from '../components/UI/IconBtn';
 import { GlobalStyles } from '../color/Styles';
@@ -46,23 +45,35 @@ function ManageExpenses({ route, navigation }) {
   }
 
   function confirmHandler() {
-    if (isEdited) {
-      expensesCtx.updateExpense(
-        editedExpenseId,
-        {
-          description: description,
-          amount: parseInt(price),
-          date: date,
-        }
-      );
-    } else {
-      expensesCtx.addExpense({
-        description: description,
-        amount: parseInt(price),
-        date: date,
-      });
+    if (description === '') {
+      Alert.alert('Gecersiz', 'Harcama Boş Kalamaz', [{ text: 'tamam', style: 'cancel' }])
     }
-    navigation.goBack();
+    else if(price === '' ){
+      Alert.alert('Gecersiz', 'Fiyat Boş Kalamaz', [{ text: 'tamam', style: 'cancel' }])
+    }
+    else if (parseFloat(price) < 0) {
+      Alert.alert('Gecersiz', 'Fiyat 0\'ın Altında Olamaz', [{ text: 'tamam', style: 'cancel' }])
+    }
+    else {
+      if (isEdited) {
+        expensesCtx.updateExpense(
+          editedExpenseId,
+          {
+            description: description,
+            amount: parseFloat(price),
+            date: date,
+          }
+        );
+      } else {
+        expensesCtx.addExpense({
+          description: description,
+          amount: parseFloat(price),
+          date: date,
+        });
+      }
+      navigation.goBack();
+    }
+
   }
 
   function cancelHandler() {
@@ -91,17 +102,13 @@ function ManageExpenses({ route, navigation }) {
 
   return (
     <View style={styles.container}>
+      
       <View style={styles.inputs}>
-        <Inputs pHolder={'Harcama Adı'} func={descriptionHandler} value={description} editable={true} />
-        <Inputs pHolder={'Ücret'} func={amountHandler} value={price.toString()} editable={true} />
-        <TouchableOpacity onPress={showDatePicker}>
-          <Inputs pHolder={'Tarih'} value={dateFormatter(date)} editable={false} />
-        </TouchableOpacity>
-        <DateTimePickerModal
-          isVisible={showPicker}
-          mode="date"
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
+        <Inputs
+          func1={descriptionHandler} value1={description}
+          func2={amountHandler} value2={price.toString()}
+          func3={showDatePicker} value3={dateFormatter(date)}
+          visibility={showPicker} confirm={handleConfirm} cancel={hideDatePicker}
         />
       </View>
       <View style={styles.buttons}>
@@ -121,6 +128,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
+    marginTop: 100,
     backgroundColor: GlobalStyles.colors.gray200
   },
   deleteContainer: {
@@ -141,7 +149,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   inputs: {
-    marginBottom: 50,
+    marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
   }
