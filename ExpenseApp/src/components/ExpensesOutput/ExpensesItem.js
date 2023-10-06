@@ -9,7 +9,7 @@ function ExpensesItem({ id, description, amount, date }) {
     const navigation = useNavigation();
 
     function expensesHandle() {
-        navigation.navigate('ManageExpenses', {expensesId: id});
+        navigation.navigate('ManageExpenses', { expensesId: id });
     }
 
     return (
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     },
     amountContainer: {
         flex: 1,
-        paddingHorizontal: 12,
+        minWidth: 50,
         paddingVertical: 4,
         backgroundColor: GlobalStyles.colors.gray100,
         justifyContent: 'center',
