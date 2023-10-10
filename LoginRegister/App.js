@@ -1,76 +1,61 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { StatusBar } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Header from './components/Header'
-import Login from './screens/Login'
-import Register from './screens/Register'
-import UserDash from './screens/UserDash'
+import { GlobalStyles } from './src/Styles/Colors';
 
-import { firebase } from './config'
+import Login from './src/screens/Login';
+import Register from './src/screens/Register';
+import Welcome from './src/screens/Welcome';
 
-const stack = createStackNavigator()
+const Stack = createNativeStackNavigator();
 
-const App = () => {
-  const [initializing, setInitializing] = useState(true);
-  const [user, SetUser] = useState();
-
-  function onAuthStateChange(user) {
-    SetUser(user)
-    if (initializing) {
-      setInitializing(false)
-    }
-  }
-
-  useEffect(() => {
-    const subs = firebase.auth().onAuthStateChanged(onAuthStateChange)
-    return subs
-  }, [])
-
-  if (initializing) {
-    return null
-  }
-  if (!user) {
-    return (
-      <stack.Navigator>
-        <stack.Screen
-          name='Login'
-          component={Login}
-          options={{
-            headerShown: false,
-            headerStyle: {height: 100,borderBottomRightRadius: 10,borderBottomLeftRadius: 10,backgroundColor: '#DEE2E6',shadowColor: 'black',elevation: 25}
-          }}/>
-        <stack.Screen
-          name='Register'
-          component={Register}
-          options={{
-            headerShown: false,
-            headerStyle: {height: 100,borderBottomRightRadius: 10,borderBottomLeftRadius: 10,backgroundColor: '#DEE2E6',shadowColor: 'black',elevation: 25}
-          }}/>
-      </stack.Navigator>
-    )
-  }
+function AuthStack() {
   return (
-    <stack.Navigator>
-      <stack.Screen
-        name='Dashboard'
-        component={UserDash}
-        options={{
-          headerShown: false,
-          headerStyle: {height: 100,borderBottomRightRadius: 10,borderBottomLeftRadius: 10,backgroundColor: '#DEE2E6',shadowColor: 'black',elevation: 25}
-        }}
-      />
-    </stack.Navigator>
-  )
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: GlobalStyles.colors.gray700 },
+        headerTintColor: GlobalStyles.colors.white,
+        contentStyle: { backgroundColor: GlobalStyles.colors.gray100 },
+      }}
+    >
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Register" component={Register} />
+    </Stack.Navigator>
+  );
 }
 
+function AuthenticatedStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: GlobalStyles.colors.gray700 },
+        headerTintColor: GlobalStyles.colors.white,
+        contentStyle: { backgroundColor: GlobalStyles.colors.gray100 },
+      }}
+    >
+      <Stack.Screen name="Welcome" component={Welcome} />
+    </Stack.Navigator>
+  );
+}
 
-export default () =>{
-  return(
+function Navigation() {
+  return (
     <NavigationContainer>
-      <App />
-      <StatusBar hidden={true} />
+      <AuthStack />
     </NavigationContainer>
+  );
+}
+
+function App() {
+  return (
+    <>
+      <StatusBar backgroundColor={GlobalStyles.colors.gray700}/>
+      <Navigation />
+    </>
   )
 }
+
+
+export default App
