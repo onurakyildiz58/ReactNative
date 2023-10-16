@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Chat",
-    "slug": "Chat",
+    "name": "FlappyBirdClone",
+    "slug": "FlappyBirdClone",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
