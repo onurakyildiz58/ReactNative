@@ -17,7 +17,7 @@ function Button({ children, onPress }) {
 const styles = StyleSheet.create({
   button: {
     borderRadius: 6,
-    paddingVertical: 6,
+    paddingVertical: 10,
     paddingHorizontal: 12,
     backgroundColor: GlobalStyles.colors.gray700,
     elevation: 2,

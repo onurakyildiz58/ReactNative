@@ -7,6 +7,7 @@ import AuthForm from './AuthForm';
 
 function AuthContent({ isLogin, onAuthenticate }) {
   const navigation = useNavigation();
+
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
     password: false,
@@ -34,11 +35,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
     const emailsAreEqual = email === confirmEmail;
     const passwordsAreEqual = password === confirmPassword;
 
-    if (
-      !emailIsValid ||
-      !passwordIsValid ||
-      (!isLogin && (!emailsAreEqual || !passwordsAreEqual))
-    ) {
+    if ( !emailIsValid || !passwordIsValid || (!isLogin && (!emailsAreEqual || !passwordsAreEqual))) {
       Alert.alert('Geçersiz Değer', 'Girilen Verileri Kontrol Ediniz');
       setCredentialsInvalid({
         email: !emailIsValid,
