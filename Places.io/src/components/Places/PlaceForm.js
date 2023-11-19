@@ -1,0 +1,56 @@
+import React, { useState } from 'react'
+import { Text, StyleSheet, View, ScrollView, TextInput } from 'react-native'
+import { GlobalStyles } from '../../GlobalStyle/style'
+import ImagePicker from './ImagePicker';
+
+function PlaceForm() {
+    const [enteredTitle, setEnteredTitle] = useState('');
+
+    function onTitleChange(enteredText) {
+        setEnteredTitle(enteredText);
+    }
+
+    return (
+        <ScrollView style={styles.form}>
+            <View>
+                <Text style={styles.label}>Title</Text>
+                <TextInput
+                    style={styles.input}
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    onChangeText={onTitleChange}
+                    value={enteredTitle}
+                />
+            </View>
+            <ImagePicker />
+        </ScrollView>
+    )
+}
+
+const styles = StyleSheet.create({
+    form: {
+        flex: 1,
+        padding: 16,
+    },
+    label: {
+        fontWeight: '600',
+        fontSize: 16,
+        marginLeft: 8,
+        color: GlobalStyles.colours.amber900,
+    },
+    input: {
+        marginVertical: 8,
+        marginHorizontal: 4,
+        paddingHorizontal: 4,
+        paddingVertical: 8,
+        fontSize: 16,
+        borderColor: GlobalStyles.colours.amber900,
+        borderWidth: 2,
+        borderRadius: 8,
+        color: GlobalStyles.colours.amber900,
+        fontWeight: '600',
+        backgroundColor: GlobalStyles.colours.green200
+    }
+})
+
+export default PlaceForm
