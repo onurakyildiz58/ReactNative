@@ -3,6 +3,9 @@ import { StyleSheet, View, Button, Image, Text } from 'react-native'
 
 import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker'
 import { GlobalStyles } from '../../GlobalStyle/style';
+import OutlinedBtn from '../UI/OutlinesBtn';
+
+
 
 function ImagePicker() {
     const [pickedUri, setPickedUri] = useState('');
@@ -34,7 +37,7 @@ function ImagePicker() {
         setPickedUri(image.assets[0].uri);
     }
 
-    let imagePreview = <Text>No image taken yet.</Text>
+    let imagePreview = <Text style={{color: GlobalStyles.colours.teal900}}>No image taken yet.</Text>
 
     if (pickedUri) {
         imagePreview = <Image source={{ uri: pickedUri }} style={styles.image} />
@@ -43,7 +46,7 @@ function ImagePicker() {
     return (
         <View>
             <View style={styles.imageContainer}>{imagePreview}</View>
-            <Button title='take image' onPress={takePic} />
+            <OutlinedBtn func={takePic} title={'Take a Picture'} name={'camera'} size={30} color={GlobalStyles.colours.teal900} />
         </View>
     )
 }
@@ -52,13 +55,13 @@ const styles = StyleSheet.create({
     imageContainer: {
         width: '100%',
         height: 200,
-        marginVertical: 8,
+        marginBottom: 8,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 8,
         borderWidth: 2,
-        borderColor: GlobalStyles.colours.amber900,
-        backgroundColor: GlobalStyles.colours.green200
+        borderColor: GlobalStyles.colours.teal900,
+        backgroundColor: GlobalStyles.colours.teal100
     },
     image: {
         height: '100%',

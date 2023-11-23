@@ -16,6 +16,7 @@ function PlaceForm() {
                 <Text style={styles.label}>Title</Text>
                 <TextInput
                     style={styles.input}
+                    placeholder='Title here'
                     autoCapitalize='none'
                     autoCorrect={false}
                     onChangeText={onTitleChange}
@@ -35,21 +36,19 @@ const styles = StyleSheet.create({
     label: {
         fontWeight: '600',
         fontSize: 16,
-        marginLeft: 8,
-        color: GlobalStyles.colours.amber900,
+        color: GlobalStyles.colours.teal900,
     },
     input: {
         marginVertical: 8,
-        marginHorizontal: 4,
-        paddingHorizontal: 4,
+        paddingHorizontal: 8,
         paddingVertical: 8,
         fontSize: 16,
-        borderColor: GlobalStyles.colours.amber900,
+        borderColor: GlobalStyles.colours.teal900,
         borderWidth: 2,
         borderRadius: 8,
-        color: GlobalStyles.colours.amber900,
+        color: GlobalStyles.colours.teal900,
         fontWeight: '600',
-        backgroundColor: GlobalStyles.colours.green200
+        backgroundColor: GlobalStyles.colours.teal100
     }
 })
 
