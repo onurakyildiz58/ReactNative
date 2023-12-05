@@ -4,11 +4,11 @@ import { GlobalStyles } from '../../GlobalStyle/style'
 import { Ionicons } from '@expo/vector-icons'
 
 
-function OutlinedBtn({ title, func, name, size, color }) {
+function OutlinedBtn({ children, func, name, color }) {
     return (
         <TouchableOpacity onPress={func} style={styles.container}>
-            <Ionicons name={name} size={size} color={color} />
-            <Text style={styles.title}>{title}</Text>
+            <Ionicons name={name} size={18} color={color} />
+            <Text style={styles.title}>{children}</Text>
         </TouchableOpacity>
     )
 }
@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     },
     title: {
         color: GlobalStyles.colours.teal900,
-        fontSize: 24,
         textAlign: 'center',
         marginLeft: 10,
     }

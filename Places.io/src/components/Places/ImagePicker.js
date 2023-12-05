@@ -14,7 +14,6 @@ function ImagePicker() {
     async function verifyPermissions() {
         if (cameraPermissionInformation.status === PermissionStatus.UNDETERMINED) {
             const permissionResponse = await requestPermission();
-
             return permissionResponse.granted;
         }
         if (cameraPermissionInformation.status === PermissionStatus.DENIED) {
@@ -46,7 +45,7 @@ function ImagePicker() {
     return (
         <View>
             <View style={styles.imageContainer}>{imagePreview}</View>
-            <OutlinedBtn func={takePic} title={'Take a Picture'} name={'camera'} size={30} color={GlobalStyles.colours.teal900} />
+            <OutlinedBtn func={takePic} name={'camera'} color={GlobalStyles.colours.teal900}>Take a Picture</OutlinedBtn>
         </View>
     )
 }
