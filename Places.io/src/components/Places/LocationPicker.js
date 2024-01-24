@@ -5,9 +5,8 @@ import { Text, StyleSheet, View, Alert } from 'react-native'
 import OutlinedBtn from '../UI/OutlinesBtn'
 import { GlobalStyles } from '../../GlobalStyle/style'
 
-function LocationPicker() {
-    const [lat, setLat] = useState("")
-    const [lon, setLon] = useState("")
+function LocationPicker({ title }) {
+    const [pickedLocation, setPickedLocations] = useState()
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
 
     async function verifyPermissions() {
@@ -32,46 +31,40 @@ function LocationPicker() {
             return;
         }
         const location = await getCurrentPositionAsync();
-        setLat(location.coords.latitude);
-        setLon(location.coords.longitude);
-
-    }
-
-    function pickLocationHandler() {
+        setPickedLocations({
+            lat: location.coords.latitude,
+            lon: location.coords.longitude,
+        });
 
     }
 
     let imagePreview = <Text style={{ color: GlobalStyles.colours.teal900 }}>No location taken yet.</Text>
 
-    if (lat && lon) {
-        imagePreview =(
+    if (pickedLocation) {
+        imagePreview = (
             <MapView style={styles.map}
                 initialRegion={{
-                    latitude: lat,
-                    latitudeDelta: 0.006749924568495658,
-                    longitude: lon,
-                    longitudeDelta: 0.014761872589588165,
+                    latitude: pickedLocation.lat,
+                    latitudeDelta: 0.005,
+                    longitude: pickedLocation.lon,
+                    longitudeDelta: 0.005,
                 }}
             >
                 <Marker
                     coordinate={{
-                        latitude: lat,
-                        longitude: lon,
+                        latitude: pickedLocation.lat,
+                        longitude: pickedLocation.lon,
                     }}
-                    title="Your Location"
-                    description={`Latitude: ${lat}, Longitude: ${lon}`}
+                    title={title}
                 />
             </MapView>
         );
     }
 
     return (
-        <View >
+        <View style={{ marginBottom: 50 }}>
             <View style={styles.mapContainer}>{imagePreview}</View>
-            <View style={styles.btnContainer}>
-                <OutlinedBtn func={getLocationHandler} name={'location'} color={GlobalStyles.colours.teal900}>Locate User</OutlinedBtn>
-                <OutlinedBtn func={pickLocationHandler} name={'map'} color={GlobalStyles.colours.teal900}>Pick On Map</OutlinedBtn>
-            </View>
+            <OutlinedBtn func={getLocationHandler} name={'location'} color={GlobalStyles.colours.teal900}>Locate User</OutlinedBtn>
         </View>
     )
 }
@@ -88,13 +81,9 @@ const styles = StyleSheet.create({
         borderColor: GlobalStyles.colours.teal900,
         backgroundColor: GlobalStyles.colours.teal100
     },
-    btnContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-    },
     map: {
-        height: '98%',
-        width: '98%',
+        height: '100%',
+        width: '100%',
     }
 })
 

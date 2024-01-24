@@ -30,7 +30,7 @@ function ImagePicker() {
         }
         const image = await launchCameraAsync({
             allowsEditing: true,
-            aspect: [16, 9],
+            aspect: [9, 16],
             quality: 0.6,
         });
         setPickedUri(image.assets[0].uri);
@@ -53,7 +53,7 @@ function ImagePicker() {
 const styles = StyleSheet.create({
     imageContainer: {
         width: '100%',
-        height: 200,
+        height: 500,
         marginBottom: 8,
         justifyContent: 'center',
         alignItems: 'center',
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     image: {
         height: '100%',
         width: '100%',
+        borderRadius: 6
     }
 })
 

@@ -25,7 +25,7 @@ function PlaceForm() {
                 />
             </View>
             <ImagePicker />
-            <LocationPicker />
+            <LocationPicker title={enteredTitle} />
         </ScrollView>
     )
 }
