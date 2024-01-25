@@ -62,7 +62,7 @@ function LocationPicker({ title }) {
     }
 
     return (
-        <View style={{ marginBottom: 50 }}>
+        <View style={{ marginBottom: 8 }}>
             <View style={styles.mapContainer}>{imagePreview}</View>
             <OutlinedBtn func={getLocationHandler} name={'location'} color={GlobalStyles.colours.teal900}>Locate User</OutlinedBtn>
         </View>

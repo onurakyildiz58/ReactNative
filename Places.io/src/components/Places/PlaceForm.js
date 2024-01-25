@@ -3,12 +3,17 @@ import { Text, StyleSheet, View, ScrollView, TextInput } from 'react-native'
 import { GlobalStyles } from '../../GlobalStyle/style'
 import ImagePicker from './ImagePicker';
 import LocationPicker from './LocationPicker';
+import OutlinedBtn from '../UI/OutlinesBtn';
 
 function PlaceForm() {
     const [enteredTitle, setEnteredTitle] = useState('');
 
     function onTitleChange(enteredText) {
         setEnteredTitle(enteredText);
+    }
+
+    function saveLocationHandler() {
+
     }
 
     return (
@@ -26,6 +31,9 @@ function PlaceForm() {
             </View>
             <ImagePicker />
             <LocationPicker title={enteredTitle} />
+            <View style={{marginBottom: 30}}>
+                <OutlinedBtn func={saveLocationHandler} name={'download'} color={GlobalStyles.colours.teal900}>Save Location</OutlinedBtn>
+            </View>
         </ScrollView>
     )
 }
