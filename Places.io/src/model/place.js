@@ -4,6 +4,6 @@ class Place {
         this.title = title;
         this.imageUri = imageUri;
         this.address = address;
-        this.location = location; // { lat: 40.1111, lon: 20.2222 }
+        this.location = location;
     }
 }

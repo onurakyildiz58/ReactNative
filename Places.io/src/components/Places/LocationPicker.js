@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus, requestForegroundPermissionsAsync } from 'expo-location';
+import React, { useEffect, useState } from 'react'
+import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus, requestForegroundPermissionsAsync, reverseGeocodeAsync } from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 import { Text, StyleSheet, View, Alert } from 'react-native'
 import OutlinedBtn from '../UI/OutlinesBtn'
 import { GlobalStyles } from '../../GlobalStyle/style'
 
-function LocationPicker({ title }) {
+function LocationPicker({ title, fetchUserLocation }) {
     const [pickedLocation, setPickedLocations] = useState()
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
 
@@ -35,8 +35,11 @@ function LocationPicker({ title }) {
             lat: location.coords.latitude,
             lon: location.coords.longitude,
         });
-
     }
+
+    useEffect(() => {
+        fetchUserLocation(pickedLocation)
+    }, [pickedLocation, fetchUserLocation])
 
     let imagePreview = <Text style={{ color: GlobalStyles.colours.teal900 }}>No location taken yet.</Text>
 

@@ -5,9 +5,7 @@ import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-
 import { GlobalStyles } from '../../GlobalStyle/style';
 import OutlinedBtn from '../UI/OutlinesBtn';
 
-
-
-function ImagePicker() {
+function ImagePicker({ fetchImageURI }) {
     const [pickedUri, setPickedUri] = useState('');
     const [cameraPermissionInformation, requestPermission] = useCameraPermissions();
 
@@ -34,6 +32,7 @@ function ImagePicker() {
             quality: 0.6,
         });
         setPickedUri(image.assets[0].uri);
+        fetchImageURI(image.assets[0].uri);
     }
 
     let imagePreview = <Text style={{color: GlobalStyles.colours.teal900}}>No image taken yet.</Text>
