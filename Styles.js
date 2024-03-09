@@ -1,8 +1,17 @@
 export const GlobalStyles = {
     colours: {
-        transparent: '#00000000',
         black: '#000000',
         white: '#ffffff',
+        
+        transparent100: '#00000000',
+        transparent200: '#0000001a',
+        transparent300: '#00000033',
+        transparent400: '#0000004d',
+        transparent500: '#00000066',
+        transparent600: '#00000080',
+        transparent700: '#00000099',
+        transparent800: '#000000b3',
+        transparent900: '#000000cc',
 
         slate100: '#f1f5f9',
         slate200: '#e2e8f0',
