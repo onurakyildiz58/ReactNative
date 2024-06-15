@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Button, Image, Text } from 'react-native'
+import { StyleSheet, View, Image, Text, Alert } from 'react-native'
 
 import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker'
 import { GlobalStyles } from '../../GlobalStyle/style';

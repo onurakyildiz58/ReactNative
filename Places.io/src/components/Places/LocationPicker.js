@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus, requestForegroundPermissionsAsync, reverseGeocodeAsync } from 'expo-location';
+import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus, requestForegroundPermissionsAsync } from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 import { Text, StyleSheet, View, Alert } from 'react-native'
 import OutlinedBtn from '../UI/OutlinesBtn'

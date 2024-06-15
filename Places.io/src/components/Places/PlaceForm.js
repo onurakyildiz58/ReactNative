@@ -1,46 +1,51 @@
 import React, { useCallback, useState } from 'react'
-import { Text, StyleSheet, View, ScrollView, TextInput } from 'react-native'
+import { Text, StyleSheet, View, ScrollView, TextInput, Alert } from 'react-native'
 
 import { GlobalStyles } from '../../GlobalStyle/style'
 import ImagePicker from './ImagePicker';
 import LocationPicker from './LocationPicker';
 import OutlinedBtn from '../UI/OutlinesBtn';
+import { Place } from '../../model/place'
 import { reverseGeocodeAsync } from 'expo-location';
 
-function PlaceForm() {
+function PlaceForm({ onCreatePlace }) {
     const [enteredTitle, setEnteredTitle] = useState('');
-    const [enteredImageURI, setEnteredImageURI] = useState('');
-    const [enteredUserLocation, setEnteredUserLocation] = useState('');
+    const [selectedImage, setSelectedImage] = useState();
+    const [pickedLocation, setPickedLocation] = useState();
 
-    function onTitleChange(enteredText) {
+    function changeTitleHandler(enteredText) {
         setEnteredTitle(enteredText);
     }
 
-    function onChangeImageURI(imageURI) {
-        setEnteredImageURI(imageURI);
+    function takeImageHandler(imageUri) {
+        setSelectedImage(imageUri);
     }
 
-    const onChangeUserLocation = useCallback((userLocation) => {
-        setEnteredUserLocation(userLocation);
+    const pickLocationHandler = useCallback((location) => {
+        setPickedLocation(location);
     }, []);
 
     const getAddress = async () => {
         const address = await reverseGeocodeAsync({
-            latitude: enteredUserLocation.lat,
-            longitude: enteredUserLocation.lon,
+            latitude: pickedLocation.lat,
+            longitude: pickedLocation.lon,
         });
         const readableAddress = `${address[0].district} Mah. ${address[0].street} no:${address[0].name} posta kodu:${address[0].postalCode} ${address[0].subregion}`;
+        console.log(readableAddress)
         return readableAddress;
     }
 
-    function savePlaceHandler() {
-        console.log(enteredImageURI);
-        console.log(enteredTitle);
-        console.log(enteredUserLocation);
-        getAddress().then(address => {
-            console.log(address);
-        });;
+    async function savePlaceHandler() {
+        if (!enteredTitle || !pickedLocation) {
+            Alert.alert('Incomplete Data', 'Please provide all details');
+            return;
+        }
+
+        const address = await getAddress();
+        const placeData = new Place(enteredTitle, selectedImage, { ...pickedLocation, address });
+        onCreatePlace(placeData);
     }
+
 
     return (
         <ScrollView style={styles.form}>
@@ -51,12 +56,12 @@ function PlaceForm() {
                     placeholder='Title here'
                     autoCapitalize='none'
                     autoCorrect={false}
-                    onChangeText={onTitleChange}
+                    onChangeText={changeTitleHandler}
                     value={enteredTitle}
                 />
             </View>
-            <ImagePicker fetchImageURI={onChangeImageURI} />
-            <LocationPicker title={enteredTitle} fetchUserLocation={onChangeUserLocation} />
+            <ImagePicker fetchImageURI={takeImageHandler} />
+            <LocationPicker title={enteredTitle} fetchUserLocation={pickLocationHandler} />
             <View style={{ marginBottom: 30 }}>
                 <OutlinedBtn func={savePlaceHandler} name={'download'} color={GlobalStyles.colours.teal900}>Save Place</OutlinedBtn>
             </View>
