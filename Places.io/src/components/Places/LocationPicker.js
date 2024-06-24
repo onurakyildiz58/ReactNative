@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { getCurrentPositionAsync, useForegroundPermissions, PermissionStatus, requestForegroundPermissionsAsync } from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
-import { Text, StyleSheet, View, Alert } from 'react-native'
-import OutlinedBtn from '../UI/OutlinesBtn'
-import { GlobalStyles } from '../../GlobalStyle/style'
+import { Text, StyleSheet, View, Alert } from 'react-native';
+import OutlinedBtn from '../UI/OutlinesBtn';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { GlobalStyles } from '../../GlobalStyle/style';
 
 function LocationPicker({ title, fetchUserLocation }) {
-    const [pickedLocation, setPickedLocations] = useState()
+    const [pickedLocation, setPickedLocation] = useState(null);
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
 
     async function verifyPermissions() {
@@ -31,20 +32,20 @@ function LocationPicker({ title, fetchUserLocation }) {
             return;
         }
         const location = await getCurrentPositionAsync();
-        setPickedLocations({
+        setPickedLocation({
             lat: location.coords.latitude,
             lon: location.coords.longitude,
         });
     }
 
     useEffect(() => {
-        fetchUserLocation(pickedLocation)
-    }, [pickedLocation, fetchUserLocation])
+        fetchUserLocation(pickedLocation);
+    }, [pickedLocation, fetchUserLocation]);
 
-    let imagePreview = <Text style={{ color: GlobalStyles.colours.teal900 }}>No location taken yet.</Text>
+    let mapPreview = <Text style={{ color: GlobalStyles.colours.teal900 }}>No location taken yet.</Text>;
 
     if (pickedLocation) {
-        imagePreview = (
+        mapPreview = (
             <MapView style={styles.map}
                 initialRegion={{
                     latitude: pickedLocation.lat,
@@ -66,28 +67,28 @@ function LocationPicker({ title, fetchUserLocation }) {
 
     return (
         <View style={{ marginBottom: 8 }}>
-            <View style={styles.mapContainer}>{imagePreview}</View>
+            <View style={styles.mapContainer}>{mapPreview}</View>
             <OutlinedBtn func={getLocationHandler} name={'location'} color={GlobalStyles.colours.teal900}>Locate User</OutlinedBtn>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     mapContainer: {
         width: '100%',
-        height: 200,
+        height: hp('30%'), // Use responsive height
         marginVertical: 8,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 8,
         borderWidth: 2,
         borderColor: GlobalStyles.colours.teal900,
-        backgroundColor: GlobalStyles.colours.teal100
+        backgroundColor: GlobalStyles.colours.teal100,
     },
     map: {
         height: '100%',
         width: '100%',
-    }
-})
+    },
+});
 
-export default LocationPicker
+export default LocationPicker;

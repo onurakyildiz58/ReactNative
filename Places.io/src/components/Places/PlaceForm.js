@@ -1,11 +1,12 @@
-import React, { useCallback, useState } from 'react'
-import { Text, StyleSheet, View, ScrollView, TextInput, Alert } from 'react-native'
+import React, { useCallback, useState } from 'react';
+import { Text, StyleSheet, View, ScrollView, TextInput, Alert } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-import { GlobalStyles } from '../../GlobalStyle/style'
+import { GlobalStyles } from '../../GlobalStyle/style';
 import ImagePicker from './ImagePicker';
 import LocationPicker from './LocationPicker';
 import OutlinedBtn from '../UI/OutlinesBtn';
-import { Place } from '../../model/place'
+import { Place } from '../../model/place';
 import { reverseGeocodeAsync } from 'expo-location';
 
 function PlaceForm({ onCreatePlace }) {
@@ -13,13 +14,13 @@ function PlaceForm({ onCreatePlace }) {
     const [selectedImage, setSelectedImage] = useState();
     const [pickedLocation, setPickedLocation] = useState();
 
-    function changeTitleHandler(enteredText) {
+    const changeTitleHandler = (enteredText) => {
         setEnteredTitle(enteredText);
-    }
+    };
 
-    function takeImageHandler(imageUri) {
+    const takeImageHandler = (imageUri) => {
         setSelectedImage(imageUri);
-    }
+    };
 
     const pickLocationHandler = useCallback((location) => {
         setPickedLocation(location);
@@ -31,11 +32,11 @@ function PlaceForm({ onCreatePlace }) {
             longitude: pickedLocation.lon,
         });
         const readableAddress = `${address[0].district} Mah. ${address[0].street} no:${address[0].name} posta kodu:${address[0].postalCode} ${address[0].subregion}`;
-        console.log(readableAddress)
+        console.log(readableAddress);
         return readableAddress;
-    }
+    };
 
-    async function savePlaceHandler() {
+    const savePlaceHandler = async () => {
         if (!enteredTitle || !pickedLocation) {
             Alert.alert('Incomplete Data', 'Please provide all details');
             return;
@@ -44,12 +45,14 @@ function PlaceForm({ onCreatePlace }) {
         const address = await getAddress();
         const placeData = new Place(enteredTitle, selectedImage, { ...pickedLocation, address });
         onCreatePlace(placeData);
-    }
-
+    };
 
     return (
-        <ScrollView style={styles.form}>
-            <View>
+        <ScrollView
+            contentContainerStyle={styles.form}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}>
+            <View style={styles.inputContainer}>
                 <Text style={styles.label}>Title</Text>
                 <TextInput
                     style={styles.input}
@@ -62,17 +65,22 @@ function PlaceForm({ onCreatePlace }) {
             </View>
             <ImagePicker fetchImageURI={takeImageHandler} />
             <LocationPicker title={enteredTitle} fetchUserLocation={pickLocationHandler} />
-            <View style={{ marginBottom: 30 }}>
-                <OutlinedBtn func={savePlaceHandler} name={'download'} color={GlobalStyles.colours.teal900}>Save Place</OutlinedBtn>
+            <View style={styles.buttonContainer}>
+                <OutlinedBtn func={savePlaceHandler} name={'download'} color={GlobalStyles.colours.teal900}>
+                    Save Place
+                </OutlinedBtn>
             </View>
         </ScrollView>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     form: {
-        flex: 1,
+        flexGrow: 1,
         padding: 16,
+    },
+    inputContainer: {
+        marginBottom: 16,
     },
     label: {
         fontWeight: '600',
@@ -80,17 +88,18 @@ const styles = StyleSheet.create({
         color: GlobalStyles.colours.teal900,
     },
     input: {
-        marginVertical: 8,
-        paddingHorizontal: 8,
-        paddingVertical: 8,
+        paddingHorizontal: 12,
+        paddingVertical: 10,
         fontSize: 16,
         borderColor: GlobalStyles.colours.teal900,
         borderWidth: 2,
         borderRadius: 8,
         color: GlobalStyles.colours.teal900,
-        fontWeight: '600',
-        backgroundColor: GlobalStyles.colours.teal100
-    }
-})
+        backgroundColor: GlobalStyles.colours.teal100,
+    },
+    buttonContainer: {
+        marginBottom: hp('5%'), // Use responsive height
+    },
+});
 
-export default PlaceForm
+export default PlaceForm;
