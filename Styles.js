@@ -1,8 +1,9 @@
+/* eslint-disable prettier/prettier *//* eslint-disable no-trailing-spaces */
 export const GlobalStyles = {
     colours: {
         black: '#000000',
         white: '#ffffff',
-        
+
         transparent100: '#00000000',
         transparent200: '#0000001a',
         transparent300: '#00000033',
@@ -52,7 +53,7 @@ export const GlobalStyles = {
         neutral700: '#404040',
         neutral800: '#262626',
         neutral900: '#171717',
-
+        
         stone100: '#f5f5f4',
         stone200: '#e7e5e4',
         stone300: '#d6d3d1',
@@ -232,5 +233,5 @@ export const GlobalStyles = {
         rose700: '#be123c',
         rose800: '#9f1239',
         rose900: '#881337',
-    }
+    },
 };
