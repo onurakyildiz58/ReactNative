@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { GlobalStyles } from '../../utils/style/Color';
 
-function Button({ children, onPress }) {
+function FlatButton({ children, onPress }) {
   return (
     <Pressable
       style={({ pressed }) => [styles.button, pressed && styles.pressed]}
@@ -18,26 +18,16 @@ function Button({ children, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 6,
-    paddingVertical: 15,
-    paddingHorizontal: 15,
-    marginVertical: 5,
-    backgroundColor: GlobalStyles.colours.green500,
-    elevation: 2,
-    shadowColor: GlobalStyles.colours.black,
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
   },
   pressed: {
     opacity: 0.7,
   },
   buttonText: {
     textAlign: 'center',
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
+    color: GlobalStyles.colours.gray700,
   },
 });
 
-export default Button;
+export default FlatButton;

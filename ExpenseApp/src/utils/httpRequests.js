@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const URL = 'https://expensesapp-9f992-default-rtdb.firebaseio.com'
+const URL = 'https://*******************.firebaseio.com'
 
 export async function saveExpenses(description, amount, date) {
     try {
