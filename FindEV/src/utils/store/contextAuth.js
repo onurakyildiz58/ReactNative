@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const AuthContext = createContext({
     token: null,
     localId: null,
-    lang: 'TR',
+    lang: 'ENG',
     theme: 'Açık',
     isAuthenticated: false,
     authenticate: (token, localId) => { },
@@ -17,8 +17,8 @@ export const AuthContext = createContext({
 function AuthContextProvider({ children }) {
     const [authToken, setAuthToken] = useState(null);
     const [localId, setLocalId] = useState(null);
-    const [lang, setLang] = useState('TR');
-    const [theme, setThemeState] = useState('Açık'); // Change here
+    const [lang, setLang] = useState('ENG');
+    const [theme, setThemeState] = useState('Açık');
 
     useEffect(() => {
         const loadStoredLang = async () => {
@@ -28,7 +28,7 @@ function AuthContextProvider({ children }) {
                 if (storedLang) {
                     setLang(storedLang);
                 }
-                if (storedTheme) { // Load theme if it exists
+                if (storedTheme) {
                     setThemeState(storedTheme);
                 }
             } catch (error) {
@@ -52,8 +52,8 @@ function AuthContextProvider({ children }) {
     const logout = async () => {
         setAuthToken(null);
         setLocalId(null);
-        setLang('TR');
-        setThemeState('Açık'); // Reset to default theme
+        setLang('ENG');
+        setThemeState('Açık');
         try {
             await AsyncStorage.removeItem('authToken');
             await AsyncStorage.removeItem('localId');
@@ -90,7 +90,7 @@ function AuthContextProvider({ children }) {
         theme: theme,
         authenticate: authenticate,
         setLanguage: setLanguage,
-        setTheme: setTheme, // Use correct function reference
+        setTheme: setTheme,
         logout: logout,
     };
 

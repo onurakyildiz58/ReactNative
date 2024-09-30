@@ -1,13 +1,24 @@
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Alert, StyleSheet, View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import FlatButton from '../ui/FlatButton';
 import AuthForm from './AuthForm';
 
+import { AuthContext } from '../../utils/store/contextAuth';
+import { languages } from '../../utils/language/Language';
+
+const translationMap = {
+  TR: languages[0],
+  ENG: languages[1],
+};
+
 function AuthContent({ isLogin, onAuthenticate }) {
   const navigation = useNavigation();
+
+  const authCtx = useContext(AuthContext);
+  const translations = translationMap[authCtx.lang];
 
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     name: false,
@@ -42,7 +53,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
 
     if (isLogin) {
       if (!emailIsValid || !passwordIsValid || (!isLogin && !passwordsAreEqual)) {
-        Alert.alert('Geçersiz Değer', 'Girilen Verileri Kontrol Ediniz');
+        Alert.alert(translations.loginAlertHeader, translations.loginAlertBody);
         setCredentialsInvalid({
           name: !nameIsInvalid,
           city: !cityIsInvalid,
@@ -55,7 +66,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
     }
     else {
       if (!nameIsInvalid || !cityIsInvalid || !emailIsValid || !passwordIsValid || (!isLogin && !passwordsAreEqual)) {
-        Alert.alert('Geçersiz Değer', 'Girilen Verileri Kontrol Ediniz');
+        Alert.alert(translations.regAlertHeader, translations.regAlertBody);
         setCredentialsInvalid({
           name: !nameIsInvalid,
           city: !cityIsInvalid,
@@ -78,7 +89,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={30}  // Adjust the offset based on your layout
+      keyboardVerticalOffset={30}
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.authContent}>
@@ -89,7 +100,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
           />
           <View style={styles.buttons}>
             <FlatButton onPress={switchAuthModeHandler}>
-              {isLogin ? 'Kullanıcı Oluştur' : 'Giriş Yap'}
+              {isLogin ? translations.regFlatBtn : translations.logFlatBtn}
             </FlatButton>
           </View>
         </View>

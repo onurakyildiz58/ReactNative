@@ -19,7 +19,7 @@ async function storeUserData(localId, name, city, email, token) {
 export async function fetchLoggedInUser(localId, token) {
     try {
         const response = await axios.get(`${FIRESTORE}/users/${localId}.json?auth=${token}`);
-        return response.data; // Return user data (name, city, email)
+        return response.data;
     } catch (error) {
         console.error('Error fetching user data:', error.response ? error.response.data : error.message);
         throw new Error('Could not fetch user data');

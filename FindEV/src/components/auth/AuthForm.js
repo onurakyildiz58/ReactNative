@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import Button from '../ui/Button';
@@ -7,12 +7,23 @@ import Input from './Input';
 
 import { GlobalStyles } from '../../utils/style/Color';
 
+import { AuthContext } from '../../utils/store/contextAuth';
+import { languages } from '../../utils/language/Language';
+
+const translationMap = {
+  TR: languages[0],
+  ENG: languages[1],
+};
+
 function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
   const [enteredName, setEnteredName] = useState('');
   const [enteredCity, setEnteredCity] = useState('');
   const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
   const [enteredConfirmPassword, setEnteredConfirmPassword] = useState('');
+
+  const authCtx = useContext(AuthContext);
+  const translations = translationMap[authCtx.lang];
 
   const {
     name: nameIsInvalid,
@@ -63,11 +74,11 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
     <View style={styles.form}>
       <View>
         <View style={styles.header}>
-          <Text style={styles.headerText}>{isLogin ? 'Giriş' : 'Kaydol'}</Text>
+          <Text style={styles.headerText}>{isLogin ? translations.login : translations.register}</Text>
         </View>
         {!isLogin && (
           <Input
-            label="İsim Soyisim"
+            label={translations.fullname}
             onUpdateValue={updateInputValueHandler.bind(this, 'name')}
             value={enteredName}
             keyboardType="default"
@@ -75,14 +86,14 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
           />
         )}
         <Input
-          label="Email"
+          label={translations.email}
           onUpdateValue={updateInputValueHandler.bind(this, 'email')}
           value={enteredEmail}
           keyboardType="email-address"
           isInvalid={emailIsInvalid}
         />
         <Input
-          label="Şifre"
+          label={translations.pass}
           onUpdateValue={updateInputValueHandler.bind(this, 'password')}
           secure
           textContentType="none"
@@ -92,7 +103,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         />
         {!isLogin && (
           <Input
-            label="Şifre Tekrarı"
+            label={translations.passCon}
             onUpdateValue={updateInputValueHandler.bind(
               this,
               'confirmPassword'
@@ -106,7 +117,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         )}
         {!isLogin && (
           <Input
-            label="Şehir"
+            label={translations.city}
             onUpdateValue={updateInputValueHandler.bind(this, 'city')}
             value={enteredCity}
             keyboardType="default"
@@ -115,7 +126,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         )}
         <View style={styles.buttons}>
           <Button onPress={submitHandler}>
-            {isLogin ? 'Giriş Yap' : 'Kaydol'}
+            {isLogin ? translations.login : translations.register}
           </Button>
         </View>
       </View>
