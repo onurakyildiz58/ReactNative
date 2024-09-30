@@ -1,23 +1,25 @@
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import Button from '../ui/Button';
 import Input from './Input';
 
+import { GlobalStyles } from '../../utils/style/Color';
+
 function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
-  const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredName, setEnteredName] = useState('');
+  const [enteredCity, setEnteredCity] = useState('');
+  const [enteredEmail, setEnteredEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
   const [enteredConfirmPassword, setEnteredConfirmPassword] = useState('');
-  const [enteredCity, setEnteredCity] = useState('');
 
   const {
     name: nameIsInvalid,
+    city: cityIsInvalid,
     email: emailIsInvalid,
     password: passwordIsInvalid,
     confirmPassword: passwordsDontMatch,
-    city: cityIsInvalid,
   } = credentialsInvalid;
 
   function updateInputValueHandler(inputType, enteredValue) {
@@ -25,17 +27,24 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
       case 'email':
         setEnteredEmail(enteredValue);
         break;
-      case 'name':
-        setEnteredName(enteredValue);
-        break;
       case 'password':
         setEnteredPassword(enteredValue);
         break;
-      case 'confirmPassword':
-        setEnteredConfirmPassword(enteredValue);
+      case 'name':
+        const formattedName = enteredValue
+          .split(' ')
+          .map(word => word.charAt(0).toLocaleUpperCase() + word.slice(1))
+          .join(' ');
+        setEnteredName(formattedName);
         break;
       case 'city':
-        setEnteredCity(enteredValue);
+        const formattedCity = enteredValue
+          .charAt(0)
+          .toLocaleUpperCase() + enteredValue.slice(1);
+        setEnteredCity(formattedCity);
+        break;
+      case 'confirmPassword':
+        setEnteredConfirmPassword(enteredValue);
         break;
     }
   }
@@ -43,19 +52,22 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
   function submitHandler() {
     onSubmit({
       name: enteredName,
+      city: enteredCity,
       email: enteredEmail,
       password: enteredPassword,
       confirmPassword: enteredConfirmPassword,
-      city: enteredCity,
     });
   }
 
   return (
     <View style={styles.form}>
       <View>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>{isLogin ? 'Giriş' : 'Kaydol'}</Text>
+        </View>
         {!isLogin && (
           <Input
-            label="name"
+            label="İsim Soyisim"
             onUpdateValue={updateInputValueHandler.bind(this, 'name')}
             value={enteredName}
             keyboardType="default"
@@ -94,7 +106,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
         )}
         {!isLogin && (
           <Input
-            label="city"
+            label="Şehir"
             onUpdateValue={updateInputValueHandler.bind(this, 'city')}
             value={enteredCity}
             keyboardType="default"
@@ -114,6 +126,16 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
 const styles = StyleSheet.create({
   buttons: {
     marginTop: 12,
+  },
+  header: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerText: {
+    fontSize: 32,
+    fontWeight: '800',
+    color: GlobalStyles.colours.gray700,
   },
 });
 

@@ -9,7 +9,7 @@ function PageHeader({ title, func }) {
         <View style={[styles.header, styles.shadow]}>
             <Text style={styles.headerText}>{title}</Text>
             <TouchableOpacity onPress={func}>
-                <Icon name={'star'} size={25} color={GlobalStyles.colours.black} />
+                <Icon name={'person'} size={25} color={GlobalStyles.colours.gray100} />
             </TouchableOpacity>
         </View>
     );
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: GlobalStyles.colours.gray800,
+        color: GlobalStyles.colours.gray100,
     },
     shadow: {
         shadowColor: GlobalStyles.colours.black,

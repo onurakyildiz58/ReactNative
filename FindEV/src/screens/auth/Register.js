@@ -1,19 +1,34 @@
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Alert } from 'react-native';
+
 import AuthContent from '../../components/auth/AuthContent';
-import { createUser } from '../../utils/auth/auth';
 import Loading from '../../components/ui/Loading';
+
+import { createUser } from '../../utils/auth/auth';
+import { AuthContext } from '../../utils/store/contextAuth';
 
 function Register() {
   const [isAuthenticate, setIsAuthenticate] = useState(false);
 
-  async function singUp({ email, password }) {
+  const authCtx = useContext(AuthContext);
+
+  async function singUp({name, email, password, city}) {
     setIsAuthenticate(true);
-    await createUser(email, password);
-    setIsAuthenticate(false);
+    try {
+      const { token, localId } = await createUser(name, email, password, city);
+      authCtx.authenticate(token, localId);
+    }
+    catch (error) {
+      Alert.alert(
+        'Başarısız Kayıt!',
+        'Lütfen Bilgilerinizi Kontrol Ediniz'
+      );
+      setIsAuthenticate(false);
+    }
   }
 
-  if(isAuthenticate){
+  if (isAuthenticate) {
     return <Loading message={'Kullanıcı Oluşturuluyor...'} />;
   }
 

@@ -5,7 +5,7 @@ import PageHeader from '../components/ui/PageHeader';
 
 function Home({ navigation }) {
     function goFav() {
-        navigation.navigate('favorite');
+        navigation.navigate('profile');
     }
 
     return (

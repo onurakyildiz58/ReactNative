@@ -8,7 +8,7 @@ function CustomBackHeader({ title, func }) {
     return (
         <View style={[styles.header, styles.shadow]}>
             <TouchableOpacity onPress={func}>
-                <Icon name={'arrow-back'} size={30} color={GlobalStyles.colours.gray800} />
+                <Icon name={'arrow-back'} size={30} color={GlobalStyles.colours.gray100} />
             </TouchableOpacity>
             <Text style={styles.headerText}>{title}</Text>
         </View>
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     headerText: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: GlobalStyles.colours.gray800,
+        color: GlobalStyles.colours.gray100,
     },
     shadow: {
         shadowColor: GlobalStyles.colours.black,
