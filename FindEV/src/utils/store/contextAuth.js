@@ -6,7 +6,7 @@ export const AuthContext = createContext({
     token: null,
     localId: null,
     lang: 'ENG',
-    theme: 'Açık',
+    theme: 'light',
     isAuthenticated: false,
     authenticate: (token, localId) => { },
     setLanguage: (lang) => { },
@@ -18,7 +18,7 @@ function AuthContextProvider({ children }) {
     const [authToken, setAuthToken] = useState(null);
     const [localId, setLocalId] = useState(null);
     const [lang, setLang] = useState('ENG');
-    const [theme, setThemeState] = useState('Açık');
+    const [theme, setThemeState] = useState('light');
 
     useEffect(() => {
         const loadStoredLang = async () => {
@@ -53,7 +53,7 @@ function AuthContextProvider({ children }) {
         setAuthToken(null);
         setLocalId(null);
         setLang('ENG');
-        setThemeState('Açık');
+        setThemeState('light');
         try {
             await AsyncStorage.removeItem('authToken');
             await AsyncStorage.removeItem('localId');
@@ -76,7 +76,7 @@ function AuthContextProvider({ children }) {
     const setTheme = async (themestate) => {
         setThemeState(themestate);
         try {
-            await AsyncStorage.setItem('theme', theme);
+            await AsyncStorage.setItem('theme', themestate);
         } catch (error) {
             console.error('Failed to save theme to AsyncStorage:', error);
         }

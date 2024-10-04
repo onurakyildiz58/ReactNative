@@ -26,6 +26,21 @@ export async function fetchLoggedInUser(localId, token) {
     }
 }
 
+export async function resetPasswordMail(email) {
+    const url = `https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=${API_KEY}`;
+
+    try {
+        const response = await axios.post(url, {
+            requestType: 'PASSWORD_RESET',
+            email: email,
+        });
+        console.log('Password reset email sent:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error sending password reset email:', error.response ? error.response.data : error.message);
+        throw new Error(error.response ? error.response.data.error.message : 'Failed to send reset email.');
+    }
+}
 
 export async function createUser(name, email, password, city) {
     const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;

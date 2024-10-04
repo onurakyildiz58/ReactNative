@@ -5,6 +5,7 @@ import PageHeader from '../components/ui/PageHeader';
 
 import { AuthContext } from '../utils/store/contextAuth';
 import { languages } from '../utils/language/Language';
+import { GlobalStyles } from '../utils/style/Color';
 
 const translationMap = {
     TR: languages[0],
@@ -21,7 +22,7 @@ function Home({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <PageHeader title={translations.homePageHeader} func={goFav} />
+            <PageHeader title={translations.homePageHeader} func={goFav} name={'person'} size={30} color={GlobalStyles.colours.gray100}/>
         </View >
     );
 }

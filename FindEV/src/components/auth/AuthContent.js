@@ -5,9 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 
 import FlatButton from '../ui/FlatButton';
 import AuthForm from './AuthForm';
+import PassRes from '../ui/PassRes';
 
 import { AuthContext } from '../../utils/store/contextAuth';
 import { languages } from '../../utils/language/Language';
+
+import { resetPasswordMail } from '../../utils/auth/auth';
 
 const translationMap = {
   TR: languages[0],
@@ -19,6 +22,9 @@ function AuthContent({ isLogin, onAuthenticate }) {
 
   const authCtx = useContext(AuthContext);
   const translations = translationMap[authCtx.lang];
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [resetMail, setResetMail] = useState(false);
 
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     name: false,
@@ -85,27 +91,65 @@ function AuthContent({ isLogin, onAuthenticate }) {
     }
   }
 
+  function modalHandler() {
+    setModalVisible(true);
+  }
+
+  function onChange(enteredResMail) {
+    setResetMail(enteredResMail);
+  }
+
+  async function forgotPass(resetEmail) {
+    try {
+      if (!resetEmail.includes('@')) {
+        Alert.alert(translations.invalidEmailHeader, translations.invalidEmailBody);
+        return;
+      }
+      const response = await resetPasswordMail(resetEmail);
+      console.log(response.data);
+      Alert.alert(translations.successEmailHeader, translations.successEmailBody);
+    } catch (error) {
+      Alert.alert(translations.unsuccessEmailHeader, translations.unsuccessEmailBody);
+    }
+  }
+
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      keyboardVerticalOffset={30}
-    >
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.authContent}>
-          <AuthForm
-            isLogin={isLogin}
-            onSubmit={submitHandler}
-            credentialsInvalid={credentialsInvalid}
-          />
-          <View style={styles.buttons}>
-            <FlatButton onPress={switchAuthModeHandler}>
-              {isLogin ? translations.regFlatBtn : translations.logFlatBtn}
-            </FlatButton>
+    <>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={30}
+      >
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.authContent}>
+            <AuthForm
+              isLogin={isLogin}
+              onSubmit={submitHandler}
+              credentialsInvalid={credentialsInvalid}
+            />
+            <View style={styles.buttons}>
+              {isLogin && (
+                <FlatButton onPress={modalHandler}>{translations.forgotPass}</FlatButton>
+              )}
+              <FlatButton onPress={switchAuthModeHandler}>
+                {isLogin ? translations.regFlatBtn : translations.logFlatBtn}
+              </FlatButton>
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+      <PassRes
+        modalVisible={modalVisible}
+        modalTitle={translations.resetMail}
+        func={() => setModalVisible(false)}
+        label={translations.email}
+        onChange={onChange}
+        value={resetMail}
+        btnFunc={() => forgotPass(resetMail)}
+        btnLText={translations.reset}
+        btnRText={translations.cancel}
+      />
+    </>
   );
 }
 
@@ -125,6 +169,8 @@ const styles = StyleSheet.create({
   },
   buttons: {
     marginTop: 8,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 });
 

@@ -41,19 +41,15 @@ function Profile({ navigation }) {
     };
 
     const handleDarkThemeSelect = () => {
-        authCtx.setTheme('Koyu');
+        authCtx.setTheme('dark');
     };
 
     const handleLightThemeSelect = () => {
-        authCtx.setTheme('Açık');
+        authCtx.setTheme('light');
     };
 
     const handleLocSwitch = () => {
-        if (!islocEnabled) {
-            setIslocEnabled(true);
-        } else {
-            setIslocEnabled(false);
-        }
+        setIslocEnabled((prev) => !prev);
     };
 
     useEffect(() => {
@@ -96,15 +92,15 @@ function Profile({ navigation }) {
                         textRight={'TR'}
                         onPressL={handleEnglishSelect}
                         onPressR={handleTurkishSelect}
-                        active={authCtx.lang === 'ENG' ? 'ENG' : 'TR'}
+                        activeSide={authCtx.lang === 'ENG' ? 'left' : 'right'}
                     />
                     <Text style={styles.prepInfo}>{translations.themeSelect}</Text>
                     <DoubleButton
-                        textLeft={'Koyu'}
-                        textRight={'Açık'}
+                        textLeft={translations.dark}
+                        textRight={translations.light}
                         onPressL={handleDarkThemeSelect}
                         onPressR={handleLightThemeSelect}
-                        active={authCtx.theme === 'Koyu' ? 'Koyu' : 'Açık'}
+                        activeSide={authCtx.theme === 'dark' ? 'left' : 'right'}
                     />
                     <Switch title={translations.locations} func={handleLocSwitch} value={islocEnabled} />
                 </View>

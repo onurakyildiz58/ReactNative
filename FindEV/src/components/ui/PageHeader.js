@@ -1,16 +1,15 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
-import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
 import { GlobalStyles } from '../../utils/style/Color';
-import Icon from './Icon';
 
-function PageHeader({ title, func }) {
+import IconBtn from './IconBtn';
+
+function PageHeader({ title, func, name, size, color}) {
     return (
         <View style={[styles.header, styles.shadow]}>
             <Text style={styles.headerText}>{title}</Text>
-            <TouchableOpacity onPress={func}>
-                <Icon name={'person'} size={25} color={GlobalStyles.colours.gray100} />
-            </TouchableOpacity>
+            <IconBtn func={func} name={name} size={size} color={color}/>
         </View>
     );
 }

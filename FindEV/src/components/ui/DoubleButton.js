@@ -3,16 +3,22 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { GlobalStyles } from '../../utils/style/Color';
 
-function DoubleButton({ textLeft, textRight, onPressL, onPressR, active }) {
+function DoubleButton({ textLeft, textRight, onPressL, onPressR, activeSide }) {
     return (
         <View style={styles.btnContainer}>
-            <TouchableOpacity style={[styles.buttonL, active === textLeft && styles.activeBtn]} onPress={onPressL}>
-                <Text style={[styles.buttonText, active === textLeft && styles.activeText]}>
+            <TouchableOpacity
+                style={[styles.buttonL, activeSide === 'left' && styles.activeBtn]}
+                onPress={onPressL}
+            >
+                <Text style={[styles.buttonText, activeSide === 'left' && styles.activeText]}>
                     {textLeft}
                 </Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.buttonR, active === textRight && styles.activeBtn]} onPress={onPressR}>
-                <Text style={[styles.buttonText, active === textRight && styles.activeText]}>
+            <TouchableOpacity
+                style={[styles.buttonR, activeSide === 'right' && styles.activeBtn]}
+                onPress={onPressR}
+            >
+                <Text style={[styles.buttonText, activeSide === 'right' && styles.activeText]}>
                     {textRight}
                 </Text>
             </TouchableOpacity>
