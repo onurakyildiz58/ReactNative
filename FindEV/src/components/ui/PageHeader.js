@@ -5,19 +5,19 @@ import { GlobalStyles } from '../../utils/style/Color';
 
 import IconBtn from './IconBtn';
 
-function PageHeader({ title, func, name, size, color}) {
+function PageHeader({ title, func, name, size, theme }) {
     return (
-        <View style={[styles.header, styles.shadow]}>
+        <View style={[styles.header(theme), styles.shadow]}>
             <Text style={styles.headerText}>{title}</Text>
-            <IconBtn func={func} name={name} size={size} color={color}/>
+            <IconBtn func={func} name={name} size={size} color={GlobalStyles.colours.gray100} />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    header: {
+    header: (theme) => ({
         flexDirection: 'row',
-        backgroundColor: GlobalStyles.colours.green500,
+        backgroundColor: theme === 'dark' ? GlobalStyles.colours.black : GlobalStyles.colours.green500,
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 20,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
-    },
+    }),
     headerText: {
         fontSize: 30,
         fontWeight: 'bold',

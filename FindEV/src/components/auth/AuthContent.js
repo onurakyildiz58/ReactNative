@@ -11,17 +11,24 @@ import { AuthContext } from '../../utils/store/contextAuth';
 import { languages } from '../../utils/language/Language';
 
 import { resetPasswordMail } from '../../utils/auth/auth';
+import { GlobalStyles } from '../../utils/style/Color';
 
 const translationMap = {
   TR: languages[0],
   ENG: languages[1],
 };
 
+function GetTheme() {
+  const authCtx = useContext(AuthContext);
+  return authCtx.theme;
+}
+
 function AuthContent({ isLogin, onAuthenticate }) {
   const navigation = useNavigation();
 
   const authCtx = useContext(AuthContext);
   const translations = translationMap[authCtx.lang];
+  const theme = GetTheme();
 
   const [modalVisible, setModalVisible] = useState(false);
   const [resetMail, setResetMail] = useState(false);
@@ -116,9 +123,8 @@ function AuthContent({ isLogin, onAuthenticate }) {
   return (
     <>
       <KeyboardAvoidingView
-        style={styles.container}
+        style={styles.container(theme)}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={30}
       >
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.authContent}>
@@ -126,12 +132,13 @@ function AuthContent({ isLogin, onAuthenticate }) {
               isLogin={isLogin}
               onSubmit={submitHandler}
               credentialsInvalid={credentialsInvalid}
+              theme={theme}
             />
             <View style={styles.buttons}>
               {isLogin && (
-                <FlatButton onPress={modalHandler}>{translations.forgotPass}</FlatButton>
+                <FlatButton onPress={modalHandler} theme={theme}>{translations.forgotPass}</FlatButton>
               )}
-              <FlatButton onPress={switchAuthModeHandler}>
+              <FlatButton onPress={switchAuthModeHandler} theme={theme}>
                 {isLogin ? translations.regFlatBtn : translations.logFlatBtn}
               </FlatButton>
             </View>
@@ -148,15 +155,18 @@ function AuthContent({ isLogin, onAuthenticate }) {
         btnFunc={() => forgotPass(resetMail)}
         btnLText={translations.reset}
         btnRText={translations.cancel}
+        theme={theme}
       />
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  container: (theme) => ({
     flex: 1,
-  },
+    backgroundColor: theme === 'dark' ? GlobalStyles.colours.gray700 : GlobalStyles.colours.gray100,
+    paddingBottom: 30,
+  }),
   scrollContainer: {
     flexGrow: 1,
     justifyContent: 'start',

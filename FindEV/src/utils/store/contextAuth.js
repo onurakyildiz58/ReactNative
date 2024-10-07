@@ -52,13 +52,9 @@ function AuthContextProvider({ children }) {
     const logout = async () => {
         setAuthToken(null);
         setLocalId(null);
-        setLang('ENG');
-        setThemeState('light');
         try {
             await AsyncStorage.removeItem('authToken');
             await AsyncStorage.removeItem('localId');
-            await AsyncStorage.removeItem('lang');
-            await AsyncStorage.removeItem('theme');
         } catch (error) {
             console.error('Failed to remove token from AsyncStorage:', error);
         }

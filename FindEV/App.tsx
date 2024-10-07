@@ -69,17 +69,25 @@ function Root() {
   if (isTryToLogin) {
     return <Loading message={''} />;
   }
-  return <Navigation />;
+
+  const theme = authCtx.theme;
+
+  return (
+    <>
+      <StatusBar
+        barStyle={'light-content'}
+        backgroundColor={theme === 'dark' ? GlobalStyles.colours.black : GlobalStyles.colours.green500}
+      />
+      <Navigation />
+    </>
+  );
 }
 
 function App() {
   return (
-    <>
-      <StatusBar barStyle={'light-content'} backgroundColor={GlobalStyles.colours.green500} />
-      <AuthContextProvider>
-        <Root />
-      </AuthContextProvider>
-    </>
+    <AuthContextProvider>
+      <Root />
+    </AuthContextProvider>
   );
 }
 

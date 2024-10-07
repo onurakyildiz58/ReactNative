@@ -3,10 +3,10 @@ import React from 'react';
 import { View, StyleSheet, Switch, Text } from 'react-native';
 import { GlobalStyles } from '../../utils/style/Color';
 
-function CustomSwitch({ title, func, value }) {
+function CustomSwitch({ title, func, value, theme }) {
     return (
         <View style={styles.switchContainer}>
-            <Text style={styles.label}>{title}</Text>
+            <Text style={styles.label(theme)}>{title}</Text>
             <Switch
                 style={styles.switch}
                 trackColor={{ false: GlobalStyles.colours.gray400, true: GlobalStyles.colours.green200 }}
@@ -24,12 +24,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginBottom: 20,
     },
-    label: {
+    label: (theme) => ({
         fontSize: 18,
-        color: GlobalStyles.colours.gray700,
+        color:  theme === 'dark' ? GlobalStyles.colours.gray100 : GlobalStyles.colours.gray900,
         marginBottom: 10,
-    },
-    switch:{
+    }),
+    switch: {
         marginBottom: 10,
     },
 });

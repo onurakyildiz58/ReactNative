@@ -15,7 +15,7 @@ const translationMap = {
   ENG: languages[1],
 };
 
-function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
+function AuthForm({ isLogin, onSubmit, credentialsInvalid, theme }) {
   const [enteredName, setEnteredName] = useState('');
   const [enteredCity, setEnteredCity] = useState('');
   const [enteredEmail, setEnteredEmail] = useState('');
@@ -74,7 +74,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
     <View style={styles.form}>
       <View>
         <View style={styles.header}>
-          <Text style={styles.headerText}>{isLogin ? translations.login : translations.register}</Text>
+          <Text style={styles.headerText(theme)}>{isLogin ? translations.login : translations.register}</Text>
         </View>
         {!isLogin && (
           <Input
@@ -83,6 +83,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
             value={enteredName}
             keyboardType="default"
             isInvalid={nameIsInvalid}
+            theme={theme}
           />
         )}
         <Input
@@ -91,6 +92,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
           value={enteredEmail}
           keyboardType="email-address"
           isInvalid={emailIsInvalid}
+          theme={theme}
         />
         <Input
           label={translations.pass}
@@ -100,6 +102,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
           autoComplete="off"
           value={enteredPassword}
           isInvalid={passwordIsInvalid}
+          theme={theme}
         />
         {!isLogin && (
           <Input
@@ -113,6 +116,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
             autoComplete="off"
             value={enteredConfirmPassword}
             isInvalid={passwordsDontMatch}
+            theme={theme}
           />
         )}
         {!isLogin && (
@@ -122,10 +126,11 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
             value={enteredCity}
             keyboardType="default"
             isInvalid={cityIsInvalid}
+            theme={theme}
           />
         )}
         <View style={styles.buttons}>
-          <Button onPress={submitHandler}>
+          <Button onPress={submitHandler} theme={theme}>
             {isLogin ? translations.login : translations.register}
           </Button>
         </View>
@@ -143,11 +148,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  headerText: {
+  headerText: (theme) => ({
     fontSize: 32,
     fontWeight: '800',
-    color: GlobalStyles.colours.gray700,
-  },
+    color: theme === 'dark' ? GlobalStyles.colours.white : GlobalStyles.colours.gray700,
+  }),
 });
 
 export default AuthForm;

@@ -3,10 +3,10 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { GlobalStyles } from '../../utils/style/Color';
 
-function Button({ children, onPress, style }) {
+function Button({ children, onPress, style, theme }) {
   return (
     <Pressable
-      style={({ pressed }) => [styles.button, style, pressed && styles.pressed]}
+      style={({ pressed }) => [styles.button(theme), style, pressed && styles.pressed]}
       onPress={onPress}
     >
       <View>
@@ -17,19 +17,19 @@ function Button({ children, onPress, style }) {
 }
 
 const styles = StyleSheet.create({
-  button: {
+  button: (theme) => ({
     flex: 1,
     borderRadius: 6,
     paddingVertical: 15,
     paddingHorizontal: 15,
     marginVertical: 5,
-    backgroundColor: GlobalStyles.colours.green500,
-    elevation: 2,
-    shadowColor: GlobalStyles.colours.black,
-    shadowOffset: { width: 1, height: 1 },
+    backgroundColor: theme === 'dark' ? GlobalStyles.colours.gray700 : GlobalStyles.colours.green500,
+    elevation: 20,
+    shadowColor: GlobalStyles.colours.white,
+    shadowOffset: { width: 0, height: 20 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-  },
+  }),
   pressed: {
     opacity: 0.7,
   },

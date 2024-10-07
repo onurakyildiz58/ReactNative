@@ -4,9 +4,9 @@ import { Text, StyleSheet, View, TouchableOpacity } from 'react-native';
 import { GlobalStyles } from '../../utils/style/Color';
 import Icon from './Icon';
 
-function CustomBackHeader({ title, func }) {
+function CustomBackHeader({ title, func, theme }) {
     return (
-        <View style={[styles.header, styles.shadow]}>
+        <View style={[styles.header(theme), styles.shadow]}>
             <TouchableOpacity onPress={func}>
                 <Icon name={'arrow-back'} size={30} color={GlobalStyles.colours.gray100} />
             </TouchableOpacity>
@@ -16,19 +16,18 @@ function CustomBackHeader({ title, func }) {
 }
 
 const styles = StyleSheet.create({
-    header: {
+    header: (theme) => ({
         flexDirection: 'row',
-        backgroundColor: GlobalStyles.colours.green500,
+        backgroundColor: theme === 'dark' ? GlobalStyles.colours.black : GlobalStyles.colours.green500,
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 20,
         paddingVertical: 18,
         paddingTop: 18,
         paddingBottom: 25,
-        marginBottom: 30,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
-    },
+    }),
     headerText: {
         fontSize: 30,
         fontWeight: 'bold',

@@ -6,6 +6,7 @@ import CustomBackHeader from '../components/ui/CustomBackHeader';
 import Button from '../components/ui/Button';
 import DoubleButton from '../components/ui/DoubleButton';
 import Loading from '../components/ui/Loading';
+import CustomSwitch from '../components/ui/CustomSwitch';
 
 import { AuthContext } from '../utils/store/contextAuth';
 import { fetchLoggedInUser } from '../utils/auth/auth';
@@ -13,16 +14,21 @@ import { fetchLoggedInUser } from '../utils/auth/auth';
 import { languages } from '../utils/language/Language';
 
 import { GlobalStyles } from '../utils/style/Color';
-import Switch from '../components/ui/CustomSwitch';
 
 const translationMap = {
     TR: languages[0],
     ENG: languages[1],
 };
 
+function GetTheme() {
+    const authCtx = useContext(AuthContext);
+    return authCtx.theme;
+}
+
 function Profile({ navigation }) {
     const authCtx = useContext(AuthContext);
     const translations = translationMap[authCtx.lang];
+    const theme = GetTheme();
 
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -74,52 +80,59 @@ function Profile({ navigation }) {
     }
 
     return (
-        <View style={styles.container}>
-            <CustomBackHeader title={translations.profilePageHeader} func={goback} />
+        <View style={styles.container(theme)}>
+            <CustomBackHeader title={translations.profilePageHeader} func={goback} theme={theme} />
             <ScrollView contentContainerStyle={styles.scrollContainer}>
-                <View style={styles.userCard}>
-                    <Text style={styles.userHeader}>{translations.userInfo}</Text>
-                    <Text style={styles.userInfo}>{translations.username}: {userData.name}</Text>
-                    <Text style={styles.userInfo}>{translations.useremail}: {userData.email}</Text>
-                    <Text style={styles.userInfo}>{translations.usercity}: {userData.city}</Text>
+                <View style={styles.userCard(theme)}>
+                    <Text style={styles.userHeader(theme)}>{translations.userInfo}</Text>
+                    <Text style={styles.info(theme)}>{translations.username}: {userData.name}</Text>
+                    <Text style={styles.info(theme)}>{translations.useremail}: {userData.email}</Text>
+                    <Text style={styles.info(theme)}>{translations.usercity}: {userData.city}</Text>
                 </View>
-                <View style={styles.settingsCard}>
-                    <Text style={styles.settingsHeader}>{translations.userPreference}</Text>
-                    <Text style={styles.prepInfo}>{translations.passReset}</Text>
-                    <Text style={styles.prepInfo}>{translations.langSelect}</Text>
+                <View style={styles.settingsCard(theme)}>
+                    <Text style={styles.settingsHeader(theme)}>{translations.userPreference}</Text>
+                    <Text style={styles.info(theme)}>{translations.passReset}</Text>
+                    <Text style={styles.info(theme)}>{translations.langSelect}</Text>
                     <DoubleButton
                         textLeft={'ENG'}
                         textRight={'TR'}
                         onPressL={handleEnglishSelect}
                         onPressR={handleTurkishSelect}
                         activeSide={authCtx.lang === 'ENG' ? 'left' : 'right'}
+                        theme={theme}
                     />
-                    <Text style={styles.prepInfo}>{translations.themeSelect}</Text>
+                    <Text style={styles.info(theme)}>{translations.themeSelect}</Text>
                     <DoubleButton
                         textLeft={translations.dark}
                         textRight={translations.light}
                         onPressL={handleDarkThemeSelect}
                         onPressR={handleLightThemeSelect}
                         activeSide={authCtx.theme === 'dark' ? 'left' : 'right'}
+                        theme={theme}
                     />
-                    <Switch title={translations.locations} func={handleLocSwitch} value={islocEnabled} />
+                    <CustomSwitch
+                        title={translations.locations}
+                        func={handleLocSwitch}
+                        value={islocEnabled}
+                        theme={theme} />
                 </View>
             </ScrollView>
             <View style={styles.logoutBtn}>
-                <Button onPress={authCtx.logout}>{translations.logout}</Button>
+                <Button onPress={authCtx.logout} theme={theme}>{translations.logout}</Button>
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container: (theme) => ({
         flex: 1,
-        backgroundColor: GlobalStyles.colours.white,
-    },
+        backgroundColor: theme === 'dark' ? GlobalStyles.colours.gray700 : GlobalStyles.colours.gray100,
+    }),
     scrollContainer: {
         flexGrow: 1,
-        paddingBottom: 100,
+        paddingBottom: 130,
+        marginTop: 30,
     },
     logoutBtn: {
         position: 'absolute',
@@ -128,8 +141,8 @@ const styles = StyleSheet.create({
         right: 0,
         paddingHorizontal: 20,
     },
-    userCard: {
-        backgroundColor: GlobalStyles.colours.green100,
+    userCard: (theme) => ({
+        backgroundColor: theme === 'dark' ? GlobalStyles.colours.gray900 : GlobalStyles.colours.green100,
         padding: 20,
         margin: 8,
         borderRadius: 12,
@@ -138,52 +151,42 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.4,
         shadowRadius: 8,
-    },
-    userHeader: {
+    }),
+    userHeader: (theme) => ({
         fontSize: 24,
         fontWeight: '700',
-        color: GlobalStyles.colours.gray700,
+        color: theme === 'dark' ? GlobalStyles.colours.gray100 : GlobalStyles.colours.gray900,
         textAlign: 'center',
         marginBottom: 15,
         borderBottomWidth: 1,
         borderColor: GlobalStyles.colours.gray500,
-    },
-    userInfo: {
+    }),
+    info: (theme) => ({
         fontSize: 18,
-        color: GlobalStyles.colours.gray700,
+        color: theme === 'dark' ? GlobalStyles.colours.gray100 : GlobalStyles.colours.gray900,
         marginBottom: 10,
-    },
-    prepInfo: {
-        fontSize: 18,
-        color: GlobalStyles.colours.gray700,
-        marginBottom: 10,
-    },
-    settingsCard: {
+    }),
+    settingsCard: (theme) => ({
         marginTop: 30,
         padding: 20,
         margin: 8,
-        backgroundColor: GlobalStyles.colours.green100,
+        backgroundColor: theme === 'dark' ? GlobalStyles.colours.gray900 : GlobalStyles.colours.green100,
         borderRadius: 12,
         elevation: 10,
         shadowColor: GlobalStyles.colours.black,
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.4,
         shadowRadius: 8,
-    },
-    settingsHeader: {
+    }),
+    settingsHeader: (theme) => ({
         fontSize: 24,
         fontWeight: '700',
-        color: GlobalStyles.colours.gray700,
+        color: theme === 'dark' ? GlobalStyles.colours.gray100 : GlobalStyles.colours.gray900,
         textAlign: 'center',
         marginBottom: 15,
         borderBottomWidth: 1,
         borderColor: GlobalStyles.colours.gray500,
-    },
-    settingItem: {
-        fontSize: 18,
-        color: GlobalStyles.colours.gray700,
-        marginBottom: 10,
-    },
+    }),
 });
 
 export default Profile;

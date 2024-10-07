@@ -12,25 +12,32 @@ const translationMap = {
     ENG: languages[1],
 };
 
+function GetTheme() {
+    const authCtx = useContext(AuthContext);
+    return authCtx.theme;
+}
+
 function Home({ navigation }) {
     const authCtx = useContext(AuthContext);
     const translations = translationMap[authCtx.lang];
+    const theme = GetTheme();
 
     function goFav() {
         navigation.navigate('profile');
     }
 
     return (
-        <View style={styles.container}>
-            <PageHeader title={translations.homePageHeader} func={goFav} name={'person'} size={30} color={GlobalStyles.colours.gray100}/>
+        <View style={styles.container(theme)}>
+            <PageHeader title={translations.homePageHeader} func={goFav} name={'person'} size={30} theme={theme} />
         </View >
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
+    container: (theme) => ({
         flex: 1,
-    },
+        backgroundColor: theme === 'dark' ? GlobalStyles.colours.gray700 : GlobalStyles.colours.gray100,
+    }),
 });
 
 export default Home;

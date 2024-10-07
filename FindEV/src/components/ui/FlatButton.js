@@ -3,14 +3,14 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { GlobalStyles } from '../../utils/style/Color';
 
-function FlatButton({ children, onPress }) {
+function FlatButton({ children, onPress, theme }) {
   return (
     <Pressable
       style={({ pressed }) => [styles.button, pressed && styles.pressed]}
       onPress={onPress}
     >
       <View>
-        <Text style={styles.buttonText}>{children}</Text>
+        <Text style={styles.buttonText(theme)}>{children}</Text>
       </View>
     </Pressable>
   );
@@ -24,10 +24,10 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: 0.7,
   },
-  buttonText: {
+  buttonText: (theme) => ({
     textAlign: 'center',
-    color: GlobalStyles.colours.gray800,
-  },
+    color: theme === 'dark' ? GlobalStyles.colours.gray100 : GlobalStyles.colours.gray900,
+  }),
 });
 
 export default FlatButton;
