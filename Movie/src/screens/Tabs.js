@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { s } from 'react-native-wind';
@@ -20,23 +21,23 @@ function Tabs() {
         }} >
         <tab.Screen
           component={Home}
-          name='Ana Sayfa'
+          name="Ana Sayfa"
           options={{
             tabBarIcon: ({ focused }) => (
               <Feather
-                name='home'
+                name="home"
                 size={30}
-                color={focused ? s`text-black`.color : s`text-gray-400`.color} />)
+                color={focused ? s`text-black`.color : s`text-gray-400`.color} />),
           }} />
         <tab.Screen
           component={WatchList}
-          name='İzleme Listem'
+          name="İzleme Listem"
           options={{
             tabBarIcon: ({ focused }) => (
               <Feather
-                name='eye'
+                name="eye"
                 size={30}
-                color={focused ? s`text-black`.color : s`text-gray-400`.color} />)
+                color={focused ? s`text-black`.color : s`text-gray-400`.color} />),
           }} />
       </tab.Navigator>
     </NavigationContainer>

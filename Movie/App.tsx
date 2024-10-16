@@ -1,4 +1,5 @@
-import { SafeAreaView, StatusBar } from 'react-native';
+import React from 'react';
+import { StatusBar } from 'react-native';
 import Tabs from './src/screens/Tabs';
 
 function App() {

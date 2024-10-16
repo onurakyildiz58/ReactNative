@@ -12,7 +12,7 @@ function WatchList() {
                 <Text style={s`text-lg font-bold`}>Listemss</Text>
             </View>
         </View>
-    )
+    );
 }
 
 export default WatchList;

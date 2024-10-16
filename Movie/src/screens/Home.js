@@ -11,7 +11,7 @@ function Home() {
                     <Text style={s`text-lg font-bold`}>Filmleeeer</Text>
                 </View>
         </View>
-    )
+    );
 }
 
 export default Home;
