@@ -4,8 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { s } from 'react-native-wind';
 
-import Home from './Home';
 import WatchList from './WatchList';
+import NativeStack from './NativeStack';
 
 import Icon from '../components/Icon';
 
@@ -22,7 +22,7 @@ function Tabs() {
           tabBarStyle: s`absolute bottom-6 left-5 right-5 bg-white rounded-full h-20 shadow-lg`,
         }} >
         <tab.Screen
-          component={Home}
+          component={NativeStack}
           name="Ana Sayfa"
           options={{
             tabBarIcon: ({ focused }) => (
