@@ -16,6 +16,7 @@ export const fetchMovies = async () => {
         return response.data;
     } catch (err) {
         console.error('error: ' + err);
+        throw err;
     }
 };
 
@@ -27,5 +28,6 @@ export const fetchMovieDetails = async (id) => {
         return response.data;
     } catch (err) {
         console.error('error: ' + err);
+        throw err;
     }
 };

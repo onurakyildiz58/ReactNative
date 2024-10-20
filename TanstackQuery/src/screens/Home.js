@@ -19,13 +19,14 @@ function Home({ navigation }) {
         <Text>{error.message}</Text>
     ) : (
         <View style={s`flex-1`}>
-            <CustomIconHeader title="Ana Sayfa" name="search" size={35} func={() => console.log('arama')} position={'right'}/>
+            <CustomIconHeader title="Home" name="search" size={35} func={() => console.log('arama')} position={'right'}/>
             <FlatList
                 data={data?.results}
                 renderItem={({ item }) => <MovieItem movie={item} func={() => navigation.navigate('movieDetails', { movieID: item.id })} />}
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={2}
                 showsVerticalScrollIndicator={false}
+                contentContainerStyle={s`pb-32`}
             />
         </View>
     );
