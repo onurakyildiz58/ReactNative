@@ -8,8 +8,8 @@ const options = {
     },
 };
 
-export const fetchMovies = async () => {
-    const url = 'https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1';
+export const fetchMovies = async ({pageParam}) => {
+    const url = `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=${pageParam}`;
 
     try {
         const response = await axios.get(url, options);
