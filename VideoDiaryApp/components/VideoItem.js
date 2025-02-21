@@ -1,16 +1,17 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { TouchableOpacity, Image, Text } from 'react-native';
 import { s } from 'react-native-wind';
 
-function VideoItem(){
+function VideoItem({ thumbnail, func }) {
     return (
-        <TouchableOpacity style={s`flex-1 p-2`} onPress={func}>
-            
-            <View style={s`absolute top-2 left-2 bg-violet-700 rounded-lg px-2 py-1`}>
-                <Text style={s`text-bold text-white`}>{movie.vote_average.toFixed(1)}</Text>
-            </View>
+        <TouchableOpacity style={s`flex-1 p-2 bg-red-500 m-2`} onPress={func}>
+            <Image
+                source={{ uri: thumbnail }}
+                style={{ width: 120, height: 120, borderRadius: 8 }}
+            />
+            <Text>{thumbnail}</Text>
         </TouchableOpacity>
-    )
+    );
 }
- 
+
 export default VideoItem;
