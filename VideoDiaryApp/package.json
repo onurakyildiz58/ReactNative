@@ -9,17 +9,21 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@hookform/resolvers": "^4.1.2",
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/native": "^7.0.14",
+    "@shopify/flash-list": "^1.7.3",
     "@tanstack/react-query": "^5.66.9",
     "expo": "~52.0.36",
     "expo-constants": "~17.0.7",
     "expo-image-picker": "^16.0.6",
     "expo-linking": "~7.0.5",
     "expo-router": "~4.0.17",
+    "expo-sqlite": "~15.1.2",
     "expo-status-bar": "~2.0.1",
     "expo-video": "~2.0.5",
     "react": "18.3.1",
+    "react-hook-form": "^7.54.2",
     "react-native": "0.76.7",
     "react-native-gesture-handler": "~2.20.2",
     "react-native-reanimated": "^3.16.7",
@@ -28,8 +32,8 @@
     "react-native-vector-icons": "^10.2.0",
     "react-native-wind": "^1.2.0",
     "react-navigation-stack": "^2.10.4",
-    "zustand": "^5.0.3",
-    "expo-sqlite": "~15.1.2"
+    "yup": "^1.6.1",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

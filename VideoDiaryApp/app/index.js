@@ -1,37 +1,30 @@
 import React from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text } from "react-native";
 import { s } from "react-native-wind";
 import { useRouter } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
+import { FlashList } from "@shopify/flash-list";
 
 import CustomIconHeader from "../components/CustomIconHeader";
 import VideoItem from "../components/VideoItem";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 
-import useDBStore from "../states/useDBStore";
 import { fetchVideos } from "../db/sqlite";
 
 function HomeScreen() {
   const router = useRouter();
-  const { videos } = useDBStore();
-  /*
+
   const { data: videos, isLoading, isError, error } = useQuery({
-    queryKey: ["videos"], // Query key
-    queryFn: fetchVideos, // Query function
+    queryKey: ["videos"],
+    queryFn: fetchVideos,
   });
-  
 
-
-  if (isLoading) {
-    return <Loading />; // Show loading spinner or loading component while fetching data
-  }
-
-  if (isError) {
-    return <Error message={error.message} />; // Show error message if fetching fails
-  }
-  */
-  return (
+  return isLoading ? (
+    <Loading message={"Lütfen Bekleyiniz..."} />
+  ) : isError ? (
+    <Error message={error.message} />
+  ) : (
     <View style={s`flex-1`}>
       <CustomIconHeader
         title={"Ana Sayfa"}
@@ -43,7 +36,7 @@ function HomeScreen() {
       {videos.length === 0 ? (
         <Text style={s`text-center text-gray-500 mt-6`}>No videos added yet!</Text>
       ) : (
-        <FlatList
+        <FlashList
           data={videos}
           renderItem={({ item }) => {
             return (
@@ -61,6 +54,7 @@ function HomeScreen() {
           keyExtractor={(item) => item.id}
           numColumns={2}
           showsVerticalScrollIndicator={false}
+          estimatedItemSize={200}
         />
       )}
     </View>

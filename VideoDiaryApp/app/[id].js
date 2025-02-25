@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Text, View, Dimensions } from 'react-native';
 import { s } from 'react-native-wind';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -10,47 +10,46 @@ import Loading from '../components/Loading';
 import IconBtn from '../components/IconBtn';
 import Error from '../components/Error';
 
-import useDBStore from '../states/useDBStore';
+import { fetchVideoById, deleteVideo } from '../db/sqlite';
 
 function DetailScreen() {
   const router = useRouter();
   const { id } = useLocalSearchParams();
-  const { videos } = useDBStore();
   const screenWidth = Dimensions.get('window').width;
   const queryClient = useQueryClient();
 
   const { data: video, isLoading, isError } = useQuery({
     queryKey: ['video', id],
-    queryFn: () => {
-      return videos.find((item) => item.id === id) || null;
-    },
+    queryFn: () => fetchVideoById(id),
     enabled: !!id,
   });
 
   const deleteMutation = useMutation({
-    mutationFn: async () => useDBStore.getState().deleteVideo({ id }),
+    mutationFn: () => deleteVideo(id),
     onSuccess: () => {
+      queryClient.invalidateQueries(['videos']);
       queryClient.setQueryData(['video', id], null);
-      queryClient.invalidateQueries(['video']);
       router.back();
-    }
+    },
+    onError: (error) => {
+      console.error('Error deleting video:', error);
+    },
   });
 
-  useEffect(() => {
-    console.log("details page : ", video);
-  }, [])
+  const navigateUpdate = () => {
+    router.push({
+      pathname: '/add',
+      params: { willUpdateVideo: JSON.stringify(video), isUpdate: true }
+    });
+  }
 
   const player = useVideoPlayer(video?.videoUri);
 
-  if (isLoading) {
-    return <Loading message={"Lütfen Bekleyiniz..."} />;
-  }
-
-  if (isError || !video) {
-    return <Error message={'Veriler alınırken hata meydana geldi'} />;
-  }
-
-  return (
+  return isLoading ? (
+    <Loading message={"Lütfen Bekleyiniz..."} />
+  ) : isError || !video ? (
+    <Error message={'Veriler alınırken hata meydana geldi'} />
+  ) : (
     <View style={s`flex-1`}>
       <CustomIconHeader
         title={video.title}
@@ -60,23 +59,8 @@ function DetailScreen() {
         position={'left'}
       />
       <View style={s`px-4`}>
-        <View style={s`flex-row justify-around`}>
-          <IconBtn
-            func={() => deleteMutation.mutate()}
-            name={'trash-outline'}
-            size={30}
-            color={s`text-black`.color}
-          />
-          <IconBtn
-            func={() => console.log('object')}
-            name={'create-outline'}
-            size={30}
-            color={s`text-black`.color}
-          />
-        </View>
-        <Text style={s`text-xl font-bold mt-6`}>id: {video.id}</Text>
-        <Text style={s`text-xl font-bold mt-6`}>Title: {video.title}</Text>
-        <Text style={s`text-lg mt-4`}>Description: {video.description}</Text>
+        <Text style={s`text-xl font-bold mt-6 text-center`}>{video.title}</Text>
+        <Text style={s`text-lg my-4 text-justify`}>{video.description}</Text>
         <View style={s`items-center pt-2`}>
           <VideoView
             style={[
@@ -87,6 +71,21 @@ function DetailScreen() {
             allowsFullscreen
             allowsPictureInPicture
           />
+        </View>
+        <View style={s`flex-row justify-around mt-10`}>
+          <IconBtn
+            func={() => deleteMutation.mutate()}
+            name={'trash-outline'}
+            size={30}
+            color={s`text-black`.color}
+          />
+          <IconBtn
+            func={navigateUpdate}
+            name={'create-outline'}
+            size={30}
+            color={s`text-black`.color}
+          />
+
         </View>
       </View>
     </View >

@@ -1,91 +1,43 @@
-import * as SQLite from 'expo-sqlite';
+import * as SQLite from "expo-sqlite";
 
-const db = SQLite.openDatabaseAsync('mydatabase.db');
+const db = SQLite.openDatabaseSync("sevenApps.db");
 
-export const createVideosTable = async () => {
-  try {
-    await db.transaction((tx) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS videos (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, videoUri TEXT);'
+export async function migrateDbIfNeeded(db) {
+  await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS videos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        title TEXT NOT NULL, 
+        description TEXT, 
+        videoUri TEXT NOT NULL, 
+        createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
-    });
-    console.log("Videos table created or already exists.");
-  } catch (error) {
-    console.error('Error creating videos table', error);
-  }
-};
+    `);
+    
+  return 'Migration completed';
+}
 
-export const addVideo = async (title, description, videoUri) => {
-  try {
-    await db.transaction((tx) => {
-      tx.executeSql(
-        'INSERT INTO videos (title, description, videoUri) values (?, ?, ?);',
-        [title, description, videoUri],
-        (tx, result) => {
-          console.log('Video added', result);
-        },
-        (tx, error) => {
-          console.error('Error inserting video', error);
-        }
-      );
-    });
-  } catch (error) {
-    console.error('Error adding video', error);
-  }
-};
+export async function fetchVideos() {
+  return await db.getAllAsync("SELECT * FROM videos ORDER BY createdAt ASC;");
+}
 
-export const fetchVideos = async () => {
-  return new Promise((resolve, reject) => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        'SELECT * FROM videos;',
-        [],
-        (tx, result) => {
-          const videos = result.rows._array;
-          resolve(videos);
-        },
-        (tx, error) => {
-          reject('Error fetching videos', error);
-        }
-      );
-    });
-  });
-};
+export async function fetchVideoById(id) {
+  return await db.getFirstAsync("SELECT * FROM videos WHERE id = ?;", [id]);
+}
 
-export const updateVideo = async (id, title, description, videoUri) => {
-  try {
-    await db.transaction((tx) => {
-      tx.executeSql(
-        'UPDATE videos SET title = ?, description = ?, videoUri = ? WHERE id = ?;',
-        [title, description, videoUri, id],
-        (tx, result) => {
-          console.log('Video updated', result);
-        },
-        (tx, error) => {
-          console.error('Error updating video', error);
-        }
-      );
-    });
-  } catch (error) {
-    console.error('Error updating video', error);
-  }
-};
+export async function addVideo(title, description, videoUri) {
+  return await db.runAsync(
+    "INSERT INTO videos (title, description, videoUri) VALUES (?, ?, ?);",
+    [title, description, videoUri]
+  );
+}
 
-export const deleteVideo = async (id) => {
-  try {
-    await db.transaction((tx) => {
-      tx.executeSql(
-        'DELETE FROM videos WHERE id = ?;',
-        [id],
-        (tx, result) => {
-          console.log('Video deleted', result);
-        },
-        (tx, error) => {
-          console.error('Error deleting video', error);
-        }
-      );
-    });
-  } catch (error) {
-    console.error('Error deleting video', error);
-  }
-};
+export async function updateVideo(id, title, description, videoUri) {
+  return await db.runAsync(
+    "UPDATE videos SET title = ?, description = ?, videoUri = ? WHERE id = ?;",
+    [title, description, videoUri, id]
+  );
+}
+
+export async function deleteVideo(id) {
+  return await db.runAsync("DELETE FROM videos WHERE id = ?;", [id]);
+}

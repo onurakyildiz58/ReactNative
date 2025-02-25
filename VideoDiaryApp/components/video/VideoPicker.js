@@ -11,7 +11,7 @@ import VideoCropModal from "./VideoCropModal";
 import useVideoStore from "../../states/useVideoStore";
 import useModalStore from "../../states/useModalStore";
 
-function VideoPicker() {
+function VideoPicker({ isUpdate }) {
     const { videoUri, setVideoUri } = useVideoStore();
     const { isModalVisible, showModal, hideModal } = useModalStore();
     const screenWidth = Dimensions.get("window").width;
@@ -39,11 +39,12 @@ function VideoPicker() {
             player.play();
         }
     });
+    
 
     return (
         <>
             <View style={s`mt-5`}>
-                <Btn onPress={pickVideo}>Video Seç</Btn>
+                <Btn onPress={pickVideo}>{isUpdate ? "Yeni Video Seç" : "Video Seç"}</Btn>
                 {videoUri && (
                     <View style={s`items-center pt-2`}>
                         <VideoView
@@ -55,18 +56,21 @@ function VideoPicker() {
                             allowsFullscreen
                             allowsPictureInPicture
                         />
-                        <View style={s`px-4 self-end`}>
+
+                        <View style={s`mt-2 bg-emerald-400 border border-emerald-800 rounded-lg`}>
                             <IconBtn func={showModal} name={"cut"} size={30} color={"black"} />
                         </View>
                     </View>
                 )}
             </View>
-            <VideoCropModal
+            {
+                /*<VideoCropModal
                 isModalVisible={isModalVisible}
                 hideModal={hideModal}
                 videoUri={videoUri} />
+                */
+            }
         </>
-
     );
 }
 
