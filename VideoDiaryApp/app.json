@@ -48,6 +48,15 @@
             "customBuildFlags": ["-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_ENABLE_SNAPSHOT=1"]
           }
         }
+      ],
+      [
+        "@config-plugins/ffmpeg-kit-react-native",
+        {
+          "package": "min",
+          "ios": {
+            "package": "video"
+          }
+        }
       ]
     ],
     "extra": {

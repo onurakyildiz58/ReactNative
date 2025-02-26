@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Alert, Dimensions } from "react-native";
 import { s } from "react-native-wind";
 import * as ImagePicker from "expo-image-picker";
@@ -11,10 +11,25 @@ import VideoCropModal from "./VideoCropModal";
 import useVideoStore from "../../states/useVideoStore";
 import useModalStore from "../../states/useModalStore";
 
+const extractNameFromVideoUri = (uri, trimExt) => {
+    const splittedUri = uri.split('/');
+    const fullName = splittedUri[splittedUri.length - 1];
+    const fileName = fullName.split('.')[0];
+    const fileExtension = fullName.split('.')[1];
+
+    let newFileName = fileName.replace(/[^a-zA-Z0-9]/g, '_');
+    newFileName = newFileName.replace(/\s+/g, '_');
+
+    if (trimExt) return newFileName;
+    return `${newFileName}.${fileExtension}`;
+}
+
+
 function VideoPicker({ isUpdate }) {
     const { videoUri, setVideoUri } = useVideoStore();
-    const { isModalVisible, showModal, hideModal } = useModalStore();
+    const { showModal } = useModalStore();
     const screenWidth = Dimensions.get("window").width;
+    const [videoDuration, setVideoDuration] = useState(10);
 
     const pickVideo = async () => {
         const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -30,6 +45,9 @@ function VideoPicker({ isUpdate }) {
         });
 
         if (!result.canceled) {
+            //console.log(result.assets[0].uri);
+            //console.log(extractNameFromVideoUri(result.assets[0].uri, true)); // without Extension
+            //console.log(extractNameFromVideoUri(result.assets[0].uri, false)); // with extension
             setVideoUri(result.assets[0].uri);
         }
     };
@@ -39,7 +57,6 @@ function VideoPicker({ isUpdate }) {
             player.play();
         }
     });
-    
 
     return (
         <>
@@ -52,6 +69,7 @@ function VideoPicker({ isUpdate }) {
                                 s`rounded-lg`,
                                 { width: screenWidth * 0.9, height: screenWidth * 0.9 * (9 / 16) }
                             ]}
+
                             player={player}
                             allowsFullscreen
                             allowsPictureInPicture
@@ -63,13 +81,7 @@ function VideoPicker({ isUpdate }) {
                     </View>
                 )}
             </View>
-            {
-                /*<VideoCropModal
-                isModalVisible={isModalVisible}
-                hideModal={hideModal}
-                videoUri={videoUri} />
-                */
-            }
+            <VideoCropModal videoDuration={videoDuration} />
         </>
     );
 }

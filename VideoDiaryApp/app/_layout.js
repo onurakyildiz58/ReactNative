@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { SQLiteProvider, useSQLiteContext } from "expo-sqlite";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import Loading from "../components/Loading";
 import Error from "../components/Error";
@@ -33,17 +34,19 @@ function DatabaseInitializer() {
 
 function Layout() {
     return (
-        <SQLiteProvider databaseName="sevenApps.db">
-            <QueryClientProvider client={queryClient}>
-                <DatabaseInitializer />
-                <StatusBar style="dark" backgroundColor="#ffffff" translucent={false} />
-                <Stack screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="index" />
-                    <Stack.Screen name="add" />
-                    <Stack.Screen name="[id]" />
-                </Stack>
-            </QueryClientProvider>
-        </SQLiteProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <SQLiteProvider databaseName="sevenApps.db">
+                <QueryClientProvider client={queryClient}>
+                    <DatabaseInitializer />
+                    <StatusBar style="dark" backgroundColor="#ffffff" translucent={false} />
+                    <Stack screenOptions={{ headerShown: false }}>
+                        <Stack.Screen name="index" />
+                        <Stack.Screen name="add" />
+                        <Stack.Screen name="[id]" />
+                    </Stack>
+                </QueryClientProvider>
+            </SQLiteProvider>
+        </GestureHandlerRootView>
     );
 }
 
