@@ -11,7 +11,7 @@ function VideoTrim() {
     const { setStartTime, duration } = useVideoStore();
     const [slide, setSlide] = useState(0);
 
-    const trimWidth = (5000 / duration) * 100; // Trim kutusunun genişliği (%)
+    const trimWidth = ((5000 / duration) * 100); // Trim kutusunun genişliği (%)
     const trackWidth = duration * 0.06; // Kaydırma pistinin genişliği (px)
 
     const data = useMemo(() =>

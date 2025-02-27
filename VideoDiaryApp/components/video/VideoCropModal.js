@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, Modal } from 'react-native';
+import { Text, View, Modal, Dimensions } from 'react-native';
 import { s } from 'react-native-wind';
 import { FFmpegKit, FFmpegKitConfig } from 'ffmpeg-kit-react-native';
 
@@ -12,11 +12,21 @@ import useModalStore from '../../states/useModalStore';
 import useVideoStore from "../../states/useVideoStore";
 
 function VideoCropModal() {
-    const { videoUri, setVideoUri, startTime, duration } = useVideoStore();
+    const { videoUri, setVideoUri, startTime, duration, videoName } = useVideoStore();
     const { isModalVisible, hideModal } = useModalStore();
     const [progress, setProgress] = useState(0);
+    const [isLandscape, setIsLandscape] = useState(
+        Dimensions.get("window").width > Dimensions.get("window").height
+    );
 
     useEffect(() => {
+        const updateOrientation = () => {
+            setIsLandscape(Dimensions.get("window").width > Dimensions.get("window").height);
+        };
+
+        const subscription = Dimensions.addEventListener("change", updateOrientation);
+
+
         FFmpegKitConfig.init();
 
         FFmpegKitConfig.enableLogCallback((log) => {
@@ -35,14 +45,20 @@ function VideoCropModal() {
                 console.log("Error initializing FFmpeg.");
             }
         });
+
+        return () => subscription?.remove();
+
     }, []);
 
     const trimVideo = async () => {
+        console.log(useOrientation());
+
         if (!videoUri) return;
 
-        const outputUri = `${videoUri.substring(0, videoUri.lastIndexOf('/'))}/trimmed_video.mp4`;
-        const command = `-i ${videoUri} -ss ${startTime} -to ${startTime + 5} -c copy ${outputUri}`;
+        const outputUri = `${videoUri.substring(0, videoUri.lastIndexOf('/'))}/${videoName}_trimmed_video.mp4`;
+        const command = `ffmpeg -i ${videoUri} -ss ${startTime} -t 5 -c copy ${outputUri}`;
 
+        console.log("ffmpeg command : ", command);
         setProgress(0);
         FFmpegKit.executeAsync(command, async (session) => {
             const returnCode = await session.getReturnCode();
@@ -72,6 +88,11 @@ function VideoCropModal() {
                 </View>
                 <View style={s`bg-white p-4 rounded-lg `}>
                     <Text style={s`text-lg font-bold mb-3`}>Video Kırpma</Text>
+                     {!isLandscape && (
+                        <Text style={s`bg-yellow-500 p-2 rounded-lg text-center`}>
+                            Daha iyi deneyim için telefonu yan çeviriniz
+                        </Text>
+                    )}
                     <Text>video süresi : {Math.round(duration / 1000)} saniye</Text>
                     <Text>başlangıç süresi : {startTime}. saniye</Text>
                     <Text>bitiş süresi : {startTime + 5}. saniye</Text>

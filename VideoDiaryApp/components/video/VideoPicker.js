@@ -25,7 +25,7 @@ const extractNameFromVideoUri = (uri, trimExt) => {
 }
 
 function VideoPicker({ isUpdate }) {
-    const { videoUri, setVideoUri, setDuration, duration } = useVideoStore();
+    const { videoUri, setVideoUri, setDuration, duration, setVideoName } = useVideoStore();
     const { showModal } = useModalStore();
     const screenWidth = Dimensions.get("window").width;
 
@@ -43,8 +43,7 @@ function VideoPicker({ isUpdate }) {
         });
 
         if (!result.canceled) {
-            //console.log(extractNameFromVideoUri(result.assets[0].uri, true)); // without Extension
-            //console.log(extractNameFromVideoUri(result.assets[0].uri, false)); // with extension
+            setVideoName(extractNameFromVideoUri(result.assets[0].uri, false))
             setDuration(result.assets[0].duration);
             setVideoUri(result.assets[0].uri);
         }
