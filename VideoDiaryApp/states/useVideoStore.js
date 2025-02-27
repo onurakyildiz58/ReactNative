@@ -5,17 +5,17 @@ const useVideoStore = create((set) => ({
   title: "",
   description: "",
   videoUri: null,
+  duration: 0,
   startTime: 0,
-  endTime: 0,
 
   setId: (id) => set({ id }),
   setTitle: (title) => set({ title }),
   setDescription: (description) => set({ description }),
   setVideoUri: (videoUri) => set({ videoUri }),
+  setDuration: (duration) => set({ duration }),
   setStartTime: (startTime) => set({ startTime }),
-  setEndTime: (endTime) => set({ endTime }),
 
-  reset: () => set({ title: "", description: "", videoUri: null, id: null, startTime: 0, endTime: 0 }),
+  reset: () => set({ title: "", description: "", videoUri: null, id: null, startTime: 0, duration: 0 }),
 }));
 
 export default useVideoStore;

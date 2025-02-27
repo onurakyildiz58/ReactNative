@@ -28,7 +28,7 @@ function DatabaseInitializer() {
     if (isError) {
         return <Error message={error.message} />;
     }
-
+    
     return null;
 }
 

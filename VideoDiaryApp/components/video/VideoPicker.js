@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, Alert, Dimensions } from "react-native";
+import React from "react";
+import { View, Alert, Dimensions, Text } from "react-native";
 import { s } from "react-native-wind";
 import * as ImagePicker from "expo-image-picker";
 import { useVideoPlayer, VideoView } from "expo-video";
@@ -24,12 +24,10 @@ const extractNameFromVideoUri = (uri, trimExt) => {
     return `${newFileName}.${fileExtension}`;
 }
 
-
 function VideoPicker({ isUpdate }) {
-    const { videoUri, setVideoUri } = useVideoStore();
+    const { videoUri, setVideoUri, setDuration, duration } = useVideoStore();
     const { showModal } = useModalStore();
     const screenWidth = Dimensions.get("window").width;
-    const [videoDuration, setVideoDuration] = useState(10);
 
     const pickVideo = async () => {
         const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -45,9 +43,9 @@ function VideoPicker({ isUpdate }) {
         });
 
         if (!result.canceled) {
-            //console.log(result.assets[0].uri);
             //console.log(extractNameFromVideoUri(result.assets[0].uri, true)); // without Extension
             //console.log(extractNameFromVideoUri(result.assets[0].uri, false)); // with extension
+            setDuration(result.assets[0].duration);
             setVideoUri(result.assets[0].uri);
         }
     };
@@ -74,14 +72,19 @@ function VideoPicker({ isUpdate }) {
                             allowsFullscreen
                             allowsPictureInPicture
                         />
-
-                        <View style={s`mt-2 bg-emerald-400 border border-emerald-800 rounded-lg`}>
-                            <IconBtn func={showModal} name={"cut"} size={30} color={"black"} />
-                        </View>
+                        {duration >= 5000 ? (
+                            <View style={s`mt-2 bg-emerald-400 border border-emerald-800 rounded-lg`}>
+                                <IconBtn func={showModal} name={"cut"} size={30} color={"black"} />
+                            </View>
+                        ) : (
+                            <View style={s`mt-2`}>
+                                <Text>Video 5 saniyeden kısadır kırpılmaya ihtiyaç yoktur</Text>
+                            </View>
+                        )}
                     </View>
                 )}
             </View>
-            <VideoCropModal videoDuration={videoDuration} />
+            <VideoCropModal />
         </>
     );
 }

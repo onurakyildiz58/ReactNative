@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Video Diary",
-    "slug": "video-diary",
+    "slug": "VideoDiaryApp",
     "scheme": "video-diary",
     "version": "1.0.0",
     "orientation": "portrait",

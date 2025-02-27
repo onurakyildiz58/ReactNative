@@ -1,11 +1,12 @@
-import React from 'react'
-import { View } from 'react-native'
-import Icons from 'react-native-vector-icons/Ionicons';
-function Picks({ data, thumb }) {
+import React from 'react';
+import { View } from 'react-native';
+
+function Picks({ data, scaleFactor = 100 }) {
+    const scaledData = data.filter((_, index) => index % scaleFactor === 0);
+
     return (
         <>
-            {thumb && <Icons name={'chevron-back'} size={15} color={'black'} />}
-            {data.map(({ id, height }) => (
+            {scaledData.map(({ id, height }) => (
                 <View
                     key={id.toString()}
                     style={{
@@ -18,9 +19,8 @@ function Picks({ data, thumb }) {
                     }}
                 />
             ))}
-            {thumb && <Icons name={'chevron-forward'} size={15} color={'black'} />}
         </>
-    )
+    );
 }
 
 export default Picks;

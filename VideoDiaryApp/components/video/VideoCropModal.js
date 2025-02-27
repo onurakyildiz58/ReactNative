@@ -1,42 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, Modal, Alert, Dimensions } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { useState, useEffect } from 'react';
+import { Text, View, Modal } from 'react-native';
 import { s } from 'react-native-wind';
-import { useVideoPlayer, VideoView } from "expo-video";
-import { FFmpegKit, Statistics } from 'ffmpeg-kit-react-native';
-import Slider from '@react-native-community/slider';
-import Icons from 'react-native-vector-icons/Ionicons';
+import { FFmpegKit, FFmpegKitConfig } from 'ffmpeg-kit-react-native';
 
+import VideoTrim from '../VideoTrim';
 import IconBtn from '../IconBtn';
-import Input from './Input';
 import Btn from '../Btn';
 import Progress from '../Progress';
-import Picks from '../Picks';
 
 import useModalStore from '../../states/useModalStore';
 import useVideoStore from "../../states/useVideoStore";
 
-const { width: screenWidth } = Dimensions.get('window');
-
-const data = new Array(100).fill(0).map((_, index) => ({
-    id: index,
-    height: Math.floor(Math.random() * 10) + 20,
-}));
-
-function VideoCropModal({ videoDuration }) {
-    const { videoUri, setVideoUri, startTime, setStartTime, endTime, setEndTime } = useVideoStore();
+function VideoCropModal() {
+    const { videoUri, setVideoUri, startTime, duration } = useVideoStore();
     const { isModalVisible, hideModal } = useModalStore();
     const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        FFmpegKitConfig.init();
+
+        FFmpegKitConfig.enableLogCallback((log) => {
+            console.log('FFmpeg Log:', log.getMessage());
+        });
+
+        FFmpegKitConfig.enableStatisticsCallback((stats) => {
+            console.log("FFmpeg Stats:", stats.getTime());
+        });
+
+        FFmpegKit.execute('-version').then((session) => {
+            const returnCode = session.getReturnCode();
+            if (returnCode.isSuccess()) {
+                console.log("FFmpeg successfully initialized!");
+            } else {
+                console.log("Error initializing FFmpeg.");
+            }
+        });
+    }, []);
 
     const trimVideo = async () => {
         if (!videoUri) return;
 
         const outputUri = `${videoUri.substring(0, videoUri.lastIndexOf('/'))}/trimmed_video.mp4`;
+        const command = `-i ${videoUri} -ss ${startTime} -to ${startTime + 5} -c copy ${outputUri}`;
 
-        const command = `-i ${videoUri} -ss ${startTime} -to ${endTime} -c copy ${outputUri}`;
-
-        setProgress(0); // Reset progress
-
+        setProgress(0);
         FFmpegKit.executeAsync(command, async (session) => {
             const returnCode = await session.getReturnCode();
             if (returnCode.isSuccess()) {
@@ -47,7 +54,7 @@ function VideoCropModal({ videoDuration }) {
                 Alert.alert("Hata", "Video kırpma işlemi başarısız oldu.");
             }
         }, (stats) => {
-            const completionPercentage = Math.round((stats.getTime() / (endTime - startTime)) * 100);
+            const completionPercentage = Math.round((stats.getTime() / 5) * 100);
             setProgress(completionPercentage);
         });
     };
@@ -65,16 +72,11 @@ function VideoCropModal({ videoDuration }) {
                 </View>
                 <View style={s`bg-white p-4 rounded-lg `}>
                     <Text style={s`text-lg font-bold mb-3`}>Video Kırpma</Text>
-                    <Text>video süresi : {videoDuration}sn</Text>
+                    <Text>video süresi : {Math.round(duration / 1000)} saniye</Text>
+                    <Text>başlangıç süresi : {startTime}. saniye</Text>
+                    <Text>bitiş süresi : {startTime + 5}. saniye</Text>
                     <View style={s`mt-4 w-full`}>
-                        <ScrollView horizontal contentContainerStyle={s`my-5 items-center content-center`} showsHorizontalScrollIndicator={false}>
-                            <View style={s`flex-row items-center h-10 bg-gray-300 rounded-lg`}>
-                                <Picks data={data} />
-                            </View>
-                            <View style={s`flex-row items-center h-10 bg-blue-300 absolute w-32 overflow-hidden rounded-lg`}>
-                                <Picks data={data} thumb/>
-                            </View>
-                        </ScrollView>
+                        <VideoTrim />
                     </View>
                     {progress > 0 ? (
                         <View style={s`mt-4 `}>
