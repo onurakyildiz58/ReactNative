@@ -25,7 +25,7 @@ function InputForm() {
         const options = {
             method: 'GET',
             headers: {
-                'X-RapidAPI-Key': '2b1b6ed664msh025e3c86b35ef78p1b68bbjsna9d6eaccea97',
+                'X-RapidAPI-Key': '*****',
                 'X-RapidAPI-Host': 'youtube-mp36.p.rapidapi.com'
             }
         };
